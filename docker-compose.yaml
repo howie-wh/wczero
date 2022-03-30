@@ -6,6 +6,23 @@ networks:
     driver: ${NETWORKS_DRIVER}
 
 services:
+  nginx:
+    image: nginx:latest
+    environment:
+      - TZ=${TZ}
+    privileged: true
+    volumes:
+      - ${ETC_PATH_HOST}/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ${ETC_PATH_HOST}/nginx/conf.d/:/etc/nginx/conf.d/
+      - ${ETC_PATH_HOST}/nginx/certificate/:/etc/nginx/certificate/
+      - ${DATA_PATH_HOST}/nginx/log/:/var/log/nginx/
+    ports:
+      - "${HTTP_PORT}:80"
+      - "${HTTPS_PORT}:443"
+    networks:
+      - backend
+    restart: always
+
   mysql:
     image: mysql:8.0.26
     environment:
@@ -65,6 +82,7 @@ services:
     image: grafana/grafana:latest
     environment:
       - TZ=${TZ}
+    privileged: true
     volumes:
       - ./etc/grafana.ini:/etc/grafana/grafana.ini   # 将配置文件挂载到容器里
       - ${DATA_PATH_HOST}/grafana:/var/lib/grafana
