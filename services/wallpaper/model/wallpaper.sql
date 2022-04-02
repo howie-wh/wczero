@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS `wallpaper_tab`;
 CREATE TABLE `wallpaper_tab` (
     `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
     `wid` varchar(128) NOT NULL COMMENT 'wallpaper id',
-    `name` varchar(128) NOT NULL COMMENT 'name',
+    `name` varchar(128) NOT NULL DEFAULT '' COMMENT 'name',
     `image_url` varchar(256) NOT NULL DEFAULT '' COMMENT 'image url',
     `author` varchar(128) NOT NULL DEFAULT '' COMMENT 'author',
     `desc` varchar(512) NOT NULL DEFAULT '' COMMENT 'desc',

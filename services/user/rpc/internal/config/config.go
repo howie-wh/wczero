@@ -9,7 +9,8 @@ type Config struct {
 	zrpc.RpcServerConf
 	Mysql struct {
 		DataSource string
-		Table	string
+		Table      string
 	}
 	CacheRedis cache.CacheConf
+	Salt       string
 }

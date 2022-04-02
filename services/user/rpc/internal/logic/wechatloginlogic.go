@@ -25,5 +25,8 @@ func NewWeChatLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *WeCha
 
 func (l *WeChatLoginLogic) WeChatLogin(in *user.WeChatLoginRequest) (*user.WeChatLoginResponse, error) {
 
-	return &user.WeChatLoginResponse{Token: "wechat login successful..."}, nil
+	return &user.WeChatLoginResponse{
+		AccessToken:  "xxxxxxxxxxxxxxxxx",
+		AccessExpire: 123456789,
+	}, nil
 }

@@ -26,3 +26,18 @@ func (s *UserServer) WeChatLogin(ctx context.Context, in *user.WeChatLoginReques
 	l := logic.NewWeChatLoginLogic(ctx, s.svcCtx)
 	return l.WeChatLogin(in)
 }
+
+func (s *UserServer) AdminLogin(ctx context.Context, in *user.AdminLoginRequest) (*user.AdminLoginResponse, error) {
+	l := logic.NewAdminLoginLogic(ctx, s.svcCtx)
+	return l.AdminLogin(in)
+}
+
+func (s *UserServer) AdminRegister(ctx context.Context, in *user.AdminRegisterRequest) (*user.AdminRegisterResponse, error) {
+	l := logic.NewAdminRegisterLogic(ctx, s.svcCtx)
+	return l.AdminRegister(in)
+}
+
+func (s *UserServer) AdminUserInfo(ctx context.Context, in *user.AdminUserInfoRequest) (*user.AdminUserInfoResponse, error) {
+	l := logic.NewAdminUserInfoLogic(ctx, s.svcCtx)
+	return l.AdminUserInfo(in)
+}

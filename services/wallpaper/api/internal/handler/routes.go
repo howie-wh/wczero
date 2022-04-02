@@ -11,19 +11,14 @@ import (
 
 func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
-		[]rest.Route{
-			{
-				Method:  http.MethodPost,
-				Path:    "/api/v1/wallpaper/import",
-				Handler: ImportHandler(serverCtx),
-			},
-		},
-	)
-
-	server.AddRoutes(
 		rest.WithMiddlewares(
 			[]rest.Middleware{serverCtx.Error},
 			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/api/v1/wallpaper/import",
+					Handler: ImportHandler(serverCtx),
+				},
 				{
 					Method:  http.MethodPost,
 					Path:    "/api/v1/wallpaper/remove",

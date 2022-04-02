@@ -3,6 +3,7 @@
 set -eu
 
 build_server() {
+  echo "build_server start..."
   export GO111MODULE=on
   # go mod tidy
   # go mod vendor
@@ -18,6 +19,7 @@ build_server() {
 }
 
 run_server() {
+  echo "run_server start..."
   nohup ./bin/user-rpc -f services/user/rpc/etc/user.yaml &
   nohup ./bin/user-api -f services/user/api/etc/user-api.yaml &
   nohup ./bin/wallpaper-rpc -f services/wallpaper/rpc/etc/wallpaper.yaml &

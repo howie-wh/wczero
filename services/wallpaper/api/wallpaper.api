@@ -1,8 +1,8 @@
 syntax = "v1"
 
 info(
-	title:
-	desc:
+	title: ""
+	desc: ""
 	author: "Hui Wu"
 	email: "wuhui1536@gmail.com"
 )
@@ -33,7 +33,7 @@ type (
 
 	// detail wallpaper
 	DetailRequest {
-		Wid   string `form:"wid"` // if id not exists, so query all
+		Wid   string `form:"wid, optional"` // if id not exists, so query all
 		Start int64  `form:"start"`
 		Limit int64  `form:"limit"`
 	}
@@ -43,16 +43,14 @@ type (
 	}
 )
 
-service wallpaper-api {
-	@handler Import
-	post /api/v1/wallpaper/import (ImportRequest) returns (ImportResponse)
-}
-
 @server(
 	jwt: Auth
 	middleware: Error // 路由中间件声明
 )
 service wallpaper-api {
+	@handler Import
+	post /api/v1/wallpaper/import (ImportRequest) returns (ImportResponse)
+	
 	@handler Remove
 	post /api/v1/wallpaper/remove(RemoveRequest) returns(RemoveResponse)
 	

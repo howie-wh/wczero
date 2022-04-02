@@ -23,6 +23,24 @@ CREATE TABLE `user_tab` (
     KEY `idx_ctime` (`create_time`) USING BTREE COMMENT 'idx_ctime'
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='user table';
 
+
+-- ----------------------------
+-- Table structure for user_tab
+-- ----------------------------
+DROP TABLE IF EXISTS `user_admin_tab`;
+CREATE TABLE `user_admin_tab` (
+    `user_id` bigint unsigned NOT NULL AUTO_INCREMENT,
+    `user_name` varchar(255)  NOT NULL DEFAULT '' COMMENT '用户姓名',
+    `gender` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '用户性别',
+    `mobile` varchar(255)  NOT NULL DEFAULT '' COMMENT '用户电话',
+    `password` varchar(255)  NOT NULL DEFAULT '' COMMENT '用户密码',
+    `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`user_id`),
+    UNIQUE KEY `idx_mobile_unique` (`mobile`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='user admin table';
+insert into user_admin_tab (user_name, gender, mobile, password) values ("wuhui", 0, "15826521996", "123456");
+
 BEGIN;
 COMMIT;
 

@@ -9,9 +9,49 @@ message WeChatLoginRequest {
 }
 
 message WeChatLoginResponse {
-  string token = 1;
+  string access_token = 1;
+  int64 access_expire = 2;
+}
+
+// 用户登录
+message AdminLoginRequest {
+  string Mobile = 1;
+  string Password = 2;
+}
+message AdminLoginResponse {
+  int64 Id = 1;
+  string Name = 2;
+  int64 Gender = 3;
+  string Mobile = 4;
+}
+
+message AdminRegisterRequest {
+  string Name = 1;
+  int64 Gender = 2;
+  string Mobile = 3;
+  string Password = 4;
+}
+message AdminRegisterResponse {
+  int64 Id = 1;
+  string Name = 2;
+  int64 Gender = 3;
+  string Mobile = 4;
+}
+
+message AdminUserInfoRequest {
+  int64 Id = 1;
+}
+message AdminUserInfoResponse {
+  int64 Id = 1;
+  string Name = 2;
+  int64 Gender = 3;
+  string Mobile = 4;
 }
 
 service User {
   rpc WeChatLogin(WeChatLoginRequest) returns(WeChatLoginResponse);
+
+  rpc AdminLogin(AdminLoginRequest) returns(AdminLoginResponse);
+  rpc AdminRegister(AdminRegisterRequest) returns(AdminRegisterResponse);
+  rpc AdminUserInfo(AdminUserInfoRequest) returns(AdminUserInfoResponse);
 }

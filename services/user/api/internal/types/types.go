@@ -7,5 +7,37 @@ type WeChatLoginRequest struct {
 }
 
 type WeChatLoginResponse struct {
-	Token string `json:"token"`
+	AccessToken  string `json:"accessToken"`
+	AccessExpire int64  `json:"accessExpire"`
+}
+
+type AdminRegisterRequest struct {
+	Name     string `json:"name"`
+	Gender   int64  `json:"gender"`
+	Mobile   string `json:"mobile"`
+	Password string `json:"password"`
+}
+
+type AdminRegisterResponse struct {
+	Id     int64  `json:"id"`
+	Name   string `json:"name"`
+	Gender int64  `json:"gender"`
+	Mobile string `json:"mobile"`
+}
+
+type AdminLoginRequest struct {
+	Mobile   string `json:"mobile"`
+	Password string `json:"password"`
+}
+
+type AdminLoginResponse struct {
+	AccessToken  string `json:"access_token"`
+	AccessExpire int64  `json:"access_expire"`
+}
+
+type AdminUserInfoResponse struct {
+	Id     int64  `json:"id"`
+	Name   string `json:"name"`
+	Gender int64  `json:"gender"`
+	Mobile string `json:"mobile"`
 }

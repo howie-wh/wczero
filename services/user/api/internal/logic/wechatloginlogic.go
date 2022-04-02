@@ -25,7 +25,7 @@ func NewWeChatLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) WeChat
 }
 
 func (l *WeChatLoginLogic) WeChatLogin(req types.WeChatLoginRequest) (*types.WeChatLoginResponse, error) {
-	resp, err := l.svcCtx.User.WeChatLogin(l.ctx, &user.WeChatLoginRequest{
+	resp, err := l.svcCtx.UserRpc.WeChatLogin(l.ctx, &user.WeChatLoginRequest{
 		Appid: req.AppID,
 		Code:  req.Code,
 	})
@@ -33,5 +33,8 @@ func (l *WeChatLoginLogic) WeChatLogin(req types.WeChatLoginRequest) (*types.WeC
 		return nil, err
 	}
 
-	return &types.WeChatLoginResponse{Token: resp.Token}, nil
+	return &types.WeChatLoginResponse{
+		AccessToken:  resp.AccessToken,
+		AccessExpire: resp.AccessExpire,
+	}, nil
 }

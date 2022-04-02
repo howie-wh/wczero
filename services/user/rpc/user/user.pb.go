@@ -72,7 +72,8 @@ func (m *WeChatLoginRequest) GetCode() string {
 }
 
 type WeChatLoginResponse struct {
-	Token                string   `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	AccessExpire         int64    `protobuf:"varint,2,opt,name=access_expire,json=accessExpire,proto3" json:"access_expire,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -103,9 +104,355 @@ func (m *WeChatLoginResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_WeChatLoginResponse proto.InternalMessageInfo
 
-func (m *WeChatLoginResponse) GetToken() string {
+func (m *WeChatLoginResponse) GetAccessToken() string {
 	if m != nil {
-		return m.Token
+		return m.AccessToken
+	}
+	return ""
+}
+
+func (m *WeChatLoginResponse) GetAccessExpire() int64 {
+	if m != nil {
+		return m.AccessExpire
+	}
+	return 0
+}
+
+// 用户登录
+type AdminLoginRequest struct {
+	Mobile               string   `protobuf:"bytes,1,opt,name=Mobile,proto3" json:"Mobile,omitempty"`
+	Password             string   `protobuf:"bytes,2,opt,name=Password,proto3" json:"Password,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AdminLoginRequest) Reset()         { *m = AdminLoginRequest{} }
+func (m *AdminLoginRequest) String() string { return proto.CompactTextString(m) }
+func (*AdminLoginRequest) ProtoMessage()    {}
+func (*AdminLoginRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_116e343673f7ffaf, []int{2}
+}
+
+func (m *AdminLoginRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AdminLoginRequest.Unmarshal(m, b)
+}
+func (m *AdminLoginRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AdminLoginRequest.Marshal(b, m, deterministic)
+}
+func (m *AdminLoginRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AdminLoginRequest.Merge(m, src)
+}
+func (m *AdminLoginRequest) XXX_Size() int {
+	return xxx_messageInfo_AdminLoginRequest.Size(m)
+}
+func (m *AdminLoginRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AdminLoginRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AdminLoginRequest proto.InternalMessageInfo
+
+func (m *AdminLoginRequest) GetMobile() string {
+	if m != nil {
+		return m.Mobile
+	}
+	return ""
+}
+
+func (m *AdminLoginRequest) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+type AdminLoginResponse struct {
+	Id                   int64    `protobuf:"varint,1,opt,name=Id,proto3" json:"Id,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=Name,proto3" json:"Name,omitempty"`
+	Gender               int64    `protobuf:"varint,3,opt,name=Gender,proto3" json:"Gender,omitempty"`
+	Mobile               string   `protobuf:"bytes,4,opt,name=Mobile,proto3" json:"Mobile,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AdminLoginResponse) Reset()         { *m = AdminLoginResponse{} }
+func (m *AdminLoginResponse) String() string { return proto.CompactTextString(m) }
+func (*AdminLoginResponse) ProtoMessage()    {}
+func (*AdminLoginResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_116e343673f7ffaf, []int{3}
+}
+
+func (m *AdminLoginResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AdminLoginResponse.Unmarshal(m, b)
+}
+func (m *AdminLoginResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AdminLoginResponse.Marshal(b, m, deterministic)
+}
+func (m *AdminLoginResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AdminLoginResponse.Merge(m, src)
+}
+func (m *AdminLoginResponse) XXX_Size() int {
+	return xxx_messageInfo_AdminLoginResponse.Size(m)
+}
+func (m *AdminLoginResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_AdminLoginResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AdminLoginResponse proto.InternalMessageInfo
+
+func (m *AdminLoginResponse) GetId() int64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *AdminLoginResponse) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *AdminLoginResponse) GetGender() int64 {
+	if m != nil {
+		return m.Gender
+	}
+	return 0
+}
+
+func (m *AdminLoginResponse) GetMobile() string {
+	if m != nil {
+		return m.Mobile
+	}
+	return ""
+}
+
+type AdminRegisterRequest struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=Name,proto3" json:"Name,omitempty"`
+	Gender               int64    `protobuf:"varint,2,opt,name=Gender,proto3" json:"Gender,omitempty"`
+	Mobile               string   `protobuf:"bytes,3,opt,name=Mobile,proto3" json:"Mobile,omitempty"`
+	Password             string   `protobuf:"bytes,4,opt,name=Password,proto3" json:"Password,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AdminRegisterRequest) Reset()         { *m = AdminRegisterRequest{} }
+func (m *AdminRegisterRequest) String() string { return proto.CompactTextString(m) }
+func (*AdminRegisterRequest) ProtoMessage()    {}
+func (*AdminRegisterRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_116e343673f7ffaf, []int{4}
+}
+
+func (m *AdminRegisterRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AdminRegisterRequest.Unmarshal(m, b)
+}
+func (m *AdminRegisterRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AdminRegisterRequest.Marshal(b, m, deterministic)
+}
+func (m *AdminRegisterRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AdminRegisterRequest.Merge(m, src)
+}
+func (m *AdminRegisterRequest) XXX_Size() int {
+	return xxx_messageInfo_AdminRegisterRequest.Size(m)
+}
+func (m *AdminRegisterRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AdminRegisterRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AdminRegisterRequest proto.InternalMessageInfo
+
+func (m *AdminRegisterRequest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *AdminRegisterRequest) GetGender() int64 {
+	if m != nil {
+		return m.Gender
+	}
+	return 0
+}
+
+func (m *AdminRegisterRequest) GetMobile() string {
+	if m != nil {
+		return m.Mobile
+	}
+	return ""
+}
+
+func (m *AdminRegisterRequest) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+type AdminRegisterResponse struct {
+	Id                   int64    `protobuf:"varint,1,opt,name=Id,proto3" json:"Id,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=Name,proto3" json:"Name,omitempty"`
+	Gender               int64    `protobuf:"varint,3,opt,name=Gender,proto3" json:"Gender,omitempty"`
+	Mobile               string   `protobuf:"bytes,4,opt,name=Mobile,proto3" json:"Mobile,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AdminRegisterResponse) Reset()         { *m = AdminRegisterResponse{} }
+func (m *AdminRegisterResponse) String() string { return proto.CompactTextString(m) }
+func (*AdminRegisterResponse) ProtoMessage()    {}
+func (*AdminRegisterResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_116e343673f7ffaf, []int{5}
+}
+
+func (m *AdminRegisterResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AdminRegisterResponse.Unmarshal(m, b)
+}
+func (m *AdminRegisterResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AdminRegisterResponse.Marshal(b, m, deterministic)
+}
+func (m *AdminRegisterResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AdminRegisterResponse.Merge(m, src)
+}
+func (m *AdminRegisterResponse) XXX_Size() int {
+	return xxx_messageInfo_AdminRegisterResponse.Size(m)
+}
+func (m *AdminRegisterResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_AdminRegisterResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AdminRegisterResponse proto.InternalMessageInfo
+
+func (m *AdminRegisterResponse) GetId() int64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *AdminRegisterResponse) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *AdminRegisterResponse) GetGender() int64 {
+	if m != nil {
+		return m.Gender
+	}
+	return 0
+}
+
+func (m *AdminRegisterResponse) GetMobile() string {
+	if m != nil {
+		return m.Mobile
+	}
+	return ""
+}
+
+type AdminUserInfoRequest struct {
+	Id                   int64    `protobuf:"varint,1,opt,name=Id,proto3" json:"Id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AdminUserInfoRequest) Reset()         { *m = AdminUserInfoRequest{} }
+func (m *AdminUserInfoRequest) String() string { return proto.CompactTextString(m) }
+func (*AdminUserInfoRequest) ProtoMessage()    {}
+func (*AdminUserInfoRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_116e343673f7ffaf, []int{6}
+}
+
+func (m *AdminUserInfoRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AdminUserInfoRequest.Unmarshal(m, b)
+}
+func (m *AdminUserInfoRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AdminUserInfoRequest.Marshal(b, m, deterministic)
+}
+func (m *AdminUserInfoRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AdminUserInfoRequest.Merge(m, src)
+}
+func (m *AdminUserInfoRequest) XXX_Size() int {
+	return xxx_messageInfo_AdminUserInfoRequest.Size(m)
+}
+func (m *AdminUserInfoRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AdminUserInfoRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AdminUserInfoRequest proto.InternalMessageInfo
+
+func (m *AdminUserInfoRequest) GetId() int64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type AdminUserInfoResponse struct {
+	Id                   int64    `protobuf:"varint,1,opt,name=Id,proto3" json:"Id,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=Name,proto3" json:"Name,omitempty"`
+	Gender               int64    `protobuf:"varint,3,opt,name=Gender,proto3" json:"Gender,omitempty"`
+	Mobile               string   `protobuf:"bytes,4,opt,name=Mobile,proto3" json:"Mobile,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AdminUserInfoResponse) Reset()         { *m = AdminUserInfoResponse{} }
+func (m *AdminUserInfoResponse) String() string { return proto.CompactTextString(m) }
+func (*AdminUserInfoResponse) ProtoMessage()    {}
+func (*AdminUserInfoResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_116e343673f7ffaf, []int{7}
+}
+
+func (m *AdminUserInfoResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AdminUserInfoResponse.Unmarshal(m, b)
+}
+func (m *AdminUserInfoResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AdminUserInfoResponse.Marshal(b, m, deterministic)
+}
+func (m *AdminUserInfoResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AdminUserInfoResponse.Merge(m, src)
+}
+func (m *AdminUserInfoResponse) XXX_Size() int {
+	return xxx_messageInfo_AdminUserInfoResponse.Size(m)
+}
+func (m *AdminUserInfoResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_AdminUserInfoResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AdminUserInfoResponse proto.InternalMessageInfo
+
+func (m *AdminUserInfoResponse) GetId() int64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *AdminUserInfoResponse) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *AdminUserInfoResponse) GetGender() int64 {
+	if m != nil {
+		return m.Gender
+	}
+	return 0
+}
+
+func (m *AdminUserInfoResponse) GetMobile() string {
+	if m != nil {
+		return m.Mobile
 	}
 	return ""
 }
@@ -113,22 +460,41 @@ func (m *WeChatLoginResponse) GetToken() string {
 func init() {
 	proto.RegisterType((*WeChatLoginRequest)(nil), "user.WeChatLoginRequest")
 	proto.RegisterType((*WeChatLoginResponse)(nil), "user.WeChatLoginResponse")
+	proto.RegisterType((*AdminLoginRequest)(nil), "user.AdminLoginRequest")
+	proto.RegisterType((*AdminLoginResponse)(nil), "user.AdminLoginResponse")
+	proto.RegisterType((*AdminRegisterRequest)(nil), "user.AdminRegisterRequest")
+	proto.RegisterType((*AdminRegisterResponse)(nil), "user.AdminRegisterResponse")
+	proto.RegisterType((*AdminUserInfoRequest)(nil), "user.AdminUserInfoRequest")
+	proto.RegisterType((*AdminUserInfoResponse)(nil), "user.AdminUserInfoResponse")
 }
 
 func init() { proto.RegisterFile("user.proto", fileDescriptor_116e343673f7ffaf) }
 
 var fileDescriptor_116e343673f7ffaf = []byte{
-	// 150 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x2a, 0x2d, 0x4e, 0x2d,
-	0xd2, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x01, 0xb1, 0x95, 0xec, 0xb8, 0x84, 0xc2, 0x53,
-	0x9d, 0x33, 0x12, 0x4b, 0x7c, 0xf2, 0xd3, 0x33, 0xf3, 0x82, 0x52, 0x0b, 0x4b, 0x53, 0x8b, 0x4b,
-	0x84, 0x44, 0xb8, 0x58, 0x13, 0x0b, 0x0a, 0x32, 0x53, 0x24, 0x18, 0x15, 0x18, 0x35, 0x38, 0x83,
-	0x20, 0x1c, 0x21, 0x21, 0x2e, 0x96, 0xe4, 0xfc, 0x94, 0x54, 0x09, 0x26, 0xb0, 0x20, 0x98, 0xad,
-	0xa4, 0xcd, 0x25, 0x8c, 0xa2, 0xbf, 0xb8, 0x20, 0x3f, 0xaf, 0x38, 0x15, 0x64, 0x40, 0x49, 0x7e,
-	0x76, 0x6a, 0x1e, 0xcc, 0x00, 0x30, 0xc7, 0xc8, 0x8b, 0x8b, 0x25, 0xb4, 0x38, 0xb5, 0x48, 0xc8,
-	0x89, 0x8b, 0x1b, 0x49, 0x93, 0x90, 0x84, 0x1e, 0xd8, 0x59, 0x98, 0xee, 0x90, 0x92, 0xc4, 0x22,
-	0x03, 0xb1, 0x21, 0x89, 0x0d, 0xec, 0x0b, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0x08, 0x81,
-	0x44, 0x0c, 0xd3, 0x00, 0x00, 0x00,
+	// 366 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x53, 0x4f, 0x4f, 0xfa, 0x40,
+	0x10, 0x0d, 0x6d, 0x7f, 0xe4, 0xe7, 0x20, 0x26, 0x8e, 0xa8, 0xb5, 0x5e, 0xb4, 0x26, 0xc6, 0x13,
+	0x07, 0xbd, 0x6b, 0xd4, 0x18, 0x24, 0x51, 0x63, 0x1a, 0x8d, 0x27, 0x63, 0x0a, 0x1d, 0xa1, 0x41,
+	0x76, 0xeb, 0x6e, 0x51, 0xbf, 0x8d, 0x5f, 0xd5, 0x74, 0xbb, 0x85, 0x76, 0x81, 0x23, 0xb7, 0xf9,
+	0xb7, 0x6f, 0xde, 0xdb, 0x7d, 0x0b, 0x30, 0x91, 0x24, 0xda, 0x89, 0xe0, 0x29, 0x47, 0x27, 0x8b,
+	0xfd, 0x73, 0xc0, 0x17, 0xba, 0x1e, 0x86, 0xe9, 0x1d, 0x1f, 0xc4, 0x2c, 0xa0, 0xcf, 0x09, 0xc9,
+	0x14, 0x5b, 0xf0, 0x2f, 0x4c, 0x92, 0x38, 0x72, 0x6b, 0x07, 0xb5, 0x93, 0xb5, 0x20, 0x4f, 0x10,
+	0xc1, 0xe9, 0xf3, 0x88, 0x5c, 0x4b, 0x15, 0x55, 0xec, 0xbf, 0xc2, 0x56, 0xe5, 0xbc, 0x4c, 0x38,
+	0x93, 0x84, 0x87, 0xb0, 0x1e, 0xf6, 0xfb, 0x24, 0xe5, 0x5b, 0xca, 0x47, 0xc4, 0x34, 0x4e, 0x23,
+	0xaf, 0x3d, 0x65, 0x25, 0x3c, 0x82, 0xa6, 0x1e, 0xa1, 0x9f, 0x24, 0x16, 0x39, 0xac, 0x1d, 0xe8,
+	0x73, 0x37, 0xaa, 0xe6, 0x77, 0x60, 0xf3, 0x32, 0x1a, 0xc7, 0xac, 0xc2, 0x6e, 0x07, 0xea, 0xf7,
+	0xbc, 0x17, 0x7f, 0x90, 0x86, 0xd5, 0x19, 0x7a, 0xf0, 0xff, 0x31, 0x94, 0xf2, 0x9b, 0x8b, 0x48,
+	0x73, 0x9c, 0xe6, 0xfe, 0x10, 0xb0, 0x0c, 0xa4, 0x69, 0x6e, 0x80, 0xd5, 0xcd, 0x45, 0xda, 0x81,
+	0xd5, 0x55, 0x0a, 0x1f, 0xc2, 0xf1, 0x54, 0x61, 0x16, 0x67, 0xdb, 0x3a, 0xc4, 0x22, 0x12, 0xae,
+	0xad, 0xe6, 0x74, 0x56, 0x62, 0xe1, 0x94, 0x59, 0xf8, 0x5f, 0xd0, 0x52, 0x9b, 0x02, 0x1a, 0xc4,
+	0x32, 0x25, 0x51, 0xb0, 0x2e, 0xb0, 0x6b, 0x0b, 0xb1, 0xad, 0x25, 0xd8, 0xf6, 0x52, 0x85, 0x8e,
+	0xa1, 0x70, 0x04, 0xdb, 0xc6, 0xde, 0x15, 0x8a, 0x3c, 0xd6, 0x22, 0x9f, 0x25, 0x89, 0x2e, 0x7b,
+	0xe7, 0x85, 0x48, 0x63, 0xd7, 0x94, 0xd4, 0x6c, 0x6e, 0x75, 0xa4, 0x4e, 0x7f, 0x2d, 0x70, 0xb2,
+	0x45, 0x78, 0x05, 0x8d, 0x92, 0x29, 0xd1, 0x6d, 0x2b, 0xdb, 0xcf, 0xfb, 0xdc, 0xdb, 0x5b, 0xd0,
+	0xd1, 0x04, 0x2f, 0x00, 0x66, 0x86, 0xc1, 0xdd, 0x7c, 0x70, 0xce, 0x8b, 0x9e, 0x3b, 0xdf, 0xd0,
+	0x00, 0xb7, 0xd0, 0xac, 0xbc, 0x07, 0x7a, 0xa5, 0x51, 0xc3, 0x1c, 0xde, 0xfe, 0xc2, 0x9e, 0x81,
+	0x54, 0x5c, 0x62, 0x05, 0xc9, 0x78, 0x81, 0x0a, 0x92, 0x79, 0xeb, 0xbd, 0xba, 0xfa, 0xfa, 0x67,
+	0x7f, 0x01, 0x00, 0x00, 0xff, 0xff, 0xed, 0xf9, 0xde, 0x01, 0x08, 0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -144,6 +510,9 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type UserClient interface {
 	WeChatLogin(ctx context.Context, in *WeChatLoginRequest, opts ...grpc.CallOption) (*WeChatLoginResponse, error)
+	AdminLogin(ctx context.Context, in *AdminLoginRequest, opts ...grpc.CallOption) (*AdminLoginResponse, error)
+	AdminRegister(ctx context.Context, in *AdminRegisterRequest, opts ...grpc.CallOption) (*AdminRegisterResponse, error)
+	AdminUserInfo(ctx context.Context, in *AdminUserInfoRequest, opts ...grpc.CallOption) (*AdminUserInfoResponse, error)
 }
 
 type userClient struct {
@@ -163,9 +532,39 @@ func (c *userClient) WeChatLogin(ctx context.Context, in *WeChatLoginRequest, op
 	return out, nil
 }
 
+func (c *userClient) AdminLogin(ctx context.Context, in *AdminLoginRequest, opts ...grpc.CallOption) (*AdminLoginResponse, error) {
+	out := new(AdminLoginResponse)
+	err := c.cc.Invoke(ctx, "/user.User/AdminLogin", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) AdminRegister(ctx context.Context, in *AdminRegisterRequest, opts ...grpc.CallOption) (*AdminRegisterResponse, error) {
+	out := new(AdminRegisterResponse)
+	err := c.cc.Invoke(ctx, "/user.User/AdminRegister", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) AdminUserInfo(ctx context.Context, in *AdminUserInfoRequest, opts ...grpc.CallOption) (*AdminUserInfoResponse, error) {
+	out := new(AdminUserInfoResponse)
+	err := c.cc.Invoke(ctx, "/user.User/AdminUserInfo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServer is the server API for User service.
 type UserServer interface {
 	WeChatLogin(context.Context, *WeChatLoginRequest) (*WeChatLoginResponse, error)
+	AdminLogin(context.Context, *AdminLoginRequest) (*AdminLoginResponse, error)
+	AdminRegister(context.Context, *AdminRegisterRequest) (*AdminRegisterResponse, error)
+	AdminUserInfo(context.Context, *AdminUserInfoRequest) (*AdminUserInfoResponse, error)
 }
 
 // UnimplementedUserServer can be embedded to have forward compatible implementations.
@@ -174,6 +573,15 @@ type UnimplementedUserServer struct {
 
 func (*UnimplementedUserServer) WeChatLogin(ctx context.Context, req *WeChatLoginRequest) (*WeChatLoginResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method WeChatLogin not implemented")
+}
+func (*UnimplementedUserServer) AdminLogin(ctx context.Context, req *AdminLoginRequest) (*AdminLoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdminLogin not implemented")
+}
+func (*UnimplementedUserServer) AdminRegister(ctx context.Context, req *AdminRegisterRequest) (*AdminRegisterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdminRegister not implemented")
+}
+func (*UnimplementedUserServer) AdminUserInfo(ctx context.Context, req *AdminUserInfoRequest) (*AdminUserInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdminUserInfo not implemented")
 }
 
 func RegisterUserServer(s *grpc.Server, srv UserServer) {
@@ -198,6 +606,60 @@ func _User_WeChatLogin_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_AdminLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AdminLoginRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).AdminLogin(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/user.User/AdminLogin",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).AdminLogin(ctx, req.(*AdminLoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_AdminRegister_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AdminRegisterRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).AdminRegister(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/user.User/AdminRegister",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).AdminRegister(ctx, req.(*AdminRegisterRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_AdminUserInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AdminUserInfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).AdminUserInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/user.User/AdminUserInfo",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).AdminUserInfo(ctx, req.(*AdminUserInfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _User_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "user.User",
 	HandlerType: (*UserServer)(nil),
@@ -205,6 +667,18 @@ var _User_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "WeChatLogin",
 			Handler:    _User_WeChatLogin_Handler,
+		},
+		{
+			MethodName: "AdminLogin",
+			Handler:    _User_AdminLogin_Handler,
+		},
+		{
+			MethodName: "AdminRegister",
+			Handler:    _User_AdminRegister_Handler,
+		},
+		{
+			MethodName: "AdminUserInfo",
+			Handler:    _User_AdminUserInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
