@@ -1,0 +1,26 @@
+version: "3.9"
+
+# 网络配置
+networks:
+  backend:
+    driver: ${NETWORKS_DRIVER}
+
+services:
+  service_build:
+    image: golang:1.17
+    command: bash ./build.sh
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - .:/work
+    working_dir: /work
+    networks:
+      - backend
+    deploy:
+      resources:
+        limits:
+          cpus: 0.70
+          memory: 1024M
+        reservations:
+          cpus: 0.20
+          memory: 256M

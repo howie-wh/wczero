@@ -21,6 +21,11 @@ services:
       - "${HTTPS_PORT}:443"
     networks:
       - backend
+    deploy:
+      resources:
+        limits:
+          cpus: 0.2
+          memory: 128M
     restart: always
 
   mysql:
@@ -37,6 +42,11 @@ services:
       - "${MYSQL_PORT}:3306"                          # 设置容器3306端口映射指定宿主机端口
     networks:
       - backend
+    deploy:
+      resources:
+        limits:
+          cpus: 0.10
+          memory: 256M
     restart: always
 
   redis:
@@ -50,6 +60,11 @@ services:
       - "${REDIS_PORT}:6379"                          # 设置容器6379端口映射指定宿主机端口
     networks:
       - backend
+    deploy:
+      resources:
+        limits:
+          cpus: 0.10
+          memory: 128M
     restart: always
 
   etcd:
@@ -62,6 +77,11 @@ services:
       - "${ETCD_PORT}:2379"
     networks:
       - backend
+    deploy:
+      resources:
+        limits:
+          cpus: 0.10
+          memory: 64M
     restart: always
 
   prometheus:
@@ -76,6 +96,11 @@ services:
       - "${PROMETHEUS_PORT}:9090"                     # 设置容器9090端口映射指定宿主机端口，用于宿主机访问可视化web
     networks:
       - backend
+    deploy:
+      resources:
+        limits:
+          cpus: 0.10
+          memory: 128M
     restart: always
 
   grafana:
@@ -90,11 +115,16 @@ services:
       - "${GRAFANA_PORT}:3000"                        # 设置容器3000端口映射指定宿主机端口，用于宿主机访问可视化web
     networks:
       - backend
+    deploy:
+      resources:
+        limits:
+          cpus: 0.10
+          memory: 128M
     restart: always
 
   user_api:
     image: golang:1.17
-    command: go run services/user/api/user.go -f services/user/api/etc/user-api.yaml
+    command: ./bin/user-api -f services/user/api/etc/user-api.yaml
     environment:
       - TZ=${TZ}
     volumes:
@@ -107,11 +137,16 @@ services:
     working_dir: /work
     networks:
       - backend
+    deploy:
+      resources:
+        limits:
+          cpus: 0.20
+          memory: 256M
     restart: always
 
   user_rpc:
     image: golang:1.17
-    command: go run services/user/rpc/user.go -f services/user/rpc/etc/user.yaml
+    command: ./bin/user-rpc -f services/user/rpc/etc/user.yaml
     environment:
       - TZ=${TZ}
     volumes:
@@ -126,11 +161,16 @@ services:
     working_dir: /work
     networks:
       - backend
+    deploy:
+      resources:
+        limits:
+          cpus: 0.20
+          memory: 256M
     restart: always
 
   wallpaper_api:
     image: golang:1.17
-    command: go run services/wallpaper/api/wallpaper.go -f services/wallpaper/api/etc/wallpaper-api.yaml
+    command: ./bin/wallpaper-api -f services/wallpaper/api/etc/wallpaper-api.yaml
     environment:
       - TZ=${TZ}
     volumes:
@@ -143,11 +183,16 @@ services:
     working_dir: /work
     networks:
       - backend
+    deploy:
+      resources:
+        limits:
+          cpus: 0.20
+          memory: 256M
     restart: always
 
   wallpaper_rpc:
     image: golang:1.17
-    command: go run services/wallpaper/rpc/wallpaper.go -f services/wallpaper/rpc/etc/wallpaper.yaml
+    command: ./bin/wallpaper-rpc -f services/wallpaper/rpc/etc/wallpaper.yaml
     environment:
       - TZ=${TZ}
     volumes:
@@ -162,4 +207,9 @@ services:
     working_dir: /work
     networks:
       - backend
+    deploy:
+      resources:
+        limits:
+          cpus: 0.20
+          memory: 256M
     restart: always
