@@ -9,6 +9,7 @@ message WeChatLoginRequest {
 }
 
 message WeChatLoginResponse {
+  string token = 1;
 }
 
 service User {
