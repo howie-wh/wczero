@@ -27,3 +27,29 @@ scrape_configs:
 
     static_configs:
       - targets: ['localhost:9090']
+
+  # 我们自己的商城项目配置
+  - job_name: 'wczero'
+    static_configs:
+      # 目标的采集地址
+      - targets: [ 'user_api:9501' ]
+        labels:
+          # 自定义标签
+          app: 'user_api'
+          env: 'test'
+
+      - targets: [ 'user_rpc:9502' ]
+        labels:
+          app: 'user_rpc'
+          env: 'test'
+
+      - targets: [ 'wallpaper_api:9503' ]
+        labels:
+          # 自定义标签
+          app: 'wallpaper_api'
+          env: 'test'
+
+      - targets: [ 'wallpaper_rpc:9504' ]
+        labels:
+          app: 'wallpaper_rpc'
+          env: 'test'

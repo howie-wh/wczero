@@ -14,7 +14,7 @@ services:
     volumes:
       - ${ETC_PATH_HOST}/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ${ETC_PATH_HOST}/nginx/conf.d/:/etc/nginx/conf.d/
-      - ${ETC_PATH_HOST}/nginx/certificate/:/etc/nginx/certificate/
+      - ${ETC_PATH_HOST}/nginx/crt/:/etc/nginx/crt/
       - ${DATA_PATH_HOST}/nginx/log/:/var/log/nginx/
     ports:
       - "${HTTP_PORT}:80"
@@ -88,6 +88,78 @@ services:
       - ${DATA_PATH_HOST}/grafana:/var/lib/grafana
     ports:
       - "${GRAFANA_PORT}:3000"                        # 设置容器3000端口映射指定宿主机端口，用于宿主机访问可视化web
+    networks:
+      - backend
+    restart: always
+
+  user_api:
+    image: golang:1.17
+    command: go run services/user/api/user.go -f services/user/api/etc/user-api.yaml
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - .:/work
+    ports:
+      - "8000:8000"
+      - "9501:9501"
+    depends_on: # 依赖容器
+      - user_rpc
+    working_dir: /work
+    networks:
+      - backend
+    restart: always
+
+  user_rpc:
+    image: golang:1.17
+    command: go run services/user/rpc/user.go -f services/user/rpc/etc/user.yaml
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - .:/work
+    ports:
+      - "9000:9000"
+      - "9502:9501"
+    depends_on: # 依赖容器
+      - etcd
+      - mysql
+      - redis
+    working_dir: /work
+    networks:
+      - backend
+    restart: always
+
+  wallpaper_api:
+    image: golang:1.17
+    command: go run services/wallpaper/api/wallpaper.go -f services/wallpaper/api/etc/wallpaper-api.yaml
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - .:/work
+    ports:
+      - "8001:8001"
+      - "9503:9501"
+    depends_on: # 依赖容器
+      - wallpaper_rpc
+    working_dir: /work
+    networks:
+      - backend
+    restart: always
+
+  wallpaper_rpc:
+    image: golang:1.17
+    command: go run services/wallpaper/rpc/wallpaper.go -f services/wallpaper/rpc/etc/wallpaper.yaml
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - .:/work
+    ports:
+      - "9001:9001"
+      - "9504:9501"
+    depends_on: # 依赖容器
+      - etcd
+      - mysql
+      - redis
+    working_dir: /work
     networks:
       - backend
     restart: always
