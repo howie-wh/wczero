@@ -7,4 +7,5 @@ type WeChatLoginRequest struct {
 }
 
 type WeChatLoginResponse struct {
+	Token string `json:"token"`
 }

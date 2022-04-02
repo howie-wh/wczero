@@ -1,10 +1,10 @@
 syntax = "v1"
 
 info(
-	title: // TODO: add title
-	desc: // TODO: add description
+	title:
+	desc:
 	author: "Hui Wu"
-	email: "wuhui@shopee.com"
+	email: "wuhui1536@gmail.com"
 )
 
 type WeChatLoginRequest {
@@ -13,6 +13,7 @@ type WeChatLoginRequest {
 }
 
 type WeChatLoginResponse {
+	Token string `json:"token"`
 }
 
 service user-api {
