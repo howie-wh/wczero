@@ -153,7 +153,7 @@ services:
       - .:/work
     ports:
       - "9000:9000"
-      - "9502:9501"
+      - "9502:9502"
     depends_on: # 依赖容器
       - etcd
       - mysql
@@ -177,7 +177,7 @@ services:
       - .:/work
     ports:
       - "8001:8001"
-      - "9503:9501"
+      - "9503:9503"
     depends_on: # 依赖容器
       - wallpaper_rpc
     working_dir: /work
@@ -199,7 +199,7 @@ services:
       - .:/work
     ports:
       - "9001:9001"
-      - "9504:9501"
+      - "9504:9504"
     depends_on: # 依赖容器
       - etcd
       - mysql
