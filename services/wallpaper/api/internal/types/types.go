@@ -25,8 +25,8 @@ type RemoveResponse struct {
 
 type DetailRequest struct {
 	Wid   string `form:"wid,optional"` // if id not exists, so query all
-	Start int64  `form:"start"`
-	Limit int64  `form:"limit"`
+	Start int64  `form:"start,optional"`
+	Limit int64  `form:"limit,optional"`
 }
 
 type DetailResponse struct {

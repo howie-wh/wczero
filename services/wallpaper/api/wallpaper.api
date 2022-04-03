@@ -34,8 +34,8 @@ type (
 	// detail wallpaper
 	DetailRequest {
 		Wid   string `form:"wid,optional"` // if id not exists, so query all
-		Start int64  `form:"start"`
-		Limit int64  `form:"limit"`
+		Start int64  `form:"start,optional"`
+		Limit int64  `form:"limit,optional"`
 	}
 	DetailResponse {
 		List  []WallPaperInfo `json:"list"`
