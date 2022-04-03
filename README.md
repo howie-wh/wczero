@@ -1,2 +1,2 @@
-# wc_zero
+# wczero
 WeChat related program development

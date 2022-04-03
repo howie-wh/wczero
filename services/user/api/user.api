@@ -1,0 +1,71 @@
+syntax = "v1"
+
+info(
+	title: ""
+	desc: ""
+	author: "Hui Wu"
+	email: "wuhui1536@gmail.com"
+)
+
+type (
+	WeChatLoginRequest {
+		AppID string `json:"appid"`
+		Code  string `json:"code"`
+	}
+	WeChatLoginResponse {
+		AccessToken  string `json:"access_token"`
+		AccessExpire int64  `json:"access_expire"`
+	}
+)
+
+type (
+	AdminRegisterRequest {
+		Name     string `json:"name"`
+		Gender   int64  `json:"gender"`
+		Mobile   string `json:"mobile"`
+		Password string `json:"password"`
+	}
+	AdminRegisterResponse {
+		Id     int64  `json:"id"`
+		Name   string `json:"name"`
+		Gender int64  `json:"gender"`
+		Mobile string `json:"mobile"`
+	}
+
+	AdminLoginRequest {
+		Mobile   string `json:"mobile"`
+		Password string `json:"password"`
+	}
+	AdminLoginResponse {
+		AccessToken  string `json:"access_token"`
+		AccessExpire int64  `json:"access_expire"`
+	}
+
+	AdminUserInfoResponse {
+		Id     int64  `json:"id"`
+		Name   string `json:"name"`
+		Gender int64  `json:"gender"`
+		Mobile string `json:"mobile"`
+	}
+)
+
+service user-api {
+	@handler WeChatLogin
+	post /api/v1/user/wechat_login(WeChatLoginRequest) returns(WeChatLoginResponse)
+}
+
+service user-api {
+	@handler AdminRegister
+	post /api/v1/user/admin_register(AdminRegisterRequest) returns (AdminRegisterResponse)
+	
+	@handler AdminLogin
+	post /api/v1/user/admin_login(AdminLoginRequest) returns(AdminLoginResponse)
+}
+
+@server(
+	jwt: Auth
+)
+service user-api {
+	@handler AdminUserInfo
+	get /api/v1/user/admin_userinfo() returns (AdminUserInfoResponse)
+}

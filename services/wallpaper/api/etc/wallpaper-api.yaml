@@ -1,0 +1,18 @@
+Name: wallpaper-api
+Host: 0.0.0.0
+Port: 8001
+
+Auth:
+  AccessSecret: WcZero:uOvKLmVfztaXGpNYd4Z0I1SiT7MweJhl
+  AccessExpire: 86400
+
+WallPaperRpc:
+  Etcd:
+    Hosts:
+      - etcd:2379
+    Key: wallpaper.rpc
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 9503
+  Path: /metrics

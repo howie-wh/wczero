@@ -1,0 +1,59 @@
+syntax = "v1"
+
+info(
+	title: ""
+	desc: ""
+	author: "Hui Wu"
+	email: "wuhui1536@gmail.com"
+)
+
+// WallPaper操作
+type (
+	WallPaperInfo {
+		Wid      string `json:"wid"`
+		Name     string `json:"name"`
+		ImageURL string `json:"image_url"`
+		Author   string `json:"author"`
+		Desc     string `json:"desc"`
+	}
+
+	// import wallpaper
+	ImportRequest {
+		List []WallPaperInfo `json:"list"`
+	}
+	ImportResponse {
+	}
+
+	// delete wallpaper
+	RemoveRequest {
+		List []string `json:"list"`
+	}
+	RemoveResponse {
+	}
+
+	// detail wallpaper
+	DetailRequest {
+		Wid   string `form:"wid,optional"` // if id not exists, so query all
+		Start int64  `form:"start,optional"`
+		Limit int64  `form:"limit,optional"`
+	}
+	DetailResponse {
+		List  []WallPaperInfo `json:"list,omitempty"`
+		Total int64           `json:"total"`
+	}
+)
+
+@server(
+	jwt: Auth
+	middleware: Error // 路由中间件声明
+)
+service wallpaper-api {
+	@handler Import
+	post /api/v1/wallpaper/import (ImportRequest) returns (ImportResponse)
+	
+	@handler Remove
+	post /api/v1/wallpaper/remove(RemoveRequest) returns(RemoveResponse)
+	
+	@handler Detail
+	get /api/v1/wallpaper/detail(DetailRequest) returns(DetailResponse)
+}
