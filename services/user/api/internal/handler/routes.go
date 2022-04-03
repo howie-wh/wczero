@@ -24,7 +24,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		[]rest.Route{
 			{
 				Method:  http.MethodPost,
-				Path:    "/api/user/register",
+				Path:    "/api/v1/user/admin_register",
 				Handler: AdminRegisterHandler(serverCtx),
 			},
 			{

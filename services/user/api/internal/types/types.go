@@ -7,8 +7,8 @@ type WeChatLoginRequest struct {
 }
 
 type WeChatLoginResponse struct {
-	AccessToken  string `json:"accessToken"`
-	AccessExpire int64  `json:"accessExpire"`
+	AccessToken  string `json:"access_token"`
+	AccessExpire int64  `json:"access_expire"`
 }
 
 type AdminRegisterRequest struct {

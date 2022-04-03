@@ -7,14 +7,16 @@ info(
 	email: "wuhui1536@gmail.com"
 )
 
-type WeChatLoginRequest {
-	AppID string `json:"appid"`
-	Code  string `json:"code"`
-}
-type WeChatLoginResponse {
-	AccessToken  string `json:"accessToken"`
-	AccessExpire int64  `json:"accessExpire"`
-}
+type (
+	WeChatLoginRequest {
+		AppID string `json:"appid"`
+		Code  string `json:"code"`
+	}
+	WeChatLoginResponse {
+		AccessToken  string `json:"access_token"`
+		AccessExpire int64  `json:"access_expire"`
+	}
+)
 
 type (
 	AdminRegisterRequest {
