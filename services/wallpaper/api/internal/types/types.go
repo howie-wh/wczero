@@ -24,12 +24,23 @@ type RemoveResponse struct {
 }
 
 type DetailRequest struct {
-	Wid   string `form:"wid,optional"` // if id not exists, so query all
-	Start int64  `form:"start,optional"`
-	Limit int64  `form:"limit,optional"`
+	Wid string `form:"wid"`
 }
 
 type DetailResponse struct {
+	Wid      string `json:"wid"`
+	Name     string `json:"name"`
+	ImageURL string `json:"image_url"`
+	Author   string `json:"author"`
+	Desc     string `json:"desc"`
+}
+
+type ListRequest struct {
+	Start int64 `form:"start"`
+	Limit int64 `form:"limit"`
+}
+
+type ListResponse struct {
 	List  []WallPaperInfo `json:"list,omitempty"`
 	Total int64           `json:"total"`
 }

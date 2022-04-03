@@ -2,8 +2,6 @@ package logic
 
 import (
 	"context"
-	"wczero/services/wallpaper/model"
-
 	"wczero/services/wallpaper/rpc/internal/svc"
 	"wczero/services/wallpaper/rpc/wallpaper"
 
@@ -25,31 +23,17 @@ func NewDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DetailLogi
 }
 
 func (l *DetailLogic) Detail(in *wallpaper.DetailRequest) (*wallpaper.DetailResponse, error) {
-	wallpaperList := make([]*model.WallpaperTab, 0)
-	if in.Wid != "" {
-		resp, err := l.svcCtx.Model.FindOneByWid(in.Wid)
-		if err != nil {
-			return nil,err
-		}
-		wallpaperList = append(wallpaperList, resp)
-	} else {
-		resp, err := l.svcCtx.Model.FindList(in.Start, in.Limit)
-		if err != nil {
-			return nil,err
-		}
-		wallpaperList = append(wallpaperList, resp...)
+	resp, err := l.svcCtx.Model.FindOneByWid(in.Wid)
+	if err != nil {
+		return nil, err
 	}
 
-	var detailResp wallpaper.DetailResponse
-	for _, wpt := range wallpaperList {
-		wp := &wallpaper.WallPaperInfo{
-			Wid: wpt.Wid,
-			Name: wpt.Name,
-			ImageURL: wpt.ImageUrl,
-			Author: wpt.Author,
-			Desc: wpt.Desc,
-		}
-		detailResp.List = append(detailResp.List, wp)
+	detailResp := &wallpaper.DetailResponse{
+		Wid:      resp.Wid,
+		Name:     resp.Name,
+		ImageURL: resp.ImageUrl,
+		Author:   resp.Author,
+		Desc:     resp.Desc,
 	}
-	return &detailResp, nil
+	return detailResp, nil
 }

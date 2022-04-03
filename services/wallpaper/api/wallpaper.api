@@ -33,11 +33,22 @@ type (
 
 	// detail wallpaper
 	DetailRequest {
-		Wid   string `form:"wid,optional"` // if id not exists, so query all
-		Start int64  `form:"start,optional"`
-		Limit int64  `form:"limit,optional"`
+		Wid string `form:"wid"`
 	}
 	DetailResponse {
+		Wid      string `json:"wid"`
+		Name     string `json:"name"`
+		ImageURL string `json:"image_url"`
+		Author   string `json:"author"`
+		Desc     string `json:"desc"`
+	}
+
+	// detail wallpaper
+	ListRequest {
+		Start int64 `form:"start"`
+		Limit int64 `form:"limit"`
+	}
+	ListResponse {
 		List  []WallPaperInfo `json:"list,omitempty"`
 		Total int64           `json:"total"`
 	}
@@ -56,4 +67,7 @@ service wallpaper-api {
 	
 	@handler Detail
 	get /api/v1/wallpaper/detail(DetailRequest) returns(DetailResponse)
+	
+	@handler List
+	get /api/v1/wallpaper/list(ListRequest) returns(ListResponse)
 }

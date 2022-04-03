@@ -27,25 +27,17 @@ func NewDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext) DetailLogic
 func (l *DetailLogic) Detail(req types.DetailRequest) (*types.DetailResponse, error) {
 	resp, err := l.svcCtx.WallPaper.Detail(l.ctx, &wallpaper.DetailRequest{
 		Wid: req.Wid,
-		Start: req.Start,
-		Limit: req.Limit,
 	})
 	if err != nil {
 		return nil, err
 	}
 
 	apiResp := &types.DetailResponse{
-		Total: resp.Total,
-	}
-	for _, v := range resp.List {
-		wp := types.WallPaperInfo{
-			Wid: v.Wid,
-			Name: v.Name,
-			ImageURL: v.ImageURL,
-			Author: v.Author,
-			Desc: v.Desc,
-		}
-		apiResp.List = append(apiResp.List, wp)
+		Wid:      resp.Wid,
+		Name:     resp.Name,
+		ImageURL: resp.ImageURL,
+		Author:   resp.Author,
+		Desc:     resp.Desc,
 	}
 	return apiResp, nil
 }

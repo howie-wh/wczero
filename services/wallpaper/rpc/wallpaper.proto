@@ -26,11 +26,22 @@ message RemoveResponse {
 
 message DetailRequest {
   string  Wid = 1;
+}
+
+message DetailResponse {
+  string  Wid = 1;
+  string  Name = 2;
+  string  ImageURL = 3;
+  string  Author = 4;
+  string  Desc = 5;
+}
+
+message ListRequest {
   int64   Start = 2;
   int64   Limit = 3;
 }
 
-message DetailResponse {
+message ListResponse {
   repeated WallPaperInfo List = 1;
   int64  Total = 2;
 }
@@ -39,4 +50,5 @@ service Wallpaper {
   rpc Import(ImportRequest) returns(ImportResponse);
   rpc Remove(RemoveRequest) returns(RemoveResponse);
   rpc Detail(DetailRequest) returns(DetailResponse);
+  rpc List(ListRequest) returns(ListResponse);
 }

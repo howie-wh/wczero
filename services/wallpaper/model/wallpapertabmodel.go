@@ -19,9 +19,8 @@ var (
 	wallpaperTabRowsExpectAutoSet   = strings.Join(stringx.Remove(wallpaperTabFieldNames, "`id`", "`create_time`", "`update_time`"), ",")
 	wallpaperTabRowsWithPlaceHolder = strings.Join(stringx.Remove(wallpaperTabFieldNames, "`id`", "`create_time`", "`update_time`"), "=?,") + "=?"
 
-	cacheWallpaperTabIdPrefix   = "cache:wallpaperTab:id:"
-	cacheWallpaperTabWidPrefix  = "cache:wallpaperTab:wid:"
-	cacheWallpaperTabListPrefix = "cache:wallpaperTab:list:"
+	cacheWallpaperTabIdPrefix  = "cache:wallpaperTab:id:"
+	cacheWallpaperTabWidPrefix = "cache:wallpaperTab:wid:"
 
 	cacheExpire = time.Minute * 5
 )
@@ -31,7 +30,7 @@ type (
 		Insert(data *WallpaperTab) (sql.Result, error)
 		FindOne(id int64) (*WallpaperTab, error)
 		FindOneByWid(wid string) (*WallpaperTab, error)
-		FindList(start, limit int64) ([]*WallpaperTab, error)
+		FindList(start, limit int64) ([]*WallpaperTab, int64, error)
 		Update(data *WallpaperTab) error
 		Delete(id int64) error
 		DeleteByWid(wid string) error
@@ -140,18 +139,22 @@ func (m *defaultWallpaperTabModel) FindOneByWid(wid string) (*WallpaperTab, erro
 	}
 }
 
-func (m *defaultWallpaperTabModel) FindList(start, limit int64) ([]*WallpaperTab, error) {
-	var resp []*WallpaperTab
+func (m *defaultWallpaperTabModel) FindList(start, limit int64) ([]*WallpaperTab, int64, error) {
+	total, err := m.getTableCount()
+	if err != nil {
+		return nil, total, err
+	}
 
+	var resp []*WallpaperTab
 	query := fmt.Sprintf("select %s from %s limit ?, ?", wallpaperTabRows, m.table)
-	err := m.QueryRowsNoCache(&resp, query, start, limit)
+	err = m.QueryRowsNoCache(&resp, query, start, limit)
 	switch err {
 	case nil:
-		return resp, nil
+		return resp, total, nil
 	case sqlc.ErrNotFound:
-		return nil, ErrNotFound
+		return nil, 0, ErrNotFound
 	default:
-		return nil, err
+		return nil, 0, err
 	}
 }
 
@@ -202,4 +205,18 @@ func (m *defaultWallpaperTabModel) formatPrimary(primary interface{}) string {
 func (m *defaultWallpaperTabModel) queryPrimary(conn sqlx.SqlConn, v, primary interface{}) error {
 	query := fmt.Sprintf("select %s from %s where `id` = ? limit 1", wallpaperTabRows, m.table)
 	return conn.QueryRow(v, query, primary)
+}
+
+func (m *defaultWallpaperTabModel) getTableCount() (int64, error) {
+	var resp int64
+	query := fmt.Sprintf("select count(*) from %s", m.table)
+	err := m.QueryRowsNoCache(&resp, query)
+	switch err {
+	case nil:
+		return resp, nil
+	case sqlc.ErrNotFound:
+		return 0, ErrNotFound
+	default:
+		return 0, err
+	}
 }
