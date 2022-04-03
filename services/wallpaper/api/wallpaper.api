@@ -43,7 +43,7 @@ type (
 		Desc     string `json:"desc"`
 	}
 
-	// detail wallpaper
+	// list wallpaper
 	ListRequest {
 		Start int64 `form:"start"`
 		Limit int64 `form:"limit"`
