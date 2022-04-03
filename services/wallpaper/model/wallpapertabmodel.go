@@ -19,8 +19,8 @@ var (
 	wallpaperTabRowsExpectAutoSet   = strings.Join(stringx.Remove(wallpaperTabFieldNames, "`id`", "`create_time`", "`update_time`"), ",")
 	wallpaperTabRowsWithPlaceHolder = strings.Join(stringx.Remove(wallpaperTabFieldNames, "`id`", "`create_time`", "`update_time`"), "=?,") + "=?"
 
-	cacheWallpaperTabIdPrefix  = "cache:wallpaperTab:id:"
-	cacheWallpaperTabWidPrefix = "cache:wallpaperTab:wid:"
+	cacheWallpaperTabIdPrefix   = "cache:wallpaperTab:id:"
+	cacheWallpaperTabWidPrefix  = "cache:wallpaperTab:wid:"
 	cacheWallpaperTabListPrefix = "cache:wallpaperTab:list:"
 
 	cacheExpire = time.Minute * 5
@@ -90,12 +90,12 @@ func (m *defaultWallpaperTabModel) Insert(data *WallpaperTab) (sql.Result, error
 func (m *noCacheWallpaperTabModel) BulkInsert(data []*WallpaperTab) error {
 	query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?)", m.table, wallpaperTabRowsExpectAutoSet)
 	bulkInserter, err := sqlx.NewBulkInserter(m.SqlConn, query)
-	if err != nil{
-		return fmt.Errorf("NewBulkInserter %s",err)
+	if err != nil {
+		return fmt.Errorf("NewBulkInserter %s", err)
 	}
-	for k,v := range data{
-		if err = bulkInserter.Insert(v.Wid, v.Name, v.ImageUrl, v.Author, v.Desc, v.DelFlag);err != nil{
-			fmt.Println("insert",err,k)
+	for k, v := range data {
+		if err = bulkInserter.Insert(v.Wid, v.Name, v.ImageUrl, v.Author, v.Desc, v.DelFlag); err != nil {
+			fmt.Println("insert", err, k)
 			return fmt.Errorf("insert k:%d, err:%s", k, err)
 		}
 	}
@@ -144,7 +144,7 @@ func (m *defaultWallpaperTabModel) FindList(start, limit int64) ([]*WallpaperTab
 	wallpaperTabListKey := fmt.Sprintf("%s%d:%d", cacheWallpaperTabListPrefix, start, limit)
 	resp := make([]*WallpaperTab, 0)
 	err := m.QueryRow(resp, wallpaperTabListKey, func(conn sqlx.SqlConn, v interface{}) error {
-		query := fmt.Sprintf("select %s from %s where limit ?, ?", wallpaperTabRows, m.table)
+		query := fmt.Sprintf("select %s from %s limit ?, ?", wallpaperTabRows, m.table)
 		return conn.QueryRow(resp, query, start, limit)
 	})
 	switch err {
