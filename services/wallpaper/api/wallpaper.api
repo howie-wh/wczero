@@ -33,7 +33,7 @@ type (
 
 	// detail wallpaper
 	DetailRequest {
-		Wid   string `form:"wid, optional"` // if id not exists, so query all
+		Wid   string `form:"wid,optional"` // if id not exists, so query all
 		Start int64  `form:"start"`
 		Limit int64  `form:"limit"`
 	}
