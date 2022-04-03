@@ -30,6 +30,6 @@ type DetailRequest struct {
 }
 
 type DetailResponse struct {
-	List  []WallPaperInfo `json:"list"`
+	List  []WallPaperInfo `json:"list,omitempty"`
 	Total int64           `json:"total"`
 }

@@ -16,5 +16,5 @@ CacheRedis:
 
 Prometheus:
   Host: 0.0.0.0
-  Port: 9501
+  Port: 9504
   Path: /metrics

@@ -38,7 +38,7 @@ type (
 		Limit int64  `form:"limit,optional"`
 	}
 	DetailResponse {
-		List  []WallPaperInfo `json:"list"`
+		List  []WallPaperInfo `json:"list,omitempty"`
 		Total int64           `json:"total"`
 	}
 )

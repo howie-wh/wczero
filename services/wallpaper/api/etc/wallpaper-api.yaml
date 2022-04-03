@@ -14,5 +14,5 @@ WallPaperRpc:
 
 Prometheus:
   Host: 0.0.0.0
-  Port: 9501
+  Port: 9503
   Path: /metrics
