@@ -140,17 +140,12 @@ func (m *defaultWallpaperTabModel) FindOneByWid(wid string) (*WallpaperTab, erro
 }
 
 func (m *defaultWallpaperTabModel) FindList(start, limit int64) ([]*WallpaperTab, int64, error) {
-	total, err := m.getTableCount()
-	if err != nil {
-		return nil, total, err
-	}
-
 	var resp []*WallpaperTab
 	query := fmt.Sprintf("select %s from %s limit ?, ?", wallpaperTabRows, m.table)
-	err = m.QueryRowsNoCache(&resp, query, start, limit)
+	err := m.QueryRowsNoCache(&resp, query, start, limit)
 	switch err {
 	case nil:
-		return resp, total, nil
+		return resp, int64(len(resp)), nil
 	case sqlc.ErrNotFound:
 		return nil, 0, ErrNotFound
 	default:
