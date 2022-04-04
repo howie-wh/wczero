@@ -7,7 +7,6 @@ info(
 	email: "wuhui1536@gmail.com"
 )
 
-// WallPaper操作
 type (
 	WallPaperInfo {
 		Wid      string `json:"wid"`
@@ -17,21 +16,18 @@ type (
 		Desc     string `json:"desc"`
 	}
 
-	// import wallpaper
 	ImportRequest {
 		List []WallPaperInfo `json:"list"`
 	}
 	ImportResponse {
 	}
 
-	// delete wallpaper
 	RemoveRequest {
 		List []string `json:"list"`
 	}
 	RemoveResponse {
 	}
 
-	// detail wallpaper
 	DetailRequest {
 		Wid string `form:"wid"`
 	}
@@ -43,7 +39,6 @@ type (
 		Desc     string `json:"desc"`
 	}
 
-	// list wallpaper
 	ListRequest {
 		Start int64 `form:"start"`
 		Limit int64 `form:"limit"`
@@ -59,15 +54,19 @@ type (
 	middleware: Error // 路由中间件声明
 )
 service wallpaper-api {
+	@doc "Import"
 	@handler Import
 	post /api/v1/wallpaper/import (ImportRequest) returns (ImportResponse)
-	
+
+	@doc "Remove"
 	@handler Remove
 	post /api/v1/wallpaper/remove(RemoveRequest) returns(RemoveResponse)
-	
+
+	@doc "Detail"
 	@handler Detail
 	get /api/v1/wallpaper/detail(DetailRequest) returns(DetailResponse)
-	
+
+	@doc "List"
 	@handler List
 	get /api/v1/wallpaper/list(ListRequest) returns(ListResponse)
 }
