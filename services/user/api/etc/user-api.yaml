@@ -12,6 +12,9 @@ UserRpc:
       - etcd:2379
     Key: user.rpc
 
+Log:
+  Mode: file
+
 Prometheus:
   Host: 0.0.0.0
   Port: 9501

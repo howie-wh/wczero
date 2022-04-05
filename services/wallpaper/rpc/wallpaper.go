@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/zeromicro/go-zero/core/logx"
 
 	"wczero/services/wallpaper/rpc/internal/config"
 	"wczero/services/wallpaper/rpc/internal/server"
@@ -23,6 +24,7 @@ func main() {
 
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
+	logx.MustSetup(c.Log)
 	ctx := svc.NewServiceContext(c)
 	srv := server.NewWallpaperServer(ctx)
 
