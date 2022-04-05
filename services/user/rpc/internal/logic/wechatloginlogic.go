@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -42,11 +43,30 @@ func (l *WeChatLoginLogic) WeChatLogin(in *user.WeChatLoginRequest) (*user.WeCha
 	Url.RawQuery = params.Encode() // 如果参数中有中文参数,这个方法会进行URLEncode
 	urlPath := Url.String()
 
-	resp, err := http.Get(urlPath)
-	defer resp.Body.Close()
+	req, err := http.NewRequest("GET", urlPath, nil)
 	if err != nil {
-		return nil, fmt.Errorf("url: %s, err: %s", urlPath, err)
+		return nil, fmt.Errorf("请求初始化失败：%v", err)
 	}
+
+	// 设置跳过不安全的 HTTPS
+	tls11Transport := &http.Transport{
+		MaxIdleConnsPerHost: 10,
+		TLSClientConfig: &tls.Config{
+			MaxVersion:         tls.VersionTLS11,
+			InsecureSkipVerify: true,
+		},
+	}
+
+	client := &http.Client{
+		Transport: tls11Transport,
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Printf("客户端发起请求失败：%v", err)
+		return nil, fmt.Errorf("url: %s, 客户端发起请求失败：%v: %s", urlPath, err)
+	}
+	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
 
 	var authResp user.WeChatLoginResponse
@@ -55,5 +75,6 @@ func (l *WeChatLoginLogic) WeChatLogin(in *user.WeChatLoginRequest) (*user.WeCha
 		return nil, fmt.Errorf("url: %s, err: %s", body, err)
 	}
 
+	logx.Info(authResp)
 	return &authResp, nil
 }
