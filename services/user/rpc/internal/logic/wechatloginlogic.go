@@ -45,7 +45,7 @@ func (l *WeChatLoginLogic) WeChatLogin(in *user.WeChatLoginRequest) (*user.WeCha
 
 	req, err := http.NewRequest("GET", urlPath, nil)
 	if err != nil {
-		return nil, fmt.Errorf("请求初始化失败：%v", err)
+		return nil, fmt.Errorf("request init err：%v", err)
 	}
 
 	// 设置跳过不安全的 HTTPS
@@ -63,8 +63,7 @@ func (l *WeChatLoginLogic) WeChatLogin(in *user.WeChatLoginRequest) (*user.WeCha
 
 	resp, err := client.Do(req)
 	if err != nil {
-		fmt.Printf("客户端发起请求失败：%v", err)
-		return nil, fmt.Errorf("url: %s, 客户端发起请求失败：%v: %s", urlPath, err)
+		return nil, fmt.Errorf("url: %s, request err：%v", urlPath, err)
 	}
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
@@ -72,9 +71,11 @@ func (l *WeChatLoginLogic) WeChatLogin(in *user.WeChatLoginRequest) (*user.WeCha
 	var authResp user.WeChatLoginResponse
 	err = json.Unmarshal(body, &authResp)
 	if err != nil {
-		return nil, fmt.Errorf("url: %s, err: %s", body, err)
+		return nil, fmt.Errorf("body: %s, unmarshal err: %v", body, err)
 	}
-
 	logx.Info(authResp)
+	if authResp.Errcode != 0 {
+		return nil, fmt.Errorf("errcode: %d, errmsg: %s", authResp.Errcode, authResp.Errmsg)
+	}
 	return &authResp, nil
 }
