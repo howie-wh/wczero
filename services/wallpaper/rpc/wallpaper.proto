@@ -5,9 +5,10 @@ package wallpaper;
 message WallPaperInfo {
   string  Wid = 1;
   string  Name = 2;
-  string  ImageURL = 3;
-  string  Author = 4;
-  string  Desc = 5;
+  string  Category = 3;
+  string  ImageURL = 4;
+  string  Author = 5;
+  string  Desc = 6;
 }
 
 message ImportRequest {
@@ -31,9 +32,10 @@ message DetailRequest {
 message DetailResponse {
   string  Wid = 1;
   string  Name = 2;
-  string  ImageURL = 3;
-  string  Author = 4;
-  string  Desc = 5;
+  string  Category = 3;
+  string  ImageURL = 4;
+  string  Author = 5;
+  string  Desc = 6;
 }
 
 message ListRequest {

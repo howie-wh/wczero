@@ -4,9 +4,10 @@ package types
 type WallPaperInfo struct {
 	Wid      string `json:"wid"`
 	Name     string `json:"name"`
+	Category string `json:"category"`
 	ImageURL string `json:"image_url"`
-	Author   string `json:"author"`
-	Desc     string `json:"desc"`
+	Author   string `json:"author,optional"`
+	Desc     string `json:"desc,optional"`
 }
 
 type ImportRequest struct {
@@ -30,6 +31,7 @@ type DetailRequest struct {
 type DetailResponse struct {
 	Wid      string `json:"wid"`
 	Name     string `json:"name"`
+	Category string `json:"category"`
 	ImageURL string `json:"image_url"`
 	Author   string `json:"author"`
 	Desc     string `json:"desc"`

@@ -4,7 +4,7 @@ Port: 8001
 
 Auth:
   AccessSecret: WcZero:uOvKLmVfztaXGpNYd4Z0I1SiT7MweJhl
-  AccessExpire: 86400
+  AccessExpire: 604800
 
 WallPaperRpc:
   Etcd:

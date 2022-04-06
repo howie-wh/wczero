@@ -33,6 +33,7 @@ func (l *ListLogic) List(in *wallpaper.ListRequest) (*wallpaper.ListResponse, er
 		wp := &wallpaper.WallPaperInfo{
 			Wid:      wpt.Wid,
 			Name:     wpt.Name,
+			Category: wpt.Category,
 			ImageURL: wpt.ImageUrl,
 			Author:   wpt.Author,
 			Desc:     wpt.Desc,

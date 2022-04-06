@@ -31,6 +31,7 @@ func (l *DetailLogic) Detail(in *wallpaper.DetailRequest) (*wallpaper.DetailResp
 	detailResp := &wallpaper.DetailResponse{
 		Wid:      resp.Wid,
 		Name:     resp.Name,
+		Category: resp.Category,
 		ImageURL: resp.ImageUrl,
 		Author:   resp.Author,
 		Desc:     resp.Desc,

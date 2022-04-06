@@ -53,6 +53,7 @@ type (
 		Id         int64  `db:"id"`          // id
 		Wid        string `db:"wid"`         // wallpaper id
 		Name       string `db:"name"`        // name
+		Category   string `db:"category"`    // category
 		ImageUrl   string `db:"image_url"`   // image url
 		Author     string `db:"author"`      // author
 		Desc       string `db:"desc"`        // desc
@@ -80,8 +81,8 @@ func (m *defaultWallpaperTabModel) Insert(data *WallpaperTab) (sql.Result, error
 	wallpaperTabIdKey := fmt.Sprintf("%s%v", cacheWallpaperTabIdPrefix, data.Id)
 	wallpaperTabWidKey := fmt.Sprintf("%s%v", cacheWallpaperTabWidPrefix, data.Wid)
 	ret, err := m.Exec(func(conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?)", m.table, wallpaperTabRowsExpectAutoSet)
-		return conn.Exec(query, data.Wid, data.Name, data.ImageUrl, data.Author, data.Desc, data.DelFlag)
+		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?)", m.table, wallpaperTabRowsExpectAutoSet)
+		return conn.Exec(query, data.Wid, data.Name, data.Category, data.ImageUrl, data.Author, data.Desc, data.DelFlag)
 	}, wallpaperTabIdKey, wallpaperTabWidKey)
 	return ret, err
 }
@@ -158,8 +159,8 @@ func (m *defaultWallpaperTabModel) Update(data *WallpaperTab) error {
 	wallpaperTabWidKey := fmt.Sprintf("%s%v", cacheWallpaperTabWidPrefix, data.Wid)
 	_, err := m.Exec(func(conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, wallpaperTabRowsWithPlaceHolder)
-		return conn.Exec(query, data.Wid, data.Name, data.ImageUrl, data.Author, data.Desc, data.DelFlag, data.Id)
-	}, wallpaperTabIdKey, wallpaperTabWidKey)
+		return conn.Exec(query, data.Wid, data.Name, data.Category, data.ImageUrl, data.Author, data.Desc, data.DelFlag, data.Id)
+	}, wallpaperTabWidKey, wallpaperTabIdKey)
 	return err
 }
 

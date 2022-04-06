@@ -1,8 +1,8 @@
 syntax = "v1"
 
 info(
-	title: ""
-	desc: ""
+	title: "wallpaper"
+	desc: "wallpaper"
 	author: "Hui Wu"
 	email: "wuhui1536@gmail.com"
 )
@@ -11,9 +11,10 @@ type (
 	WallPaperInfo {
 		Wid      string `json:"wid"`
 		Name     string `json:"name"`
+		Category string `json:"category"`
 		ImageURL string `json:"image_url"`
-		Author   string `json:"author"`
-		Desc     string `json:"desc"`
+		Author   string `json:"author,optional"`
+		Desc     string `json:"desc,optional"`
 	}
 
 	ImportRequest {
@@ -34,6 +35,7 @@ type (
 	DetailResponse {
 		Wid      string `json:"wid"`
 		Name     string `json:"name"`
+		Category string `json:"category"`
 		ImageURL string `json:"image_url"`
 		Author   string `json:"author"`
 		Desc     string `json:"desc"`
@@ -57,15 +59,15 @@ service wallpaper-api {
 	@doc "Import"
 	@handler Import
 	post /api/v1/wallpaper/import (ImportRequest) returns (ImportResponse)
-
+	
 	@doc "Remove"
 	@handler Remove
 	post /api/v1/wallpaper/remove(RemoveRequest) returns(RemoveResponse)
-
+	
 	@doc "Detail"
 	@handler Detail
 	get /api/v1/wallpaper/detail(DetailRequest) returns(DetailResponse)
-
+	
 	@doc "List"
 	@handler List
 	get /api/v1/wallpaper/list(ListRequest) returns(ListResponse)

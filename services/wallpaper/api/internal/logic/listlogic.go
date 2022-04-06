@@ -40,6 +40,7 @@ func (l *ListLogic) List(req types.ListRequest) (*types.ListResponse, error) {
 		wp := types.WallPaperInfo{
 			Wid:      v.Wid,
 			Name:     v.Name,
+			Category: v.Category,
 			ImageURL: v.ImageURL,
 			Author:   v.Author,
 			Desc:     v.Desc,

@@ -28,11 +28,12 @@ func (l *ImportLogic) Import(in *wallpaper.ImportRequest) (*wallpaper.ImportResp
 	tabList := make([]*model.WallpaperTab, 0)
 	for _, wp := range in.List {
 		tab := &model.WallpaperTab{
-			Wid: wp.Wid,
-			Name: wp.Name,
+			Wid:      wp.Wid,
+			Name:     wp.Name,
+			Category: wp.Category,
 			ImageUrl: wp.ImageURL,
-			Author: wp.Author,
-			Desc: wp.Desc,
+			Author:   wp.Author,
+			Desc:     wp.Desc,
 		}
 		tabList = append(tabList, tab)
 	}
