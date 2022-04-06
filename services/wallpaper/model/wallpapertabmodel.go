@@ -88,7 +88,7 @@ func (m *defaultWallpaperTabModel) Insert(data *WallpaperTab) (sql.Result, error
 }
 
 func (m *noCacheWallpaperTabModel) BulkInsert(data []*WallpaperTab) error {
-	query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?)", m.table, wallpaperTabRowsExpectAutoSet)
+	query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?)", m.table, wallpaperTabRowsExpectAutoSet)
 	bulkInserter, err := sqlx.NewBulkInserter(m.SqlConn, query)
 	if err != nil {
 		return fmt.Errorf("NewBulkInserter %s", err)
