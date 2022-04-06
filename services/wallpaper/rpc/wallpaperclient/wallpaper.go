@@ -17,6 +17,8 @@ type (
 	DetailResponse = wallpaper.DetailResponse
 	ImportRequest  = wallpaper.ImportRequest
 	ImportResponse = wallpaper.ImportResponse
+	ListRequest    = wallpaper.ListRequest
+	ListResponse   = wallpaper.ListResponse
 	RemoveRequest  = wallpaper.RemoveRequest
 	RemoveResponse = wallpaper.RemoveResponse
 	WallPaperInfo  = wallpaper.WallPaperInfo
@@ -25,6 +27,7 @@ type (
 		Import(ctx context.Context, in *ImportRequest, opts ...grpc.CallOption) (*ImportResponse, error)
 		Remove(ctx context.Context, in *RemoveRequest, opts ...grpc.CallOption) (*RemoveResponse, error)
 		Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*DetailResponse, error)
+		List(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error)
 	}
 
 	defaultWallpaper struct {
@@ -51,4 +54,9 @@ func (m *defaultWallpaper) Remove(ctx context.Context, in *RemoveRequest, opts .
 func (m *defaultWallpaper) Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*DetailResponse, error) {
 	client := wallpaper.NewWallpaperClient(m.cli.Conn())
 	return client.Detail(ctx, in, opts...)
+}
+
+func (m *defaultWallpaper) List(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error) {
+	client := wallpaper.NewWallpaperClient(m.cli.Conn())
+	return client.List(ctx, in, opts...)
 }

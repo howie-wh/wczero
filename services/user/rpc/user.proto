@@ -7,10 +7,12 @@ message WeChatLoginRequest {
   string code = 2;
 
 }
-
 message WeChatLoginResponse {
-  string access_token = 1;
-  int64 access_expire = 2;
+  string openid = 1;
+  string session_key = 2;
+  string unionid = 3;
+  uint32 errcode = 4;
+  string errmsg = 5;
 }
 
 // 用户登录

@@ -12,6 +12,9 @@ WallPaperRpc:
       - etcd:2379
     Key: wallpaper.rpc
 
+Log:
+  Mode: file
+
 Prometheus:
   Host: 0.0.0.0
   Port: 9503

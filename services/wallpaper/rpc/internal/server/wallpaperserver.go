@@ -36,3 +36,8 @@ func (s *WallpaperServer) Detail(ctx context.Context, in *wallpaper.DetailReques
 	l := logic.NewDetailLogic(ctx, s.svcCtx)
 	return l.Detail(in)
 }
+
+func (s *WallpaperServer) List(ctx context.Context, in *wallpaper.ListRequest) (*wallpaper.ListResponse, error) {
+	l := logic.NewListLogic(ctx, s.svcCtx)
+	return l.List(in)
+}

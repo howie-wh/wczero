@@ -14,6 +14,9 @@ CacheRedis:
     Type: node
     Pass:
 
+Log:
+  Mode: file
+
 Prometheus:
   Host: 0.0.0.0
   Port: 9504

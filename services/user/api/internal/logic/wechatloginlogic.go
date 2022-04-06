@@ -2,6 +2,8 @@ package logic
 
 import (
 	"context"
+	"time"
+	"wczero/common/jwtx"
 	"wczero/services/user/rpc/user"
 
 	"wczero/services/user/api/internal/svc"
@@ -33,8 +35,17 @@ func (l *WeChatLoginLogic) WeChatLogin(req types.WeChatLoginRequest) (*types.WeC
 		return nil, err
 	}
 
+	now := time.Now().Unix()
+
+	accessExpire := l.svcCtx.Config.Auth.AccessExpire
+	accessSecret := l.svcCtx.Config.Auth.AccessSecret
+	accessToken, err := jwtx.GetWeChatToken(accessSecret, now, accessExpire, resp.Openid)
+	if err != nil {
+		return nil, err
+	}
+
 	return &types.WeChatLoginResponse{
-		AccessToken:  resp.AccessToken,
-		AccessExpire: resp.AccessExpire,
+		AccessToken:  accessToken,
+		AccessExpire: accessExpire,
 	}, nil
 }
