@@ -36,7 +36,7 @@ func (l *WeChatLoginLogic) WeChatLogin(in *user.WeChatLoginRequest) (*user.WeCha
 		return nil, err
 	}
 	params.Set("appid", in.Appid)
-	params.Set("secret", l.svcCtx.Config.Salt)
+	params.Set("secret", l.svcCtx.Config.AppSecret)
 	params.Set("js_code", in.Code)
 	params.Set("grant_type", "authorization_code")
 

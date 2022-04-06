@@ -16,6 +16,8 @@ CacheRedis:
 
 Salt: WcZero:HWVOFkGgPTryzICwd7qnJaZR9KQ2i8xe
 
+AppSecret: de7295ed88022f06a17105464a698f86
+
 Log:
   Mode: file
 
