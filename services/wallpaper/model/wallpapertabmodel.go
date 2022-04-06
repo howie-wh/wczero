@@ -94,7 +94,7 @@ func (m *noCacheWallpaperTabModel) BulkInsert(data []*WallpaperTab) error {
 		return fmt.Errorf("NewBulkInserter %s", err)
 	}
 	for k, v := range data {
-		if err = bulkInserter.Insert(v.Wid, v.Name, v.ImageUrl, v.Author, v.Desc, v.DelFlag); err != nil {
+		if err = bulkInserter.Insert(v.Wid, v.Name, v.Category, v.ImageUrl, v.Author, v.Desc, v.DelFlag); err != nil {
 			fmt.Println("insert", err, k)
 			return fmt.Errorf("insert k:%d, err:%s", k, err)
 		}
