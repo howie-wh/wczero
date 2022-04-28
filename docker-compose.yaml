@@ -149,6 +149,11 @@ services:
     command: ./bin/user-rpc -f services/user/rpc/etc/user.yaml
     environment:
       - TZ=${TZ}
+      - QINIU_ACCESS_KEY1=${QINIU_ACCESS_KEY1}      # 七牛AccessKey 1
+      - QINIU_SECRET_KEY1=${QINIU_SECRET_KEY1}      # 七牛SecretKey 1
+      - QINIU_ACCESS_KEY2=${QINIU_ACCESS_KEY2}      # 七牛AccessKey 2
+      - QINIU_SECRET_KEY2=${QINIU_SECRET_KEY2}      # 七牛SecretKey 2
+      - WCZERO_BUCKET=${WCZERO_BUCKET}              # 七牛Bucket空间名称
     volumes:
       - .:/work
     ports:
