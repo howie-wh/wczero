@@ -148,9 +148,9 @@ type QINIUUploadTokenRequest struct {
 
 ```golang
 type QINIUUploadTokenResponse struct {
-	UploadToken string `json:"uploadToken"`
 	Domain string `json:"domain"`
 	Zone string `json:"zone"`
+	UploadToken string `json:"upload_token"`
 	Desc string `json:"desc"`
 }
 ```
