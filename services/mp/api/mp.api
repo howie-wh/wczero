@@ -22,5 +22,5 @@ type (
 service mp-api {
 	@doc "MPBasicSetup"
 	@handler MPBasicSetup
-	post /api/v1/mp/basic_setup(MPBasicSetupRequest) returns(MPBasicSetupResponse)
+	get /api/v1/mp/basic_setup(MPBasicSetupRequest) returns(MPBasicSetupResponse)
 }
