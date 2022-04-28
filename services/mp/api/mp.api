@@ -1,0 +1,26 @@
+syntax = "v1"
+
+info(
+	title: ""
+	desc: ""
+	author: "Hui Wu"
+	email: "wuhui1536@gmail.com"
+)
+
+type (
+	MPBasicSetupRequest {
+		Signature string `json:"signature"`
+		Timestamp string `json:"timestamp"`
+		Nonce     string `json:"nonce"`
+		EchoStr   string `json:"echostr"`
+	}
+	MPBasicSetupResponse {
+		Reply string `json:"reply"`
+	}
+)
+
+service mp-api {
+	@doc "MPBasicSetup"
+	@handler MPBasicSetup
+	post /api/v1/mp/basic_setup(MPBasicSetupRequest) returns(MPBasicSetupResponse)
+}

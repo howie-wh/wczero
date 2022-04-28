@@ -218,3 +218,49 @@ services:
           cpus: 0.20
           memory: 256M
     restart: always
+
+  mp_api:
+    image: golang:1.17
+    command: ./bin/mp-api -f services/mp/api/etc/mp-api.yaml
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - .:/work
+    ports:
+      - "8002:8002"
+      - "9505:9505"
+    depends_on: # 依赖容器
+      - mp_rpc
+    working_dir: /work
+    networks:
+      - backend
+    deploy:
+      resources:
+        limits:
+          cpus: 0.20
+          memory: 256M
+    restart: always
+
+  mp_rpc:
+    image: golang:1.17
+    command: ./bin/mp-rpc -f services/mp/rpc/etc/mp.yaml
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - .:/work
+    ports:
+      - "9002:9002"
+      - "9506:9506"
+    depends_on: # 依赖容器
+      - etcd
+      - mysql
+      - redis
+    working_dir: /work
+    networks:
+      - backend
+    deploy:
+      resources:
+        limits:
+          cpus: 0.20
+          memory: 256M
+    restart: always

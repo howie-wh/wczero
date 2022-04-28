@@ -12,6 +12,8 @@ build_server() {
   go build -o bin/user-api services/user/api/user.go
   go build -o bin/wallpaper-rpc services/wallpaper/rpc/wallpaper.go
   go build -o bin/wallpaper-api services/wallpaper/api/wallpaper.go
+  go build -o bin/mp-rpc services/mp/rpc/mp.go
+  go build -o bin/mp-api services/mp/api/mp.go
 
   chmod +x bin/*
 
@@ -24,6 +26,8 @@ run_server() {
   nohup ./bin/user-api -f services/user/api/etc/user-api.yaml &
   nohup ./bin/wallpaper-rpc -f services/wallpaper/rpc/etc/wallpaper.yaml &
   nohup ./bin/wallpaper-api -f services/wallpaper/api/etc/wallpaper-api.yaml &
+  nohup ./bin/mp-rpc -f services/mp/rpc/etc/mp.yaml &
+  nohup ./bin/mp-api -f services/mp/api/etc/mp-api.yaml &
   echo "run_server successful"
 }
 

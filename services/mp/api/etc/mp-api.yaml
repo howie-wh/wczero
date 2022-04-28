@@ -1,0 +1,24 @@
+Name: mp-api
+Host: 0.0.0.0
+Port: 8002
+
+Auth:
+  AccessSecret: WcZero:uOvKLmVfztaXGpNYd4Z0I1SiT7MweJhl
+  AccessExpire: 604800
+
+MP:
+  token: uOvKLmVfztaXGpNYd4Z0I1SiT7MweJhl
+
+WallPaperRpc:
+  Etcd:
+    Hosts:
+      - etcd:2379
+    Key: mp.rpc
+
+Log:
+  Mode: file
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 9505
+  Path: /metrics
