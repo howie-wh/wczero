@@ -9,7 +9,7 @@ Auth:
 MP:
   Token: uOvKLmVfztaXGpNYd4Z0I1SiT7MweJhl
 
-WallPaperRpc:
+MPRpc:
   Etcd:
     Hosts:
       - etcd:2379
