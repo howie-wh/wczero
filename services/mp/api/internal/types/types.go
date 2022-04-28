@@ -5,9 +5,9 @@ type MPBasicSetupRequest struct {
 	Signature string `form:"signature"`
 	Timestamp string `form:"timestamp"`
 	Nonce     string `form:"nonce"`
-	EchoStr   string `form:"echostr"`
+	EchoStr   int64  `form:"echostr"`
 }
 
 type MPBasicSetupResponse struct {
-	Reply string `json:"reply"`
+	Reply int64 `json:"reply"`
 }

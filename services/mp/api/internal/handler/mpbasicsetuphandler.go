@@ -19,10 +19,10 @@ func MPBasicSetupHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 
 		l := logic.NewMPBasicSetupLogic(r.Context(), svcCtx)
 		resp, err := l.MPBasicSetup(req)
-		if err != nil || resp == nil {
+		if err != nil {
 			httpx.OkJson(w, "token illegal")
 			return
 		}
-		httpx.OkJson(w, req.EchoStr)
+		httpx.OkJson(w, resp.Reply)
 	}
 }
