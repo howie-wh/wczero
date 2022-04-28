@@ -7,7 +7,7 @@ Auth:
   AccessExpire: 604800
 
 MP:
-  token: uOvKLmVfztaXGpNYd4Z0I1SiT7MweJhl
+  Token: uOvKLmVfztaXGpNYd4Z0I1SiT7MweJhl
 
 WallPaperRpc:
   Etcd:
