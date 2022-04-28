@@ -41,3 +41,13 @@ type AdminUserInfoResponse struct {
 	Gender int64  `json:"gender"`
 	Mobile string `json:"mobile"`
 }
+
+type QINIUUploadTokenRequest struct {
+}
+
+type QINIUUploadTokenResponse struct {
+	UploadToken string `json:"uploadToken"`
+	Domain      string `json:"domain"`
+	Zone        string `json:"zone"`
+	Desc        string `json:"desc"`
+}

@@ -16,4 +16,8 @@ type Config struct {
 	Salt       string
 	AppSecret  string
 	Log        logx.LogConf
+	QiNiu      struct {
+		Domain string
+		Zone   string
+	}
 }

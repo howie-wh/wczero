@@ -50,10 +50,20 @@ message AdminUserInfoResponse {
   string Mobile = 4;
 }
 
+message QINIUUploadTokenRequest {}
+message QINIUUploadTokenResponse {
+  string Domain = 1;
+  string Zone = 2;
+  string UploadToken = 3;
+  string Desc = 4;
+}
+
 service User {
   rpc WeChatLogin(WeChatLoginRequest) returns(WeChatLoginResponse);
 
   rpc AdminLogin(AdminLoginRequest) returns(AdminLoginResponse);
   rpc AdminRegister(AdminRegisterRequest) returns(AdminRegisterResponse);
   rpc AdminUserInfo(AdminUserInfoRequest) returns(AdminUserInfoResponse);
+
+  rpc QINIUUploadToken(QINIUUploadTokenRequest) returns(QINIUUploadTokenResponse);
 }

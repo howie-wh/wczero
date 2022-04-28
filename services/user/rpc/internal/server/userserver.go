@@ -41,3 +41,8 @@ func (s *UserServer) AdminUserInfo(ctx context.Context, in *user.AdminUserInfoRe
 	l := logic.NewAdminUserInfoLogic(ctx, s.svcCtx)
 	return l.AdminUserInfo(in)
 }
+
+func (s *UserServer) QINIUUploadToken(ctx context.Context, in *user.QINIUUploadTokenRequest) (*user.QINIUUploadTokenResponse, error) {
+	l := logic.NewQINIUUploadTokenLogic(ctx, s.svcCtx)
+	return l.QINIUUploadToken(in)
+}
