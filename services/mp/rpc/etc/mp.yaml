@@ -1,5 +1,5 @@
 Name: mp.rpc
-ListenOn: 127.0.0.1:9002
+ListenOn: 0.0.0.0:9002
 Etcd:
   Hosts:
     - etcd:2379
@@ -7,7 +7,7 @@ Etcd:
 
 Mysql:
   DataSource: root:123456@tcp(mysql:3306)/wczero?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
-  Table: wallpaper
+  Table: mp_tab
 
 CacheRedis:
   - Host: redis:6379
