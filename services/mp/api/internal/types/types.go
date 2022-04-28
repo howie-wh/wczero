@@ -2,10 +2,10 @@
 package types
 
 type MPBasicSetupRequest struct {
-	Signature string `json:"signature"`
-	Timestamp string `json:"timestamp"`
-	Nonce     string `json:"nonce"`
-	EchoStr   string `json:"echostr"`
+	Signature string `form:"signature"`
+	Timestamp string `form:"timestamp"`
+	Nonce     string `form:"nonce"`
+	EchoStr   string `form:"echostr"`
 }
 
 type MPBasicSetupResponse struct {

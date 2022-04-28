@@ -50,7 +50,7 @@ type (
 )
 
 type (
-	QINIUUploadTokenRequest  struct{}
+	QINIUUploadTokenRequest {}
 	QINIUUploadTokenResponse {
 		Domain      string `json:"domain"`
 		Zone        string `json:"zone"`
