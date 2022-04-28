@@ -5,7 +5,7 @@ set -eu
 build_server() {
   echo "build_server start..."
   export GO111MODULE=on
-  go mod tidy
+  # go mod tidy
   # go mod vendor
 
   go build -o bin/user-rpc services/user/rpc/user.go
