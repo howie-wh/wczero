@@ -43,7 +43,7 @@ func MPTextMsgHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		logx.Infof("req body: %v\n", body)
+		logx.Infof("req body: %v\n", string(body))
 		logx.Infof("[消息接收] - 收到消息, 消息类型为: %s, 消息内容为: %v\n", req.MsgType, req)
 
 		l := logic.NewMPTextMsgLogic(r.Context(), svcCtx)
@@ -54,19 +54,20 @@ func MPTextMsgHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		msgResp := &MPReplyTextMsg{
+		msgResp := MPReplyTextMsg{
 			ToUserName:   resp.ToUserName,
 			FromUserName: resp.FromUserName,
 			CreateTime:   resp.CreateTime,
 			MsgType:      resp.MsgType,
 			Content:      resp.Content,
 		}
-		msg, err := xml.Marshal(msgResp)
+		msg, err := xml.Marshal(&msgResp)
 		if err != nil {
 			logx.Errorf("xml marshal err: %v\n", err)
 			httpx.Error(w, err)
 			return
 		}
+		logx.Infof("resp body: %v\n", string(msg))
 		httpx.OkJson(w, msg)
 	}
 }
