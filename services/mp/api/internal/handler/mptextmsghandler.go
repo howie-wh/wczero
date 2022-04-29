@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/xml"
+	"fmt"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest/httpx"
 	"io/ioutil"
@@ -21,7 +22,8 @@ type MPReplyTextMsg struct {
 	XMLName xml.Name `xml:"xml"`
 }
 
-//var XmlForm = "<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%d</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>"
+// XmlForm var XmlForm = "<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%d</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>"
+var XmlForm = "<xml>\n  <ToUserName><![CDATA[%s]]></ToUserName>\n  <FromUserName><![CDATA[%s]]></FromUserName>\n  <CreateTime>%d</CreateTime>\n  <MsgType><![CDATA[%s]]></MsgType>\n  <Content><![CDATA[%s]]></Content>\n</xml>\n"
 
 func MPTextMsgHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -55,21 +57,21 @@ func MPTextMsgHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			httpx.Error(w, err)
 			return
 		}
-
-		msgResp := MPReplyTextMsg{
-			ToUserName:   resp.ToUserName,
-			FromUserName: resp.FromUserName,
-			CreateTime:   resp.CreateTime,
-			MsgType:      resp.MsgType,
-			Content:      resp.Content,
-		}
-		msg, err := xml.Marshal(&msgResp)
-		if err != nil {
-			logx.Errorf("xml marshal err: %v\n", err)
-			httpx.Error(w, err)
-			return
-		}
-		//msg := fmt.Sprintf(XmlForm, resp.ToUserName, resp.FromUserName, resp.CreateTime, resp.MsgType, resp.Content)
+		/*
+			msgResp := MPReplyTextMsg{
+				ToUserName:   resp.ToUserName,
+				FromUserName: resp.FromUserName,
+				CreateTime:   resp.CreateTime,
+				MsgType:      resp.MsgType,
+				Content:      resp.Content,
+			}
+			msg, err := xml.Marshal(&msgResp)
+			if err != nil {
+				logx.Errorf("xml marshal err: %v\n", err)
+				httpx.Error(w, err)
+				return
+			}*/
+		msg := fmt.Sprintf(XmlForm, resp.ToUserName, resp.FromUserName, resp.CreateTime, resp.MsgType, resp.Content)
 		logx.Infof("resp body: %v\n", string(msg))
 		httpx.OkJson(w, string(msg))
 	}
