@@ -22,7 +22,8 @@ class Handle(object):
             list = [token, timestamp, nonce]
             list.sort()
             sha1 = hashlib.sha1()
-            map(sha1.update, list)
+            # map(sha1.update, list)
+            sha1.update("".join(list).encode('utf-8'))
             hashcode = sha1.hexdigest()
             print("handle/GET func: hashcode, signature: ", hashcode, signature)
             if hashcode == signature:
@@ -35,7 +36,7 @@ class Handle(object):
     def POST(self):
         try:
             webData = web.data()
-            print "Handle Post webdata is ", webData
+            print("Handle Post webdata is ", webData)
             #后台打日志
             recMsg = receive.parse_xml(webData)
             if isinstance(recMsg, receive.Msg) and recMsg.MsgType == 'text':
@@ -45,7 +46,7 @@ class Handle(object):
                 replyMsg = reply.TextMsg(toUser, fromUser, content)
                 return replyMsg.send()
             else:
-                print "暂且不处理"
+                print("暂且不处理")
                 return "success"
-        except Exception, Argment:
+        except Exception as Argment:
             return Argment
