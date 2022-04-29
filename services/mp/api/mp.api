@@ -12,10 +12,10 @@ type (
 		Signature string `form:"signature"`
 		Timestamp string `form:"timestamp"`
 		Nonce     string `form:"nonce"`
-		EchoStr   int64  `form:"echostr"`
+		EchoStr   string `form:"echostr"`
 	}
 	MPBasicSetupResponse {
-		Reply int64 `json:"reply"`
+		Reply string `json:"reply"`
 	}
 
 	MPTextMsgRequest {

@@ -3,7 +3,7 @@ package handler
 import (
 	"net/http"
 
-	"github.com/zeromicro/go-zero/rest/httpx"
+	"wczero/common/httpx"
 	"wczero/services/mp/api/internal/logic"
 	"wczero/services/mp/api/internal/svc"
 	"wczero/services/mp/api/internal/types"
@@ -20,9 +20,9 @@ func MPBasicSetupHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		l := logic.NewMPBasicSetupLogic(r.Context(), svcCtx)
 		resp, err := l.MPBasicSetup(req)
 		if err != nil {
-			httpx.OkJson(w, "token illegal")
+			httpx.OkRaw(w, []byte("token illegal"))
 			return
 		}
-		httpx.OkJson(w, resp.Reply)
+		httpx.OkRaw(w, []byte(resp.Reply))
 	}
 }

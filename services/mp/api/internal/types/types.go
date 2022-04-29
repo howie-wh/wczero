@@ -5,11 +5,11 @@ type MPBasicSetupRequest struct {
 	Signature string `form:"signature"`
 	Timestamp string `form:"timestamp"`
 	Nonce     string `form:"nonce"`
-	EchoStr   int64  `form:"echostr"`
+	EchoStr   string `form:"echostr"`
 }
 
 type MPBasicSetupResponse struct {
-	Reply int64 `json:"reply"`
+	Reply string `json:"reply"`
 }
 
 type MPTextMsgRequest struct {
