@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest/httpx"
+	"io/ioutil"
 	"net/http"
 	"wczero/services/mp/api/internal/logic"
 	"wczero/services/mp/api/internal/svc"
@@ -29,7 +30,20 @@ func MPTextMsgHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		logx.Infof("req body: %v\n", r.Body)
+		body, err := ioutil.ReadAll(r.Body)
+		if err != nil {
+			logx.Errorf("read body err: %v\n", err)
+			httpx.Error(w, err)
+			return
+		}
+		err = xml.Unmarshal(body, &req)
+		if err != nil {
+			logx.Errorf("body Unmarshal err: %v\n", err)
+			httpx.Error(w, err)
+			return
+		}
+
+		logx.Infof("req body: %v\n", body)
 		logx.Infof("[消息接收] - 收到消息, 消息类型为: %s, 消息内容为: %v\n", req.MsgType, req)
 
 		l := logic.NewMPTextMsgLogic(r.Context(), svcCtx)
