@@ -27,8 +27,8 @@ func NewMPTextMsgLogic(ctx context.Context, svcCtx *svc.ServiceContext) MPTextMs
 
 func (l *MPTextMsgLogic) MPTextMsg(req types.MPTextMsgRequest) (*types.MPTextMsgResponse, error) {
 	resp := &types.MPTextMsgResponse{
-		ToUserName:   req.ToUserName,
-		FromUserName: req.FromUserName,
+		ToUserName:   req.FromUserName,
+		FromUserName: req.ToUserName,
 		CreateTime:   time.Now().Unix(),
 		MsgType:      "text",
 		Content:      fmt.Sprintf("[消息回复] - %s", time.Now().Format("2006-01-02 15:04:05")),
