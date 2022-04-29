@@ -25,6 +25,8 @@ func main() {
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
 	logx.MustSetup(c.Log)
+	defer logx.Close()
+
 	ctx := svc.NewServiceContext(c)
 	srv := server.NewWallpaperServer(ctx)
 

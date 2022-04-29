@@ -17,10 +17,30 @@ type (
 	MPBasicSetupResponse {
 		Reply int64 `json:"reply"`
 	}
+
+	MPTextMsgRequest {
+		ToUserName   string `xml:"ToUserName"`
+		FromUserName string `xml:"FromUserName"`
+		CreateTime   int64  `xml:"CreateTime"`
+		MsgType      string `xml:"MsgType"`
+		Content      string `xml:"Content"`
+		MsgId        int64  `xml:"MsgId"`
+	}
+	MPTextMsgResponse {
+		ToUserName   string `xml:"ToUserName"`
+		FromUserName string `xml:"FromUserName"`
+		CreateTime   int64  `xml:"CreateTime"`
+		MsgType      string `xml:"MsgType"`
+		Content      string `xml:"Content"`
+	}
 )
 
 service mp-api {
 	@doc "MPBasicSetup"
 	@handler MPBasicSetup
-	get /api/v1/mp/basic_setup(MPBasicSetupRequest) returns(MPBasicSetupResponse)
+	get /api/v1/mp(MPBasicSetupRequest) returns(MPBasicSetupResponse)
+	
+	@doc "MPTextMsg"
+	@handler MPTextMsg
+	post /api/v1/mp(MPTextMsgRequest) returns(MPTextMsgResponse)
 }

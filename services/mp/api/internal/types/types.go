@@ -11,3 +11,20 @@ type MPBasicSetupRequest struct {
 type MPBasicSetupResponse struct {
 	Reply int64 `json:"reply"`
 }
+
+type MPTextMsgRequest struct {
+	ToUserName   string `xml:"ToUserName"`
+	FromUserName string `xml:"FromUserName"`
+	CreateTime   int64  `xml:"CreateTime"`
+	MsgType      string `xml:"MsgType"`
+	Content      string `xml:"Content"`
+	MsgId        int64  `xml:"MsgId"`
+}
+
+type MPTextMsgResponse struct {
+	ToUserName   string `xml:"ToUserName"`
+	FromUserName string `xml:"FromUserName"`
+	CreateTime   int64  `xml:"CreateTime"`
+	MsgType      string `xml:"MsgType"`
+	Content      string `xml:"Content"`
+}

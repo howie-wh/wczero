@@ -14,8 +14,13 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		[]rest.Route{
 			{
 				Method:  http.MethodGet,
-				Path:    "/api/v1/mp/basic_setup",
+				Path:    "/api/v1/mp",
 				Handler: MPBasicSetupHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/v1/mp",
+				Handler: MPTextMsgHandler(serverCtx),
 			},
 		},
 	)
