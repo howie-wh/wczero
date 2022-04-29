@@ -29,6 +29,8 @@ func MPTextMsgHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
+		logx.Infof("[消息接收] - 收到消息, 消息类型为: %s, 消息内容为: %v\n", req.MsgType, req)
+
 		l := logic.NewMPTextMsgLogic(r.Context(), svcCtx)
 		resp, err := l.MPTextMsg(req)
 		if err != nil {
