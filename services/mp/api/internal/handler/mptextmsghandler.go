@@ -24,7 +24,7 @@ type MPReplyTextMsg struct {
 }
 */
 
-var XmlForm = "<xml><ToUserName><![CDATA[{%s}]]></ToUserName><FromUserName><![CDATA[{%s}]]></FromUserName><CreateTime>{%d}</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[{%s}]]></Content></xml>"
+var XmlForm = "<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%d</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>"
 
 func MPTextMsgHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
