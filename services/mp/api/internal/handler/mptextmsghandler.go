@@ -71,6 +71,6 @@ func MPTextMsgHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		}
 		//msg := fmt.Sprintf(XmlForm, resp.ToUserName, resp.FromUserName, resp.CreateTime, resp.MsgType, resp.Content)
 		logx.Infof("resp body: %v\n", string(msg))
-		httpx.OkJson(w, msg)
+		httpx.OkJson(w, string(msg))
 	}
 }
