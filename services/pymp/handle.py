@@ -44,7 +44,10 @@ class Handle(object):
                 fromUser = recMsg.ToUserName
                 content = "[消息回复]: 测试..."
                 replyMsg = reply.TextMsg(toUser, fromUser, content)
-                return replyMsg.send()
+                replyText = replyMsg.send()
+                print(type(replyText))
+                print(replyText)
+                return replyText
             else:
                 print("暂且不处理")
                 return "success"
