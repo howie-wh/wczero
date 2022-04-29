@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/xml"
+	"fmt"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest/httpx"
 	"io/ioutil"
@@ -11,6 +12,7 @@ import (
 	"wczero/services/mp/api/internal/types"
 )
 
+/*
 type MPReplyTextMsg struct {
 	ToUserName   string `xml:"ToUserName"`
 	FromUserName string `xml:"FromUserName"`
@@ -20,6 +22,9 @@ type MPReplyTextMsg struct {
 	// 若不标记XMLName, 则解析后的xml名为该结构体的名称
 	XMLName xml.Name `xml:"xml"`
 }
+*/
+
+var XmlForm = "<xml><ToUserName><![CDATA[{%s}]]></ToUserName><FromUserName><![CDATA[{%s}]]></FromUserName><CreateTime>{%d}</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[{%s}]]></Content></xml>"
 
 func MPTextMsgHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -54,7 +59,7 @@ func MPTextMsgHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		msgResp := MPReplyTextMsg{
+		/*msgResp := MPReplyTextMsg{
 			ToUserName:   resp.ToUserName,
 			FromUserName: resp.FromUserName,
 			CreateTime:   resp.CreateTime,
@@ -66,7 +71,8 @@ func MPTextMsgHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			logx.Errorf("xml marshal err: %v\n", err)
 			httpx.Error(w, err)
 			return
-		}
+		}*/
+		msg := fmt.Sprintf(XmlForm, resp.ToUserName, resp.FromUserName, resp.CreateTime, resp.MsgType, resp.Content)
 		logx.Infof("resp body: %v\n", string(msg))
 		httpx.OkJson(w, msg)
 	}
