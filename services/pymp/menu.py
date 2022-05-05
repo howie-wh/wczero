@@ -68,7 +68,6 @@ if __name__ == '__main__':
     }
     """
     # accessToken = Basic().get_access_token()
-    accessToken = "56_NM67bYcQ_Bnv4b2U0B-fiDtzlNbiakApR-DkHQoo_tKCxR2ac3tTMdnptf8WW9DsLlVQmfXfuhDqQAlnFpxVJv0KW5vj_" \
-                  "SfURUQE3fcUe9ztjK5I1Z7TsrB32lpBJXNMTcQ8GOE9Ck7nR91EOYPbADAGQH"
+    accessToken = "56_uoaBK7JQNnqzuvICJUsqrdQUOEP2i3hI0_5hT3oF1fcpNphizV9l_qo427xalWy4RDTwrJnq1K1-TwzqYUiblAJQSudmjge0Zmf7jg_Yb-82fWv-TWA4PrYXNgKJVnP_nHbwxYxYTddO11ErSBBbAAAWFF"
     # myMenu.delete(accessToken)
     myMenu.create(postJson, accessToken)
