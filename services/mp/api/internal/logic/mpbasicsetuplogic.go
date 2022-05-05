@@ -37,7 +37,7 @@ func (l *MPBasicSetupLogic) MPBasicSetup(req types.MPBasicSetupRequest) (resp *t
 	hashCode := h.Sum(nil)
 	signature := fmt.Sprintf("%x", hashCode)
 
-	var reply int64
+	var reply string
 	if signature == req.Signature {
 		reply = req.EchoStr
 	}
