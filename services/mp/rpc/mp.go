@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/zeromicro/go-zero/core/logx"
 
 	"wczero/services/mp/rpc/internal/config"
 	"wczero/services/mp/rpc/internal/server"
@@ -23,6 +24,9 @@ func main() {
 
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
+	logx.MustSetup(c.Log)
+	defer logx.Close()
+
 	ctx := svc.NewServiceContext(c)
 	srv := server.NewMPServer(ctx)
 
