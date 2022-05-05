@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/xml"
+	"github.com/zeromicro/go-zero/core/logx"
 	"net/http"
 	"wczero/common/httpx"
 	"wczero/services/mp/api/internal/logic"
@@ -27,6 +28,7 @@ func MPTextMsgHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
+		logx.Infof("MPTextMsgRequest: %v\n", req)
 		l := logic.NewMPTextMsgLogic(r.Context(), svcCtx)
 		resp, err := l.MPTextMsg(req)
 		if err != nil {

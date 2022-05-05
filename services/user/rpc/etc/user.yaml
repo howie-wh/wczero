@@ -24,6 +24,7 @@ QiNiu:
 
 Log:
   Mode: file
+  Path: logs/rpc_user
 
 Prometheus:
   Host: 0.0.0.0

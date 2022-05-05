@@ -16,6 +16,7 @@ CacheRedis:
 
 Log:
   Mode: file
+  Path: logs/rpc_wallpaper
 
 Prometheus:
   Host: 0.0.0.0

@@ -14,6 +14,7 @@ WallPaperRpc:
 
 Log:
   Mode: file
+  Path: logs/api_wallpaper
 
 Prometheus:
   Host: 0.0.0.0

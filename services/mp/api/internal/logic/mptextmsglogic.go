@@ -32,7 +32,7 @@ func (l *MPTextMsgLogic) MPTextMsg(req types.MPTextMsgRequest) (*types.MPTextMsg
 		Content:      req.Content,
 		MsgId:        req.MsgId,
 	})
-	logx.Info(resp)
+	logx.Infof("MPTextMsg: %v\n", resp)
 	if err != nil {
 		return nil, err
 	}
