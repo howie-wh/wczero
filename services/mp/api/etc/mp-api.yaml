@@ -19,6 +19,7 @@ MPRpc:
 
 Log:
   Mode: file
+  Path: logs/api_mp
 
 Prometheus:
   Host: 0.0.0.0
