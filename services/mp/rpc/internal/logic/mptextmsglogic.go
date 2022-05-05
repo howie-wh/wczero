@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	_defaultTextMsgReply = fmt.Sprintf("[消息回复] - %s", time.Now().Format("2006-01-02 15:04:05"))
+	_defaultTextMsgReply = fmt.Sprintf("山川壁纸，就是牛...")
 	_textMsgType         = "text"
 	_textContextLen      = 4
 )
@@ -59,7 +59,6 @@ func (l *MPTextMsgLogic) MPTextMsg(in *mp.MPTextMsgRequest) (*mp.MPTextMsgRespon
 		return &resp, nil
 	}
 
-	logx.Info(respWallpaper.ImageUrl)
 	resp.Content = respWallpaper.ImageUrl
 	return &resp, nil
 }
