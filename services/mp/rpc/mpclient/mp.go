@@ -13,11 +13,11 @@ import (
 )
 
 type (
-	Request  = mp.Request
-	Response = mp.Response
+	MPTextMsgRequest  = mp.MPTextMsgRequest
+	MPTextMsgResponse = mp.MPTextMsgResponse
 
 	MP interface {
-		Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+		MPTextMsg(ctx context.Context, in *MPTextMsgRequest, opts ...grpc.CallOption) (*MPTextMsgResponse, error)
 	}
 
 	defaultMP struct {
@@ -31,7 +31,7 @@ func NewMP(cli zrpc.Client) MP {
 	}
 }
 
-func (m *defaultMP) Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
+func (m *defaultMP) MPTextMsg(ctx context.Context, in *MPTextMsgRequest, opts ...grpc.CallOption) (*MPTextMsgResponse, error) {
 	client := mp.NewMPClient(m.cli.Conn())
-	return client.Ping(ctx, in, opts...)
+	return client.MPTextMsg(ctx, in, opts...)
 }

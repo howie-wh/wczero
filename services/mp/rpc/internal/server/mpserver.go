@@ -22,7 +22,7 @@ func NewMPServer(svcCtx *svc.ServiceContext) *MPServer {
 	}
 }
 
-func (s *MPServer) Ping(ctx context.Context, in *mp.Request) (*mp.Response, error) {
-	l := logic.NewPingLogic(ctx, s.svcCtx)
-	return l.Ping(in)
+func (s *MPServer) MPTextMsg(ctx context.Context, in *mp.MPTextMsgRequest) (*mp.MPTextMsgResponse, error) {
+	l := logic.NewMPTextMsgLogic(ctx, s.svcCtx)
+	return l.MPTextMsg(in)
 }

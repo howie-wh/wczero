@@ -2,14 +2,23 @@ syntax = "proto3";
 
 package mp;
 
-message Request {
-  string ping = 1;
+message MPTextMsgRequest {
+  string ToUserName = 1;
+  string FromUserName = 2;
+  int64 CreateTime = 3;
+  string MsgType = 4;
+  string Content = 5;
+  int64 MsgId = 6;
 }
 
-message Response {
-  string pong = 1;
+message MPTextMsgResponse {
+  string ToUserName = 1;
+  string FromUserName = 2;
+  int64 CreateTime = 3;
+  string MsgType = 4;
+  string Content = 5;
 }
 
 service MP {
-  rpc Ping(Request) returns(Response);
+  rpc MPTextMsg(MPTextMsgRequest) returns(MPTextMsgResponse);
 }

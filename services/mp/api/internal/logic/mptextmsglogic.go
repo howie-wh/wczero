@@ -2,11 +2,9 @@ package logic
 
 import (
 	"context"
-	"fmt"
-	"time"
-
 	"wczero/services/mp/api/internal/svc"
 	"wczero/services/mp/api/internal/types"
+	"wczero/services/mp/rpc/mp"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -26,12 +24,24 @@ func NewMPTextMsgLogic(ctx context.Context, svcCtx *svc.ServiceContext) MPTextMs
 }
 
 func (l *MPTextMsgLogic) MPTextMsg(req types.MPTextMsgRequest) (*types.MPTextMsgResponse, error) {
-	resp := types.MPTextMsgResponse{
-		ToUserName:   req.FromUserName,
-		FromUserName: req.ToUserName,
-		CreateTime:   time.Now().Unix(),
-		MsgType:      "text",
-		Content:      fmt.Sprintf("[消息回复] - %s", time.Now().Format("2006-01-02 15:04:05")),
+	resp, err := l.svcCtx.MP.MPTextMsg(l.ctx, &mp.MPTextMsgRequest{
+		ToUserName:   req.ToUserName,
+		FromUserName: req.FromUserName,
+		CreateTime:   req.CreateTime,
+		MsgType:      req.MsgType,
+		Content:      req.Content,
+		MsgId:        req.MsgId,
+	})
+	if err != nil {
+		return nil, err
 	}
-	return &resp, nil
+
+	apiResp := types.MPTextMsgResponse{
+		ToUserName:   resp.ToUserName,
+		FromUserName: resp.FromUserName,
+		CreateTime:   resp.CreateTime,
+		MsgType:      resp.MsgType,
+		Content:      resp.Content,
+	}
+	return &apiResp, nil
 }
