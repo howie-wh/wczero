@@ -63,11 +63,6 @@ if __name__ == '__main__':
                         "url": "http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433747234&token=&lang=zh_CN"
                     }
                 ]
-            },
-            {
-                "type": "media_id",
-                "name": "旅行",
-                "media_id": "zb6fUdj9YlMEkwnSFvZMhcYRk7gIDrCJOPWT0FmvaPnjxVHcOOb1cIfqM1kSoeKm"
             }
           ]
     }
