@@ -37,6 +37,7 @@ type (
 	}
 	NoCacheWallpaperTabModel interface {
 		BulkInsert(data []*WallpaperTab) error
+		GetTableCount() (int64, error)
 	}
 
 	defaultWallpaperTabModel struct {
@@ -203,10 +204,10 @@ func (m *defaultWallpaperTabModel) queryPrimary(conn sqlx.SqlConn, v, primary in
 	return conn.QueryRow(v, query, primary)
 }
 
-func (m *defaultWallpaperTabModel) getTableCount() (int64, error) {
+func (m *noCacheWallpaperTabModel) GetTableCount() (int64, error) {
 	var resp int64
-	query := fmt.Sprintf("select count(*) from %s", m.table)
-	err := m.QueryRowsNoCache(&resp, query)
+	query := fmt.Sprintf("select count(1) from %s", m.table)
+	err := m.QueryRow(&resp, query)
 	switch err {
 	case nil:
 		return resp, nil
