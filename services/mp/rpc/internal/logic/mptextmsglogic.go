@@ -59,6 +59,7 @@ func (l *MPTextMsgLogic) MPTextMsg(in *mp.MPTextMsgRequest) (*mp.MPTextMsgRespon
 		return &resp, nil
 	}
 
+	logx.Info(respWallpaper.ImageUrl)
 	resp.Content = respWallpaper.ImageUrl
 	return &resp, nil
 }

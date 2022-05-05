@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"github.com/zeromicro/go-zero/core/logx"
 	"wczero/services/mp/api/internal/config"
 	"wczero/services/mp/api/internal/handler"
@@ -28,6 +27,7 @@ func main() {
 
 	handler.RegisterHandlers(server, ctx)
 
-	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)
+	// fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)
+	logx.Infof("Starting server at %s:%d...\n", c.Host, c.Port)
 	server.Start()
 }
