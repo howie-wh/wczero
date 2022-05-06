@@ -128,7 +128,7 @@ func (m *defaultWallpaperCategoryTabModel) Delete(id int64) error {
 func (m *defaultWallpaperCategoryTabModel) GetTableCount() (int64, error) {
 	var resp int64
 	query := fmt.Sprintf("select count(1) from %s", m.table)
-	err := m.QueryRowsNoCache(&resp, query)
+	err := m.QueryRowNoCache(&resp, query)
 	switch err {
 	case nil:
 		return resp, nil
