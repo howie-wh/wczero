@@ -58,7 +58,7 @@ func (l *ImportLogic) Import(in *wallpaper.ImportRequest) (*wallpaper.ImportResp
 		tab := &model.WallpaperTab{
 			Wid:      wp.Wid,
 			Name:     wp.Name,
-			Tp:       wp.Type,
+			Tp:       wp.Tp,
 			Category: wp.Category,
 			ImageUrl: wp.ImageURL,
 			Author:   wp.Author,
