@@ -5,7 +5,7 @@ package wallpaper;
 message WallPaperInfo {
   string  Wid = 1;
   string  Name = 2;
-  string  Type = 3;
+  string  Tp = 3;
   string  Category = 4;
   string  ImageURL = 5;
   string  Author = 6;
@@ -33,7 +33,7 @@ message DetailRequest {
 message DetailResponse {
   string  Wid = 1;
   string  Name = 2;
-  string  Type = 3;
+  string  Tp = 3;
   string  Category = 4;
   string  ImageURL = 5;
   string  Author = 6;
