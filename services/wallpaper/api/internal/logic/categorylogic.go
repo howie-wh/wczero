@@ -25,11 +25,13 @@ func NewCategoryLogic(ctx context.Context, svcCtx *svc.ServiceContext) CategoryL
 }
 
 func (l *CategoryLogic) Category(req types.CategoryRequest) (*types.CategoryResponse, error) {
+	logx.Infof("CategoryRequest : %v\n", req)
 	resp, err := l.svcCtx.WallPaper.Category(l.ctx, &wallpaper.CategoryRequest{
 		Start: req.Start,
 		Limit: req.Limit,
 	})
 	if err != nil {
+		logx.Errorf("get Category, err:%v\n", err)
 		return nil, err
 	}
 

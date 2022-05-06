@@ -25,10 +25,12 @@ func NewCategoryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Category
 func (l *CategoryLogic) Category(in *wallpaper.CategoryRequest) (*wallpaper.CategoryResponse, error) {
 	cList, cTotal, err := l.svcCtx.CategoryModel.FindList(in.Start, in.Limit)
 	if err != nil {
+		logx.Errorf("find category list error: %v\n", err)
 		return nil, err
 	}
 	tList, tTotal, err := l.svcCtx.TypeModel.FindList(in.Start, in.Limit)
 	if err != nil {
+		logx.Errorf("find type list error: %v\n", err)
 		return nil, err
 	}
 
@@ -42,5 +44,6 @@ func (l *CategoryLogic) Category(in *wallpaper.CategoryRequest) (*wallpaper.Cate
 	resp.CategoryTotal = cTotal
 	resp.TpTotal = tTotal
 
+	logx.Infof("Category Response: %v\n", resp)
 	return &resp, nil
 }
