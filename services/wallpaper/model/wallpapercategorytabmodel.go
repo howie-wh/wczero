@@ -3,6 +3,7 @@ package model
 import (
 	"database/sql"
 	"fmt"
+	"github.com/zeromicro/go-zero/core/logx"
 	"strings"
 
 	"github.com/zeromicro/go-zero/core/stores/builder"
@@ -100,6 +101,7 @@ func (m *defaultWallpaperCategoryTabModel) FindList(start, limit int64) ([]*Wall
 	case sqlc.ErrNotFound:
 		return nil, 0, ErrNotFound
 	default:
+		logx.Errorf("FindList, err: %v\n", err)
 		return nil, 0, err
 	}
 }
@@ -126,13 +128,14 @@ func (m *defaultWallpaperCategoryTabModel) Delete(id int64) error {
 func (m *defaultWallpaperCategoryTabModel) GetTableCount() (int64, error) {
 	var resp int64
 	query := fmt.Sprintf("select count(1) from %s", m.table)
-	err := m.QueryRowNoCache(&resp, query)
+	err := m.QueryRowsNoCache(&resp, query)
 	switch err {
 	case nil:
 		return resp, nil
 	case sqlc.ErrNotFound:
 		return 0, ErrNotFound
 	default:
+		logx.Errorf("GetTableCount, err: %v\n", err)
 		return 0, err
 	}
 }

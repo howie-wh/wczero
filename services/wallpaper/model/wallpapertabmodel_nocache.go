@@ -2,6 +2,7 @@ package model
 
 import (
 	"fmt"
+	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/sqlc"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
 )
@@ -57,6 +58,7 @@ func (m *noCacheWallpaperTabModel) FindList(start, limit int64) ([]*WallpaperTab
 	case sqlc.ErrNotFound:
 		return nil, 0, ErrNotFound
 	default:
+		logx.Errorf("FindList, err: %v\n", err)
 		return nil, 0, err
 	}
 }
@@ -64,13 +66,14 @@ func (m *noCacheWallpaperTabModel) FindList(start, limit int64) ([]*WallpaperTab
 func (m *noCacheWallpaperTabModel) GetTableCount() (int64, error) {
 	var resp int64
 	query := fmt.Sprintf("select count(1) from %s", m.table)
-	err := m.QueryRow(&resp, query)
+	err := m.QueryRows(&resp, query)
 	switch err {
 	case nil:
 		return resp, nil
 	case sqlc.ErrNotFound:
 		return 0, ErrNotFound
 	default:
+		logx.Errorf("GetTableCount, err: %v\n", err)
 		return 0, err
 	}
 }
@@ -78,13 +81,14 @@ func (m *noCacheWallpaperTabModel) GetTableCount() (int64, error) {
 func (m *noCacheWallpaperTabModel) GetTableMaxID() (int64, error) {
 	var resp int64
 	query := fmt.Sprintf("select coalesce(max(id), 0) from %s", m.table)
-	err := m.QueryRow(&resp, query)
+	err := m.QueryRows(&resp, query)
 	switch err {
 	case nil:
 		return resp, nil
 	case sqlc.ErrNotFound:
 		return 0, ErrNotFound
 	default:
+		logx.Errorf("GetTableMaxID, err: %v\n", err)
 		return 0, err
 	}
 }
