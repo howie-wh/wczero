@@ -41,7 +41,7 @@ type (
 		Id         int64  `db:"id"`          // id
 		Wid        string `db:"wid"`         // wallpaper id
 		Name       string `db:"name"`        // name
-		Tp         string `db:"type"`        // type
+		Tp         string `db:"tp"`          // type
 		Category   string `db:"category"`    // category
 		ImageUrl   string `db:"image_url"`   // image url
 		Author     string `db:"author"`      // author
