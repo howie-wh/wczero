@@ -37,7 +37,7 @@ type (
 
 	WallpaperTypeTab struct {
 		Id         int64  `db:"id"`          // id
-		Tp         string `db:"type"`        // type
+		Tp         string `db:"tp"`          // tp
 		Desc       string `db:"desc"`        // desc
 		DelFlag    string `db:"del_flag"`    // del flag（0-normal 1-delete)
 		CreateTime int64  `db:"create_time"` // create time

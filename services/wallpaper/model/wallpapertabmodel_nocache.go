@@ -77,7 +77,7 @@ func (m *noCacheWallpaperTabModel) GetTableCount() (int64, error) {
 
 func (m *noCacheWallpaperTabModel) GetTableMaxID() (int64, error) {
 	var resp int64
-	query := fmt.Sprintf("select max(id) from %s", m.table)
+	query := fmt.Sprintf("select coalesce(max(id), 0) from %s", m.table)
 	err := m.QueryRow(&resp, query)
 	switch err {
 	case nil:

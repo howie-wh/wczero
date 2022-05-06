@@ -41,6 +41,24 @@ CREATE TABLE `wallpaper_category_tab` (
      `update_time` bigint unsigned NOT NULL DEFAULT 0 COMMENT 'update time',
      PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='wallpaper category table';
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('治愈', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('科技', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('风景', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('人物', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('游戏', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('汽车', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('艺术', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('文字', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('宠物', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('机车', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('创意', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('插画', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('运动', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('城市', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('情侣', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('明星', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('星空', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('动漫', '', 0, unix_timestamp(now()), unix_timestamp(now()));
 
 -- ----------------------------
 -- Table structure for wallpaper_type_tab
@@ -48,13 +66,18 @@ CREATE TABLE `wallpaper_category_tab` (
 DROP TABLE IF EXISTS `wallpaper_type_tab`;
 CREATE TABLE `wallpaper_type_tab` (
     `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `type` varchar(128) NOT NULL DEFAULT '' COMMENT 'type',
+    `tp` varchar(128) NOT NULL DEFAULT '' COMMENT 'tp',
     `desc` varchar(512) NOT NULL DEFAULT '' COMMENT 'desc',
     `del_flag` char(1) NOT NULL DEFAULT '0' COMMENT 'del flag（0-normal 1-delete)',
     `create_time` bigint unsigned NOT NULL DEFAULT 0 COMMENT 'create time',
     `update_time` bigint unsigned NOT NULL DEFAULT 0 COMMENT 'update time',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='wallpaper type table';
+insert into wallpaper_type_tab (tp, `desc`, del_flag, create_time, update_time) VALUES ('手机壁纸', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_type_tab (tp, `desc`, del_flag, create_time, update_time) VALUES ('动态壁纸', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_type_tab (tp, `desc`, del_flag, create_time, update_time) VALUES ('背景图', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_type_tab (tp, `desc`, del_flag, create_time, update_time) VALUES ('头像', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_type_tab (tp, `desc`, del_flag, create_time, update_time) VALUES ('表情包', '', 0, unix_timestamp(now()), unix_timestamp(now()));
 
 BEGIN;
 COMMIT;
