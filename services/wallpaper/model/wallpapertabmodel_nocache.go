@@ -48,12 +48,12 @@ func (m *noCacheWallpaperTabModel) FindList(start, limit int64) ([]*WallpaperTab
 	err := m.QueryRow(&resp, query, start, limit)
 	switch err {
 	case nil:
-		var total int64
-		total, err = m.GetTableCount()
-		if err != nil {
-			return nil, 0, err
-		}
-		return resp, total, nil
+		//var total int64
+		//total, err = m.GetTableCount()
+		//if err != nil {
+		//	return nil, 0, err
+		//}
+		return resp, 0, nil
 	case sqlc.ErrNotFound:
 		return nil, 0, ErrNotFound
 	default:

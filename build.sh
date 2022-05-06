@@ -7,6 +7,7 @@ build_server() {
   export GO111MODULE=on
   # go mod tidy
   # go mod vendor
+  rm -rf bin/
 
   go build -o bin/user-rpc services/user/rpc/user.go
   go build -o bin/user-api services/user/api/user.go
