@@ -5,10 +5,11 @@ package wallpaper;
 message WallPaperInfo {
   string  Wid = 1;
   string  Name = 2;
-  string  Category = 3;
-  string  ImageURL = 4;
-  string  Author = 5;
-  string  Desc = 6;
+  string  Type = 3;
+  string  Category = 4;
+  string  ImageURL = 5;
+  string  Author = 6;
+  string  Desc = 7;
 }
 
 message ImportRequest {
@@ -32,15 +33,16 @@ message DetailRequest {
 message DetailResponse {
   string  Wid = 1;
   string  Name = 2;
-  string  Category = 3;
-  string  ImageURL = 4;
-  string  Author = 5;
-  string  Desc = 6;
+  string  Type = 3;
+  string  Category = 4;
+  string  ImageURL = 5;
+  string  Author = 6;
+  string  Desc = 7;
 }
 
 message ListRequest {
-  int64   Start = 2;
-  int64   Limit = 3;
+  int64   Start = 1;
+  int64   Limit = 2;
 }
 
 message ListResponse {
@@ -48,9 +50,23 @@ message ListResponse {
   int64  Total = 2;
 }
 
+message CategoryRequest {
+  int64   Start = 1;
+  int64   Limit = 2;
+}
+
+message CategoryResponse {
+  repeated string Type = 1;
+  int64 TypeTotal = 2;
+  repeated string Category = 3;
+  int64 CategoryTotal = 4;
+
+}
+
 service Wallpaper {
   rpc Import(ImportRequest) returns(ImportResponse);
   rpc Remove(RemoveRequest) returns(RemoveResponse);
   rpc Detail(DetailRequest) returns(DetailResponse);
   rpc List(ListRequest) returns(ListResponse);
+  rpc Category(CategoryRequest) returns(CategoryResponse);
 }

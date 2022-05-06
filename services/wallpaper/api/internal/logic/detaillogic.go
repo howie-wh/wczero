@@ -35,6 +35,7 @@ func (l *DetailLogic) Detail(req types.DetailRequest) (*types.DetailResponse, er
 	apiResp := &types.DetailResponse{
 		Wid:      resp.Wid,
 		Name:     resp.Name,
+		Type:     resp.Type,
 		Category: resp.Category,
 		ImageURL: resp.ImageURL,
 		Author:   resp.Author,

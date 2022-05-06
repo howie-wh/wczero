@@ -23,7 +23,7 @@ func NewListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ListLogic {
 }
 
 func (l *ListLogic) List(in *wallpaper.ListRequest) (*wallpaper.ListResponse, error) {
-	resp, total, err := l.svcCtx.Model.FindList(in.Start, in.Limit)
+	resp, total, err := l.svcCtx.NoCacheModel.FindList(in.Start, in.Limit)
 	if err != nil {
 		return nil, err
 	}
@@ -33,6 +33,7 @@ func (l *ListLogic) List(in *wallpaper.ListRequest) (*wallpaper.ListResponse, er
 		wp := &wallpaper.WallPaperInfo{
 			Wid:      wpt.Wid,
 			Name:     wpt.Name,
+			Type:     wpt.Tp,
 			Category: wpt.Category,
 			ImageURL: wpt.ImageUrl,
 			Author:   wpt.Author,

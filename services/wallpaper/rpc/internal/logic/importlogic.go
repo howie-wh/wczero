@@ -30,9 +30,9 @@ func NewImportLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ImportLogi
 }
 
 func (l *ImportLogic) WidGenerate(in *wallpaper.ImportRequest) error {
-	tNum, err := l.svcCtx.NoCacheModel.GetTableCount()
+	tNum, err := l.svcCtx.NoCacheModel.GetTableMaxID()
 	if err != nil {
-		logx.Errorf("GetTableCount err: %v", err)
+		logx.Errorf("GetTableMaxID err: %v", err)
 		return err
 	}
 
@@ -58,6 +58,7 @@ func (l *ImportLogic) Import(in *wallpaper.ImportRequest) (*wallpaper.ImportResp
 		tab := &model.WallpaperTab{
 			Wid:      wp.Wid,
 			Name:     wp.Name,
+			Tp:       wp.Type,
 			Category: wp.Category,
 			ImageUrl: wp.ImageURL,
 			Author:   wp.Author,

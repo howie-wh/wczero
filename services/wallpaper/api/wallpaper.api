@@ -9,8 +9,9 @@ info(
 
 type (
 	WallPaperInfo {
-		Wid      string `json:"wid"`
-		Name     string `json:"name"`
+		Wid      string `json:"wid,optional"`
+		Name     string `json:"name,optional"`
+		Type     string `json:"type"`
 		Category string `json:"category"`
 		ImageURL string `json:"image_url"`
 		Author   string `json:"author,optional"`
@@ -35,6 +36,7 @@ type (
 	DetailResponse {
 		Wid      string `json:"wid"`
 		Name     string `json:"name"`
+		Type     string `json:"type"`
 		Category string `json:"category"`
 		ImageURL string `json:"image_url"`
 		Author   string `json:"author"`
@@ -48,6 +50,17 @@ type (
 	ListResponse {
 		List  []WallPaperInfo `json:"list,omitempty"`
 		Total int64           `json:"total"`
+	}
+
+	CategoryRequest {
+		Start int64 `form:"start,optional"`
+		Limit int64 `form:"limit,optional"`
+	}
+	CategoryResponse {
+		Type          []string `json:"type"`
+		TypeTotal     int64    `json:"type_total"`
+		Category      []string `json:"category"`
+		CategoryTotal int64    `json:"category_total"`
 	}
 )
 
@@ -71,4 +84,8 @@ service wallpaper-api {
 	@doc "List"
 	@handler List
 	get /api/v1/wallpaper/list(ListRequest) returns(ListResponse)
+	
+	@doc "Category"
+	@handler Category
+	get /api/v1/wallpaper/category(CategoryRequest) returns(CategoryResponse)
 }
