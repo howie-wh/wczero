@@ -37,10 +37,10 @@ func (l *CategoryLogic) Category(in *wallpaper.CategoryRequest) (*wallpaper.Cate
 		resp.Category = append(resp.Category, cl.Category)
 	}
 	for _, tl := range tList {
-		resp.Type = append(resp.Type, tl.Tp)
+		resp.Tp = append(resp.Tp, tl.Tp)
 	}
 	resp.CategoryTotal = cTotal
-	resp.TypeTotal = tTotal
+	resp.TpTotal = tTotal
 
 	return &resp, nil
 }

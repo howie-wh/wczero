@@ -36,7 +36,7 @@ func (l *CategoryLogic) Category(req types.CategoryRequest) (*types.CategoryResp
 	return &types.CategoryResponse{
 		Category:      resp.Category,
 		CategoryTotal: resp.CategoryTotal,
-		Type:          resp.Type,
-		TypeTotal:     resp.TypeTotal,
+		Tp:            resp.Tp,
+		TpTotal:       resp.TpTotal,
 	}, nil
 }

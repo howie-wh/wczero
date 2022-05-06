@@ -4,7 +4,7 @@ package types
 type WallPaperInfo struct {
 	Wid      string `json:"wid,optional"`
 	Name     string `json:"name,optional"`
-	Type     string `json:"type"`
+	Tp       string `json:"type"`
 	Category string `json:"category"`
 	ImageURL string `json:"image_url"`
 	Author   string `json:"author,optional"`
@@ -32,7 +32,7 @@ type DetailRequest struct {
 type DetailResponse struct {
 	Wid      string `json:"wid"`
 	Name     string `json:"name"`
-	Type     string `json:"type"`
+	Tp       string `json:"type"`
 	Category string `json:"category"`
 	ImageURL string `json:"image_url"`
 	Author   string `json:"author"`
@@ -55,8 +55,8 @@ type CategoryRequest struct {
 }
 
 type CategoryResponse struct {
-	Type          []string `json:"type"`
-	TypeTotal     int64    `json:"type_total"`
+	Tp            []string `json:"type"`
+	TpTotal       int64    `json:"type_total"`
 	Category      []string `json:"category"`
 	CategoryTotal int64    `json:"category_total"`
 }
