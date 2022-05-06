@@ -83,21 +83,20 @@ func (m *defaultWallpaperCategoryTabModel) FindList(start, limit int64) ([]*Wall
 
 	if start >= 0 && limit > 0 {
 		query = fmt.Sprintf("select %s from %s limit ?, ?", wallpaperCategoryTabRows, m.table)
-		err = m.QueryRowNoCache(&resp, query, start, limit)
+		err = m.QueryRowsNoCache(&resp, query, start, limit)
 	} else {
 		query = fmt.Sprintf("select %s from %s", wallpaperCategoryTabRows, m.table)
-		err = m.QueryRowNoCache(&resp, query)
+		err = m.QueryRowsNoCache(&resp, query)
 	}
 
 	switch err {
 	case nil:
-		//var total int64
-		//total, err = m.GetTableCount()
-		//if err != nil {
-		//	return nil, 0, err
-		//}
-		//return resp, total, nil
-		return resp, 0, nil
+		var total int64
+		total, err = m.GetTableCount()
+		if err != nil {
+			return nil, 0, err
+		}
+		return resp, total, nil
 	case sqlc.ErrNotFound:
 		return nil, 0, ErrNotFound
 	default:

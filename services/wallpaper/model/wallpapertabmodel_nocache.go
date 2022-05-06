@@ -45,15 +45,15 @@ func (m *noCacheWallpaperTabModel) BulkInsert(data []*WallpaperTab) error {
 func (m *noCacheWallpaperTabModel) FindList(start, limit int64) ([]*WallpaperTab, int64, error) {
 	var resp []*WallpaperTab
 	query := fmt.Sprintf("select %s from %s limit ?, ?", wallpaperTabRows, m.table)
-	err := m.QueryRow(&resp, query, start, limit)
+	err := m.QueryRows(&resp, query, start, limit)
 	switch err {
 	case nil:
-		//var total int64
-		//total, err = m.GetTableCount()
-		//if err != nil {
-		//	return nil, 0, err
-		//}
-		return resp, 0, nil
+		var total int64
+		total, err = m.GetTableCount()
+		if err != nil {
+			return nil, 0, err
+		}
+		return resp, total, nil
 	case sqlc.ErrNotFound:
 		return nil, 0, ErrNotFound
 	default:
