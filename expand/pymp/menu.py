@@ -67,7 +67,6 @@ if __name__ == '__main__':
           ]
     }
     """
-    # accessToken = Basic().get_access_token()
-    accessToken = "56_uoaBK7JQNnqzuvICJUsqrdQUOEP2i3hI0_5hT3oF1fcpNphizV9l_qo427xalWy4RDTwrJnq1K1-TwzqYUiblAJQSudmjge0Zmf7jg_Yb-82fWv-TWA4PrYXNgKJVnP_nHbwxYxYTddO11ErSBBbAAAWFF"
+    accessToken = Basic().get_access_token()
     # myMenu.delete(accessToken)
     myMenu.create(postJson, accessToken)
