@@ -83,6 +83,8 @@ type DetailRequest struct {
 type DetailResponse struct {
 	Wid string `json:"wid"`
 	Name string `json:"name"`
+	Tp string `json:"type"`
+	Category string `json:"category"`
 	ImageURL string `json:"image_url"`
 	Author string `json:"author"`
 	Desc string `json:"desc"`
@@ -118,6 +120,40 @@ type ListRequest struct {
 type ListResponse struct {
 	List []WallPaperInfo `json:"list,omitempty"`
 	Total int64 `json:"total"`
+}
+```
+  
+
+
+### 5. "Category"
+
+1. 路由定义
+
+- Url: /api/v1/wallpaper/category
+- Method: GET
+- Request: `CategoryRequest`
+- Response: `CategoryResponse`
+
+2. 请求定义
+
+
+```golang
+type CategoryRequest struct {
+	Start int64 `form:"start,optional"`
+	Limit int64 `form:"limit,optional"`
+}
+```
+
+
+3. 返回定义
+
+
+```golang
+type CategoryResponse struct {
+	Tp []string `json:"type"`
+	TpTotal int64 `json:"type_total"`
+	Category []string `json:"category"`
+	CategoryTotal int64 `json:"category_total"`
 }
 ```
   
