@@ -11,7 +11,7 @@ type (
 	NoCacheWallpaperTabModel interface {
 		FindList(tid, cid, start, limit int64) ([]*WallpaperTab, int64, error)
 		BulkInsert(data []*WallpaperTab) error
-		GetTableCount() (int64, error)
+		GetTableCount(tid, cid int64) (int64, error)
 		GetTableMaxID() (int64, error)
 	}
 
@@ -65,7 +65,7 @@ func (m *noCacheWallpaperTabModel) FindList(tid, cid, start, limit int64) ([]*Wa
 	switch err {
 	case nil:
 		var total int64
-		total, err = m.GetTableCount()
+		total, err = m.GetTableCount(tid, cid)
 		if err != nil {
 			return nil, 0, err
 		}
@@ -78,10 +78,25 @@ func (m *noCacheWallpaperTabModel) FindList(tid, cid, start, limit int64) ([]*Wa
 	}
 }
 
-func (m *noCacheWallpaperTabModel) GetTableCount() (int64, error) {
+func (m *noCacheWallpaperTabModel) GetTableCount(tid, cid int64) (int64, error) {
 	var resp int64
-	query := fmt.Sprintf("select count(1) from %s", m.table)
-	err := m.QueryRow(&resp, query)
+	var query string
+	var err error
+
+	if tid == 0 && cid == 0 {
+		query = fmt.Sprintf("select count(1) from %s", m.table)
+		err = m.QueryRows(&resp, query)
+	} else if tid == 0 && cid != 0 {
+		query = fmt.Sprintf("select count(1) from %s where cid = ?", m.table)
+		err = m.QueryRows(&resp, query, cid)
+	} else if tid != 0 && cid == 0 {
+		query = fmt.Sprintf("select count(1) from %s where tid = ?", m.table)
+		err = m.QueryRows(&resp, query, tid)
+	} else {
+		query = fmt.Sprintf("select count(1) from %s where tid = ? and cid = ?", m.table)
+		err = m.QueryRows(&resp, query, tid, cid)
+	}
+
 	switch err {
 	case nil:
 		return resp, nil

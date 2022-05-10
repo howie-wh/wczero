@@ -81,6 +81,15 @@ insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, upd
 insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('明星', '', 0, unix_timestamp(now()), unix_timestamp(now()));
 insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('星空', '', 0, unix_timestamp(now()), unix_timestamp(now()));
 insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('动漫', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('抒情', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('潮流', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('影视', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('宇航员', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('二次元', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('古风', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('美女', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('帅哥', '', 0, unix_timestamp(now()), unix_timestamp(now()));
+insert into wallpaper_category_tab (category, `desc`, del_flag, create_time, update_time) VALUES ('搞笑', '', 0, unix_timestamp(now()), unix_timestamp(now()));
 
 BEGIN;
 COMMIT;
