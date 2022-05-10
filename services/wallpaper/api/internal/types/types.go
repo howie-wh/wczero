@@ -42,8 +42,8 @@ type DetailResponse struct {
 type ListRequest struct {
 	Start int64 `form:"start"`
 	Limit int64 `form:"limit"`
-	Tid   int64 `form:"tid"`
-	Cid   int64 `form:"cid"`
+	Tid   int64 `form:"tid,optional"`
+	Cid   int64 `form:"cid,optional"`
 }
 
 type ListResponse struct {
@@ -57,16 +57,16 @@ type CategoryRequest struct {
 }
 
 type CategoryResponse struct {
-	Tp            []TypeInfo     `json:"type"`
+	Tp            []TypeInfo     `json:"type,omitempty"`
 	TpTotal       int64          `json:"type_total"`
-	Category      []CategoryInfo `json:"category"`
+	Category      []CategoryInfo `json:"category,omitempty"`
 	CategoryTotal int64          `json:"category_total"`
 }
 
 type TypeInfo struct {
 	Tid     int64   `json:"tid"`
 	Name    string  `json:"name"`
-	CidList []int64 `json:"cid_list"`
+	CidList []int64 `json:"cid_list,omitempty"`
 }
 
 type CategoryInfo struct {

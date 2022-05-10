@@ -46,8 +46,8 @@ type (
 	ListRequest {
 		Start int64 `form:"start"`
 		Limit int64 `form:"limit"`
-		Tid   int64 `form:"tid"`
-		Cid   int64 `form:"cid"`
+		Tid   int64 `form:"tid,optional"`
+		Cid   int64 `form:"cid,optional"`
 	}
 	ListResponse {
 		List  []WallPaperInfo `json:"list,omitempty"`
@@ -59,15 +59,15 @@ type (
 		Limit int64 `form:"limit,optional"`
 	}
 	CategoryResponse {
-		Tp            []TypeInfo     `json:"type"`
+		Tp            []TypeInfo     `json:"type,omitempty"`
 		TpTotal       int64          `json:"type_total"`
-		Category      []CategoryInfo `json:"category"`
+		Category      []CategoryInfo `json:"category,omitempty"`
 		CategoryTotal int64          `json:"category_total"`
 	}
 	TypeInfo {
 		Tid     int64   `json:"tid"`
 		Name    string  `json:"name"`
-		CidList []int64 `json:"cid_list"`
+		CidList []int64 `json:"cid_list,omitempty"`
 	}
 	CategoryInfo {
 		Cid  int64  `json:"cid"`
