@@ -9,7 +9,7 @@ import (
 
 type (
 	NoCacheWallpaperTabModel interface {
-		FindList(start, limit int64) ([]*WallpaperTab, int64, error)
+		FindList(tid, cid, start, limit int64) ([]*WallpaperTab, int64, error)
 		BulkInsert(data []*WallpaperTab) error
 		GetTableCount() (int64, error)
 		GetTableMaxID() (int64, error)
@@ -35,7 +35,7 @@ func (m *noCacheWallpaperTabModel) BulkInsert(data []*WallpaperTab) error {
 		return fmt.Errorf("NewBulkInserter %s", err)
 	}
 	for k, v := range data {
-		if err = bulkInserter.Insert(v.Wid, v.Name, v.Tp, v.Category, v.ImageUrl, v.Author, v.Desc, v.DelFlag); err != nil {
+		if err = bulkInserter.Insert(v.Wid, v.Name, v.Tid, v.Cid, v.ImageUrl, v.Author, v.Desc, v.DelFlag); err != nil {
 			return fmt.Errorf("insert k:%d, err:%s", k, err)
 		}
 	}
@@ -43,10 +43,25 @@ func (m *noCacheWallpaperTabModel) BulkInsert(data []*WallpaperTab) error {
 	return nil
 }
 
-func (m *noCacheWallpaperTabModel) FindList(start, limit int64) ([]*WallpaperTab, int64, error) {
+func (m *noCacheWallpaperTabModel) FindList(tid, cid, start, limit int64) ([]*WallpaperTab, int64, error) {
 	var resp []*WallpaperTab
-	query := fmt.Sprintf("select %s from %s limit ?, ?", wallpaperTabRows, m.table)
-	err := m.QueryRows(&resp, query, start, limit)
+	var query string
+	var err error
+
+	if tid == 0 && cid == 0 {
+		query = fmt.Sprintf("select %s from %s limit ?, ?", wallpaperTabRows, m.table)
+		err = m.QueryRows(&resp, query, start, limit)
+	} else if tid == 0 && cid != 0 {
+		query = fmt.Sprintf("select %s from %s where cid = ? limit ?, ?", wallpaperTabRows, m.table)
+		err = m.QueryRows(&resp, query, cid, start, limit)
+	} else if tid != 0 && cid == 0 {
+		query = fmt.Sprintf("select %s from %s where tid = ? limit ?, ?", wallpaperTabRows, m.table)
+		err = m.QueryRows(&resp, query, tid, start, limit)
+	} else {
+		query = fmt.Sprintf("select %s from %s where tid = ? and cid = ? limit ?, ?", wallpaperTabRows, m.table)
+		err = m.QueryRows(&resp, query, tid, cid, start, limit)
+	}
+
 	switch err {
 	case nil:
 		var total int64

@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"encoding/json"
 	"wczero/services/wallpaper/rpc/internal/svc"
 	"wczero/services/wallpaper/rpc/wallpaper"
 
@@ -36,10 +37,19 @@ func (l *CategoryLogic) Category(in *wallpaper.CategoryRequest) (*wallpaper.Cate
 
 	var resp wallpaper.CategoryResponse
 	for _, cl := range cList {
-		resp.Category = append(resp.Category, cl.Category)
+		categoryInfo := &wallpaper.CategoryInfo{
+			Cid:  cl.Id,
+			Name: cl.Category,
+		}
+		resp.Category = append(resp.Category, categoryInfo)
 	}
 	for _, tl := range tList {
-		resp.Tp = append(resp.Tp, tl.Tp)
+		tpInfo := &wallpaper.TypeInfo{
+			Tid:  tl.Id,
+			Name: tl.Tp,
+		}
+		_ = json.Unmarshal([]byte(tl.CidList), &tpInfo.CidList)
+		resp.Tp = append(resp.Tp, tpInfo)
 	}
 	resp.CategoryTotal = cTotal
 	resp.TpTotal = tTotal

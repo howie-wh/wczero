@@ -13,6 +13,7 @@ import (
 )
 
 type (
+	CategoryInfo     = wallpaper.CategoryInfo
 	CategoryRequest  = wallpaper.CategoryRequest
 	CategoryResponse = wallpaper.CategoryResponse
 	DetailRequest    = wallpaper.DetailRequest
@@ -23,6 +24,7 @@ type (
 	ListResponse     = wallpaper.ListResponse
 	RemoveRequest    = wallpaper.RemoveRequest
 	RemoveResponse   = wallpaper.RemoveResponse
+	TypeInfo         = wallpaper.TypeInfo
 	WallPaperInfo    = wallpaper.WallPaperInfo
 
 	Wallpaper interface {

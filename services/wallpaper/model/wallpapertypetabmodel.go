@@ -38,7 +38,8 @@ type (
 
 	WallpaperTypeTab struct {
 		Id         int64  `db:"id"`          // id
-		Tp         string `db:"tp"`          // tp
+		Tp         string `db:"tp"`          // type
+		CidList    string `db:"cid_list"`    // category id list
 		Desc       string `db:"desc"`        // desc
 		DelFlag    string `db:"del_flag"`    // del flag（0-normal 1-delete)
 		CreateTime int64  `db:"create_time"` // create time
@@ -54,8 +55,8 @@ func NewWallpaperTypeTabModel(conn sqlx.SqlConn, c cache.CacheConf) WallpaperTyp
 }
 
 func (m *defaultWallpaperTypeTabModel) Insert(data *WallpaperTypeTab) (sql.Result, error) {
-	query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?)", m.table, wallpaperTypeTabRowsExpectAutoSet)
-	ret, err := m.ExecNoCache(query, data.Tp, data.Desc, data.DelFlag)
+	query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?)", m.table, wallpaperTypeTabRowsExpectAutoSet)
+	ret, err := m.ExecNoCache(query, data.Tp, data.CidList, data.Desc, data.DelFlag)
 
 	return ret, err
 }
@@ -110,7 +111,7 @@ func (m *defaultWallpaperTypeTabModel) Update(data *WallpaperTypeTab) error {
 	wallpaperTypeTabIdKey := fmt.Sprintf("%s%v", cacheWallpaperTypeTabIdPrefix, data.Id)
 	_, err := m.Exec(func(conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, wallpaperTypeTabRowsWithPlaceHolder)
-		return conn.Exec(query, data.Tp, data.Desc, data.DelFlag, data.Id)
+		return conn.Exec(query, data.Tp, data.CidList, data.Desc, data.DelFlag, data.Id)
 	}, wallpaperTypeTabIdKey)
 	return err
 }

@@ -35,10 +35,25 @@ func (l *CategoryLogic) Category(req types.CategoryRequest) (*types.CategoryResp
 		return nil, err
 	}
 
-	return &types.CategoryResponse{
-		Category:      resp.Category,
-		CategoryTotal: resp.CategoryTotal,
-		Tp:            resp.Tp,
+	apiResp := types.CategoryResponse{
 		TpTotal:       resp.TpTotal,
-	}, nil
+		CategoryTotal: resp.CategoryTotal,
+	}
+	for _, tp := range resp.Tp {
+		tpInfo := types.TypeInfo{
+			Tid:     tp.Tid,
+			Name:    tp.Name,
+			CidList: tp.CidList,
+		}
+		apiResp.Tp = append(apiResp.Tp, tpInfo)
+	}
+	for _, category := range resp.Category {
+		categoryInfo := types.CategoryInfo{
+			Cid:  category.Cid,
+			Name: category.Name,
+		}
+		apiResp.Category = append(apiResp.Category, categoryInfo)
+	}
+
+	return &apiResp, nil
 }

@@ -30,8 +30,8 @@ func (l *ImportLogic) Import(req types.ImportRequest) (*types.ImportResponse, er
 		wp := &wallpaper.WallPaperInfo{
 			Wid:      v.Wid,
 			Name:     v.Name,
-			Tp:       v.Tp,
-			Category: v.Category,
+			Tid:      v.Tid,
+			Cid:      v.Cid,
 			ImageURL: v.ImageURL,
 			Author:   v.Author,
 			Desc:     v.Desc,

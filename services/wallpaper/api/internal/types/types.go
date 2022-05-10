@@ -4,8 +4,8 @@ package types
 type WallPaperInfo struct {
 	Wid      string `json:"wid,optional"`
 	Name     string `json:"name,optional"`
-	Tp       string `json:"type"`
-	Category string `json:"category"`
+	Tid      int64  `json:"tid""`
+	Cid      int64  `json:"cid"`
 	ImageURL string `json:"image_url"`
 	Author   string `json:"author,optional"`
 	Desc     string `json:"desc,optional"`
@@ -32,8 +32,8 @@ type DetailRequest struct {
 type DetailResponse struct {
 	Wid      string `json:"wid"`
 	Name     string `json:"name"`
-	Tp       string `json:"type"`
-	Category string `json:"category"`
+	Tid      int64  `json:"tid""`
+	Cid      int64  `json:"cid"`
 	ImageURL string `json:"image_url"`
 	Author   string `json:"author"`
 	Desc     string `json:"desc"`
@@ -42,6 +42,8 @@ type DetailResponse struct {
 type ListRequest struct {
 	Start int64 `form:"start"`
 	Limit int64 `form:"limit"`
+	Tid   int64 `form:"tid"`
+	Cid   int64 `form:"cid"`
 }
 
 type ListResponse struct {
@@ -55,8 +57,19 @@ type CategoryRequest struct {
 }
 
 type CategoryResponse struct {
-	Tp            []string `json:"type"`
-	TpTotal       int64    `json:"type_total"`
-	Category      []string `json:"category"`
-	CategoryTotal int64    `json:"category_total"`
+	Tp            []TypeInfo     `json:"type"`
+	TpTotal       int64          `json:"type_total"`
+	Category      []CategoryInfo `json:"category"`
+	CategoryTotal int64          `json:"category_total"`
+}
+
+type TypeInfo struct {
+	Tid     int64   `json:"tid"`
+	Name    string  `json:"name"`
+	CidList []int64 `json:"cid_list"`
+}
+
+type CategoryInfo struct {
+	Cid  int64  `json:"cid"`
+	Name string `json:"name"`
 }

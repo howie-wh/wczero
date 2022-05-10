@@ -28,6 +28,8 @@ func (l *ListLogic) List(req types.ListRequest) (*types.ListResponse, error) {
 	resp, err := l.svcCtx.WallPaper.List(l.ctx, &wallpaper.ListRequest{
 		Start: req.Start,
 		Limit: req.Limit,
+		Tid:   req.Tid,
+		Cid:   req.Cid,
 	})
 	if err != nil {
 		return nil, err
@@ -40,8 +42,8 @@ func (l *ListLogic) List(req types.ListRequest) (*types.ListResponse, error) {
 		wp := types.WallPaperInfo{
 			Wid:      v.Wid,
 			Name:     v.Name,
-			Tp:       v.Tp,
-			Category: v.Category,
+			Tid:      v.Tid,
+			Cid:      v.Cid,
 			ImageURL: v.ImageURL,
 			Author:   v.Author,
 			Desc:     v.Desc,

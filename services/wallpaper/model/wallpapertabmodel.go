@@ -25,7 +25,7 @@ var (
 type (
 	WallpaperTabModel interface {
 		Insert(data *WallpaperTab) (sql.Result, error)
-		FindOne(id int64) (*WallpaperTab, error)
+		FindOne(id int64) (*WallpaperTab, error) //1
 		FindOneByWid(wid string) (*WallpaperTab, error)
 		Update(data *WallpaperTab) error
 		Delete(id int64) error
@@ -41,8 +41,8 @@ type (
 		Id         int64  `db:"id"`          // id
 		Wid        string `db:"wid"`         // wallpaper id
 		Name       string `db:"name"`        // name
-		Tp         string `db:"tp"`          // type
-		Category   string `db:"category"`    // category
+		Tid        int64  `db:"tid"`         // type id
+		Cid        int64  `db:"cid"`         // category id
 		ImageUrl   string `db:"image_url"`   // image url
 		Author     string `db:"author"`      // author
 		Desc       string `db:"desc"`        // desc
@@ -64,7 +64,7 @@ func (m *defaultWallpaperTabModel) Insert(data *WallpaperTab) (sql.Result, error
 	wallpaperTabWidKey := fmt.Sprintf("%s%v", cacheWallpaperTabWidPrefix, data.Wid)
 	ret, err := m.Exec(func(conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?)", m.table, wallpaperTabRowsExpectAutoSet)
-		return conn.Exec(query, data.Wid, data.Name, data.Tp, data.Category, data.ImageUrl, data.Author, data.Desc, data.DelFlag)
+		return conn.Exec(query, data.Wid, data.Name, data.Tid, data.Cid, data.ImageUrl, data.Author, data.Desc, data.DelFlag)
 	}, wallpaperTabIdKey, wallpaperTabWidKey)
 	return ret, err
 }
@@ -107,12 +107,12 @@ func (m *defaultWallpaperTabModel) FindOneByWid(wid string) (*WallpaperTab, erro
 }
 
 func (m *defaultWallpaperTabModel) Update(data *WallpaperTab) error {
-	wallpaperTabWidKey := fmt.Sprintf("%s%v", cacheWallpaperTabWidPrefix, data.Wid)
 	wallpaperTabIdKey := fmt.Sprintf("%s%v", cacheWallpaperTabIdPrefix, data.Id)
+	wallpaperTabWidKey := fmt.Sprintf("%s%v", cacheWallpaperTabWidPrefix, data.Wid)
 	_, err := m.Exec(func(conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, wallpaperTabRowsWithPlaceHolder)
-		return conn.Exec(query, data.Wid, data.Name, data.Tp, data.Category, data.ImageUrl, data.Author, data.Desc, data.DelFlag, data.Id)
-	}, wallpaperTabIdKey, wallpaperTabWidKey)
+		return conn.Exec(query, data.Wid, data.Name, data.Tid, data.Cid, data.ImageUrl, data.Author, data.Desc, data.DelFlag, data.Id)
+	}, wallpaperTabWidKey, wallpaperTabIdKey)
 	return err
 }
 
