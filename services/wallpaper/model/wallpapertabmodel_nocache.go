@@ -85,16 +85,16 @@ func (m *noCacheWallpaperTabModel) GetTableCount(tid, cid int64) (int64, error) 
 
 	if tid == 0 && cid == 0 {
 		query = fmt.Sprintf("select count(1) from %s", m.table)
-		err = m.QueryRows(&resp, query)
+		err = m.QueryRow(&resp, query)
 	} else if tid == 0 && cid != 0 {
 		query = fmt.Sprintf("select count(1) from %s where cid = ?", m.table)
-		err = m.QueryRows(&resp, query, cid)
+		err = m.QueryRow(&resp, query, cid)
 	} else if tid != 0 && cid == 0 {
 		query = fmt.Sprintf("select count(1) from %s where tid = ?", m.table)
-		err = m.QueryRows(&resp, query, tid)
+		err = m.QueryRow(&resp, query, tid)
 	} else {
 		query = fmt.Sprintf("select count(1) from %s where tid = ? and cid = ?", m.table)
-		err = m.QueryRows(&resp, query, tid, cid)
+		err = m.QueryRow(&resp, query, tid, cid)
 	}
 
 	switch err {
