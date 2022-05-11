@@ -83,8 +83,8 @@ type DetailRequest struct {
 type DetailResponse struct {
 	Wid string `json:"wid"`
 	Name string `json:"name"`
-	Tp string `json:"type"`
-	Category string `json:"category"`
+	Tid int64 `json:"tid""`
+	Cid int64 `json:"cid"`
 	ImageURL string `json:"image_url"`
 	Author string `json:"author"`
 	Desc string `json:"desc"`
@@ -109,6 +109,8 @@ type DetailResponse struct {
 type ListRequest struct {
 	Start int64 `form:"start"`
 	Limit int64 `form:"limit"`
+	Tid int64 `form:"tid,optional"`
+	Cid int64 `form:"cid,optional"`
 }
 ```
 
@@ -150,9 +152,9 @@ type CategoryRequest struct {
 
 ```golang
 type CategoryResponse struct {
-	Tp []string `json:"type"`
+	Tp []TypeInfo `json:"type,omitempty"`
 	TpTotal int64 `json:"type_total"`
-	Category []string `json:"category"`
+	Category []CategoryInfo `json:"category,omitempty"`
 	CategoryTotal int64 `json:"category_total"`
 }
 ```
