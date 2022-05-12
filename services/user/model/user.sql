@@ -39,7 +39,6 @@ CREATE TABLE `user_admin_tab` (
     PRIMARY KEY (`user_id`),
     UNIQUE KEY `idx_mobile_unique` (`mobile`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='user admin table';
-insert into user_admin_tab (user_name, gender, mobile, password) values ("wuhui", 0, "15826521996", "123456");
 
 BEGIN;
 COMMIT;

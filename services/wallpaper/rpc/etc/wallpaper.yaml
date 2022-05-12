@@ -7,7 +7,7 @@ Etcd:
 
 Mysql:
   DataSource: root:123456@tcp(mysql:3306)/wczero?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
-  Table: wallpaper
+  Table: wallpaper_tab
 
 CacheRedis:
   - Host: redis:6379
@@ -16,6 +16,7 @@ CacheRedis:
 
 Log:
   Mode: file
+  Path: logs/rpc_wallpaper
 
 Prometheus:
   Host: 0.0.0.0

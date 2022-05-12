@@ -13,20 +13,23 @@ import (
 )
 
 type (
-	AdminLoginRequest     = user.AdminLoginRequest
-	AdminLoginResponse    = user.AdminLoginResponse
-	AdminRegisterRequest  = user.AdminRegisterRequest
-	AdminRegisterResponse = user.AdminRegisterResponse
-	AdminUserInfoRequest  = user.AdminUserInfoRequest
-	AdminUserInfoResponse = user.AdminUserInfoResponse
-	WeChatLoginRequest    = user.WeChatLoginRequest
-	WeChatLoginResponse   = user.WeChatLoginResponse
+	AdminLoginRequest        = user.AdminLoginRequest
+	AdminLoginResponse       = user.AdminLoginResponse
+	AdminRegisterRequest     = user.AdminRegisterRequest
+	AdminRegisterResponse    = user.AdminRegisterResponse
+	AdminUserInfoRequest     = user.AdminUserInfoRequest
+	AdminUserInfoResponse    = user.AdminUserInfoResponse
+	QINIUUploadTokenRequest  = user.QINIUUploadTokenRequest
+	QINIUUploadTokenResponse = user.QINIUUploadTokenResponse
+	WeChatLoginRequest       = user.WeChatLoginRequest
+	WeChatLoginResponse      = user.WeChatLoginResponse
 
 	User interface {
 		WeChatLogin(ctx context.Context, in *WeChatLoginRequest, opts ...grpc.CallOption) (*WeChatLoginResponse, error)
 		AdminLogin(ctx context.Context, in *AdminLoginRequest, opts ...grpc.CallOption) (*AdminLoginResponse, error)
 		AdminRegister(ctx context.Context, in *AdminRegisterRequest, opts ...grpc.CallOption) (*AdminRegisterResponse, error)
 		AdminUserInfo(ctx context.Context, in *AdminUserInfoRequest, opts ...grpc.CallOption) (*AdminUserInfoResponse, error)
+		QINIUUploadToken(ctx context.Context, in *QINIUUploadTokenRequest, opts ...grpc.CallOption) (*QINIUUploadTokenResponse, error)
 	}
 
 	defaultUser struct {
@@ -58,4 +61,9 @@ func (m *defaultUser) AdminRegister(ctx context.Context, in *AdminRegisterReques
 func (m *defaultUser) AdminUserInfo(ctx context.Context, in *AdminUserInfoRequest, opts ...grpc.CallOption) (*AdminUserInfoResponse, error) {
 	client := user.NewUserClient(m.cli.Conn())
 	return client.AdminUserInfo(ctx, in, opts...)
+}
+
+func (m *defaultUser) QINIUUploadToken(ctx context.Context, in *QINIUUploadTokenRequest, opts ...grpc.CallOption) (*QINIUUploadTokenResponse, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.QINIUUploadToken(ctx, in, opts...)
 }

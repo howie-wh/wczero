@@ -1,19 +1,21 @@
 syntax = "v1"
 
 info(
-	title: ""
-	desc: ""
+	title: "wallpaper"
+	desc: "wallpaper"
 	author: "Hui Wu"
 	email: "wuhui1536@gmail.com"
 )
 
 type (
 	WallPaperInfo {
-		Wid      string `json:"wid"`
-		Name     string `json:"name"`
+		Wid      string `json:"wid,optional"`
+		Name     string `json:"name,optional"`
+		Tid      int64  `json:"tid""`
+		Cid      int64  `json:"cid"`
 		ImageURL string `json:"image_url"`
-		Author   string `json:"author"`
-		Desc     string `json:"desc"`
+		Author   string `json:"author,optional"`
+		Desc     string `json:"desc,optional"`
 	}
 
 	ImportRequest {
@@ -34,6 +36,8 @@ type (
 	DetailResponse {
 		Wid      string `json:"wid"`
 		Name     string `json:"name"`
+		Tid      int64  `json:"tid""`
+		Cid      int64  `json:"cid"`
 		ImageURL string `json:"image_url"`
 		Author   string `json:"author"`
 		Desc     string `json:"desc"`
@@ -42,10 +46,32 @@ type (
 	ListRequest {
 		Start int64 `form:"start"`
 		Limit int64 `form:"limit"`
+		Tid   int64 `form:"tid,optional"`
+		Cid   int64 `form:"cid,optional"`
 	}
 	ListResponse {
 		List  []WallPaperInfo `json:"list,omitempty"`
 		Total int64           `json:"total"`
+	}
+
+	CategoryRequest {
+		Start int64 `form:"start,optional"`
+		Limit int64 `form:"limit,optional"`
+	}
+	CategoryResponse {
+		Tp            []TypeInfo     `json:"type,omitempty"`
+		TpTotal       int64          `json:"type_total"`
+		Category      []CategoryInfo `json:"category,omitempty"`
+		CategoryTotal int64          `json:"category_total"`
+	}
+	TypeInfo {
+		Tid     int64   `json:"tid"`
+		Name    string  `json:"name"`
+		CidList []int64 `json:"cid_list,omitempty"`
+	}
+	CategoryInfo {
+		Cid  int64  `json:"cid"`
+		Name string `json:"name"`
 	}
 )
 
@@ -57,16 +83,20 @@ service wallpaper-api {
 	@doc "Import"
 	@handler Import
 	post /api/v1/wallpaper/import (ImportRequest) returns (ImportResponse)
-
+	
 	@doc "Remove"
 	@handler Remove
 	post /api/v1/wallpaper/remove(RemoveRequest) returns(RemoveResponse)
-
+	
 	@doc "Detail"
 	@handler Detail
 	get /api/v1/wallpaper/detail(DetailRequest) returns(DetailResponse)
-
+	
 	@doc "List"
 	@handler List
 	get /api/v1/wallpaper/list(ListRequest) returns(ListResponse)
+	
+	@doc "Category"
+	@handler Category
+	get /api/v1/wallpaper/category(CategoryRequest) returns(CategoryResponse)
 }

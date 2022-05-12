@@ -41,3 +41,8 @@ func (s *WallpaperServer) List(ctx context.Context, in *wallpaper.ListRequest) (
 	l := logic.NewListLogic(ctx, s.svcCtx)
 	return l.List(in)
 }
+
+func (s *WallpaperServer) Category(ctx context.Context, in *wallpaper.CategoryRequest) (*wallpaper.CategoryResponse, error) {
+	l := logic.NewCategoryLogic(ctx, s.svcCtx)
+	return l.Category(in)
+}

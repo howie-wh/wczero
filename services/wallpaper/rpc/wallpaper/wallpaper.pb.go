@@ -27,9 +27,11 @@ const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 type WallPaperInfo struct {
 	Wid                  string   `protobuf:"bytes,1,opt,name=Wid,proto3" json:"Wid,omitempty"`
 	Name                 string   `protobuf:"bytes,2,opt,name=Name,proto3" json:"Name,omitempty"`
-	ImageURL             string   `protobuf:"bytes,3,opt,name=ImageURL,proto3" json:"ImageURL,omitempty"`
-	Author               string   `protobuf:"bytes,4,opt,name=Author,proto3" json:"Author,omitempty"`
-	Desc                 string   `protobuf:"bytes,5,opt,name=Desc,proto3" json:"Desc,omitempty"`
+	Tid                  int64    `protobuf:"varint,3,opt,name=Tid,proto3" json:"Tid,omitempty"`
+	Cid                  int64    `protobuf:"varint,4,opt,name=Cid,proto3" json:"Cid,omitempty"`
+	ImageURL             string   `protobuf:"bytes,5,opt,name=ImageURL,proto3" json:"ImageURL,omitempty"`
+	Author               string   `protobuf:"bytes,6,opt,name=Author,proto3" json:"Author,omitempty"`
+	Desc                 string   `protobuf:"bytes,7,opt,name=Desc,proto3" json:"Desc,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -72,6 +74,20 @@ func (m *WallPaperInfo) GetName() string {
 		return m.Name
 	}
 	return ""
+}
+
+func (m *WallPaperInfo) GetTid() int64 {
+	if m != nil {
+		return m.Tid
+	}
+	return 0
+}
+
+func (m *WallPaperInfo) GetCid() int64 {
+	if m != nil {
+		return m.Cid
+	}
+	return 0
 }
 
 func (m *WallPaperInfo) GetImageURL() string {
@@ -277,9 +293,11 @@ func (m *DetailRequest) GetWid() string {
 type DetailResponse struct {
 	Wid                  string   `protobuf:"bytes,1,opt,name=Wid,proto3" json:"Wid,omitempty"`
 	Name                 string   `protobuf:"bytes,2,opt,name=Name,proto3" json:"Name,omitempty"`
-	ImageURL             string   `protobuf:"bytes,3,opt,name=ImageURL,proto3" json:"ImageURL,omitempty"`
-	Author               string   `protobuf:"bytes,4,opt,name=Author,proto3" json:"Author,omitempty"`
-	Desc                 string   `protobuf:"bytes,5,opt,name=Desc,proto3" json:"Desc,omitempty"`
+	Tid                  int64    `protobuf:"varint,3,opt,name=Tid,proto3" json:"Tid,omitempty"`
+	Cid                  int64    `protobuf:"varint,4,opt,name=Cid,proto3" json:"Cid,omitempty"`
+	ImageURL             string   `protobuf:"bytes,5,opt,name=ImageURL,proto3" json:"ImageURL,omitempty"`
+	Author               string   `protobuf:"bytes,6,opt,name=Author,proto3" json:"Author,omitempty"`
+	Desc                 string   `protobuf:"bytes,7,opt,name=Desc,proto3" json:"Desc,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -324,6 +342,20 @@ func (m *DetailResponse) GetName() string {
 	return ""
 }
 
+func (m *DetailResponse) GetTid() int64 {
+	if m != nil {
+		return m.Tid
+	}
+	return 0
+}
+
+func (m *DetailResponse) GetCid() int64 {
+	if m != nil {
+		return m.Cid
+	}
+	return 0
+}
+
 func (m *DetailResponse) GetImageURL() string {
 	if m != nil {
 		return m.ImageURL
@@ -346,8 +378,10 @@ func (m *DetailResponse) GetDesc() string {
 }
 
 type ListRequest struct {
-	Start                int64    `protobuf:"varint,2,opt,name=Start,proto3" json:"Start,omitempty"`
-	Limit                int64    `protobuf:"varint,3,opt,name=Limit,proto3" json:"Limit,omitempty"`
+	Start                int64    `protobuf:"varint,1,opt,name=Start,proto3" json:"Start,omitempty"`
+	Limit                int64    `protobuf:"varint,2,opt,name=Limit,proto3" json:"Limit,omitempty"`
+	Tid                  int64    `protobuf:"varint,3,opt,name=Tid,proto3" json:"Tid,omitempty"`
+	Cid                  int64    `protobuf:"varint,4,opt,name=Cid,proto3" json:"Cid,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -388,6 +422,20 @@ func (m *ListRequest) GetStart() int64 {
 func (m *ListRequest) GetLimit() int64 {
 	if m != nil {
 		return m.Limit
+	}
+	return 0
+}
+
+func (m *ListRequest) GetTid() int64 {
+	if m != nil {
+		return m.Tid
+	}
+	return 0
+}
+
+func (m *ListRequest) GetCid() int64 {
+	if m != nil {
+		return m.Cid
 	}
 	return 0
 }
@@ -439,6 +487,218 @@ func (m *ListResponse) GetTotal() int64 {
 	return 0
 }
 
+type TypeInfo struct {
+	Tid                  int64    `protobuf:"varint,1,opt,name=Tid,proto3" json:"Tid,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=Name,proto3" json:"Name,omitempty"`
+	CidList              []int64  `protobuf:"varint,3,rep,packed,name=CidList,proto3" json:"CidList,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *TypeInfo) Reset()         { *m = TypeInfo{} }
+func (m *TypeInfo) String() string { return proto.CompactTextString(m) }
+func (*TypeInfo) ProtoMessage()    {}
+func (*TypeInfo) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bdca87ab84ee5c8e, []int{9}
+}
+
+func (m *TypeInfo) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_TypeInfo.Unmarshal(m, b)
+}
+func (m *TypeInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_TypeInfo.Marshal(b, m, deterministic)
+}
+func (m *TypeInfo) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TypeInfo.Merge(m, src)
+}
+func (m *TypeInfo) XXX_Size() int {
+	return xxx_messageInfo_TypeInfo.Size(m)
+}
+func (m *TypeInfo) XXX_DiscardUnknown() {
+	xxx_messageInfo_TypeInfo.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TypeInfo proto.InternalMessageInfo
+
+func (m *TypeInfo) GetTid() int64 {
+	if m != nil {
+		return m.Tid
+	}
+	return 0
+}
+
+func (m *TypeInfo) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *TypeInfo) GetCidList() []int64 {
+	if m != nil {
+		return m.CidList
+	}
+	return nil
+}
+
+type CategoryInfo struct {
+	Cid                  int64    `protobuf:"varint,1,opt,name=Cid,proto3" json:"Cid,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=Name,proto3" json:"Name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CategoryInfo) Reset()         { *m = CategoryInfo{} }
+func (m *CategoryInfo) String() string { return proto.CompactTextString(m) }
+func (*CategoryInfo) ProtoMessage()    {}
+func (*CategoryInfo) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bdca87ab84ee5c8e, []int{10}
+}
+
+func (m *CategoryInfo) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CategoryInfo.Unmarshal(m, b)
+}
+func (m *CategoryInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CategoryInfo.Marshal(b, m, deterministic)
+}
+func (m *CategoryInfo) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CategoryInfo.Merge(m, src)
+}
+func (m *CategoryInfo) XXX_Size() int {
+	return xxx_messageInfo_CategoryInfo.Size(m)
+}
+func (m *CategoryInfo) XXX_DiscardUnknown() {
+	xxx_messageInfo_CategoryInfo.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CategoryInfo proto.InternalMessageInfo
+
+func (m *CategoryInfo) GetCid() int64 {
+	if m != nil {
+		return m.Cid
+	}
+	return 0
+}
+
+func (m *CategoryInfo) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+type CategoryRequest struct {
+	Start                int64    `protobuf:"varint,1,opt,name=Start,proto3" json:"Start,omitempty"`
+	Limit                int64    `protobuf:"varint,2,opt,name=Limit,proto3" json:"Limit,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CategoryRequest) Reset()         { *m = CategoryRequest{} }
+func (m *CategoryRequest) String() string { return proto.CompactTextString(m) }
+func (*CategoryRequest) ProtoMessage()    {}
+func (*CategoryRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bdca87ab84ee5c8e, []int{11}
+}
+
+func (m *CategoryRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CategoryRequest.Unmarshal(m, b)
+}
+func (m *CategoryRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CategoryRequest.Marshal(b, m, deterministic)
+}
+func (m *CategoryRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CategoryRequest.Merge(m, src)
+}
+func (m *CategoryRequest) XXX_Size() int {
+	return xxx_messageInfo_CategoryRequest.Size(m)
+}
+func (m *CategoryRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CategoryRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CategoryRequest proto.InternalMessageInfo
+
+func (m *CategoryRequest) GetStart() int64 {
+	if m != nil {
+		return m.Start
+	}
+	return 0
+}
+
+func (m *CategoryRequest) GetLimit() int64 {
+	if m != nil {
+		return m.Limit
+	}
+	return 0
+}
+
+type CategoryResponse struct {
+	Tp                   []*TypeInfo     `protobuf:"bytes,1,rep,name=Tp,proto3" json:"Tp,omitempty"`
+	TpTotal              int64           `protobuf:"varint,2,opt,name=TpTotal,proto3" json:"TpTotal,omitempty"`
+	Category             []*CategoryInfo `protobuf:"bytes,3,rep,name=Category,proto3" json:"Category,omitempty"`
+	CategoryTotal        int64           `protobuf:"varint,4,opt,name=CategoryTotal,proto3" json:"CategoryTotal,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
+}
+
+func (m *CategoryResponse) Reset()         { *m = CategoryResponse{} }
+func (m *CategoryResponse) String() string { return proto.CompactTextString(m) }
+func (*CategoryResponse) ProtoMessage()    {}
+func (*CategoryResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bdca87ab84ee5c8e, []int{12}
+}
+
+func (m *CategoryResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CategoryResponse.Unmarshal(m, b)
+}
+func (m *CategoryResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CategoryResponse.Marshal(b, m, deterministic)
+}
+func (m *CategoryResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CategoryResponse.Merge(m, src)
+}
+func (m *CategoryResponse) XXX_Size() int {
+	return xxx_messageInfo_CategoryResponse.Size(m)
+}
+func (m *CategoryResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_CategoryResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CategoryResponse proto.InternalMessageInfo
+
+func (m *CategoryResponse) GetTp() []*TypeInfo {
+	if m != nil {
+		return m.Tp
+	}
+	return nil
+}
+
+func (m *CategoryResponse) GetTpTotal() int64 {
+	if m != nil {
+		return m.TpTotal
+	}
+	return 0
+}
+
+func (m *CategoryResponse) GetCategory() []*CategoryInfo {
+	if m != nil {
+		return m.Category
+	}
+	return nil
+}
+
+func (m *CategoryResponse) GetCategoryTotal() int64 {
+	if m != nil {
+		return m.CategoryTotal
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*WallPaperInfo)(nil), "wallpaper.WallPaperInfo")
 	proto.RegisterType((*ImportRequest)(nil), "wallpaper.ImportRequest")
@@ -449,34 +709,48 @@ func init() {
 	proto.RegisterType((*DetailResponse)(nil), "wallpaper.DetailResponse")
 	proto.RegisterType((*ListRequest)(nil), "wallpaper.ListRequest")
 	proto.RegisterType((*ListResponse)(nil), "wallpaper.ListResponse")
+	proto.RegisterType((*TypeInfo)(nil), "wallpaper.TypeInfo")
+	proto.RegisterType((*CategoryInfo)(nil), "wallpaper.CategoryInfo")
+	proto.RegisterType((*CategoryRequest)(nil), "wallpaper.CategoryRequest")
+	proto.RegisterType((*CategoryResponse)(nil), "wallpaper.CategoryResponse")
 }
 
 func init() { proto.RegisterFile("wallpaper.proto", fileDescriptor_bdca87ab84ee5c8e) }
 
 var fileDescriptor_bdca87ab84ee5c8e = []byte{
-	// 352 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x93, 0xb1, 0x4f, 0xf3, 0x30,
-	0x10, 0xc5, 0xd5, 0xa6, 0x8d, 0xbe, 0x5c, 0xbf, 0x94, 0xca, 0x42, 0xc5, 0x74, 0x2a, 0x66, 0xe9,
-	0x80, 0x3a, 0x94, 0x01, 0x31, 0x74, 0x40, 0xea, 0x52, 0x29, 0x42, 0xc8, 0x80, 0x32, 0x1b, 0x30,
-	0x10, 0xc9, 0xa9, 0x43, 0xe2, 0xc2, 0x04, 0x12, 0xff, 0x39, 0xb2, 0x1d, 0xb7, 0x31, 0x65, 0x61,
-	0x61, 0xf3, 0x5d, 0xee, 0xf7, 0xee, 0xe9, 0x9e, 0x02, 0x7b, 0x6f, 0x4c, 0x88, 0x82, 0x15, 0xbc,
-	0x9c, 0x16, 0xa5, 0x54, 0x12, 0x45, 0x9b, 0x06, 0x79, 0x87, 0x38, 0x65, 0x42, 0x5c, 0xe9, 0x62,
-	0xb9, 0x7a, 0x94, 0x68, 0x00, 0x41, 0x9a, 0x3d, 0xe0, 0xd6, 0xb8, 0x35, 0x89, 0xa8, 0x7e, 0x22,
-	0x04, 0x9d, 0x4b, 0x96, 0x73, 0xdc, 0x36, 0x2d, 0xf3, 0x46, 0x23, 0xf8, 0xb7, 0xcc, 0xd9, 0x13,
-	0xbf, 0xa5, 0x09, 0x0e, 0x4c, 0x7f, 0x53, 0xa3, 0x21, 0x84, 0x17, 0x6b, 0xf5, 0x2c, 0x4b, 0xdc,
-	0x31, 0x5f, 0xea, 0x4a, 0xeb, 0x2c, 0x78, 0x75, 0x8f, 0xbb, 0x56, 0x47, 0xbf, 0xc9, 0x1c, 0xe2,
-	0x65, 0x5e, 0xc8, 0x52, 0x51, 0xfe, 0xb2, 0xe6, 0x95, 0x42, 0x27, 0xd0, 0x49, 0xb2, 0x4a, 0xe1,
-	0xd6, 0x38, 0x98, 0xf4, 0x66, 0x78, 0xba, 0xb5, 0xee, 0xd9, 0xa4, 0x66, 0x8a, 0x0c, 0xa0, 0xef,
-	0xf0, 0xaa, 0x90, 0xab, 0x8a, 0x93, 0x63, 0x88, 0x29, 0xcf, 0xe5, 0x2b, 0x77, 0x82, 0xa8, 0x21,
-	0x18, 0x6d, 0x31, 0x37, 0x54, 0x63, 0x47, 0x10, 0x2f, 0xb8, 0x62, 0x99, 0x70, 0xd8, 0xce, 0x19,
-	0xc8, 0x07, 0xf4, 0xdd, 0x88, 0x85, 0xfe, 0xf8, 0x54, 0xe7, 0xd0, 0xd3, 0xe6, 0x9d, 0xc1, 0x7d,
-	0xe8, 0x5e, 0x2b, 0x56, 0x2a, 0xb3, 0x2b, 0xa0, 0xb6, 0xd0, 0xdd, 0x24, 0xcb, 0x33, 0x65, 0x36,
-	0x05, 0xd4, 0x16, 0x84, 0xc2, 0x7f, 0x8b, 0xd6, 0xc6, 0x7f, 0x75, 0x64, 0xad, 0x79, 0x23, 0x15,
-	0x13, 0x6e, 0x93, 0x29, 0x66, 0x9f, 0x6d, 0x88, 0x52, 0xc7, 0xa1, 0x39, 0x84, 0x36, 0x08, 0xd4,
-	0x54, 0xf3, 0xa2, 0x1d, 0x1d, 0xfe, 0xf0, 0xa5, 0x36, 0x34, 0x87, 0xd0, 0x06, 0xe2, 0xe1, 0x5e,
-	0x90, 0x1e, 0xee, 0xa7, 0xa7, 0x71, 0x1b, 0x8d, 0x87, 0x7b, 0x81, 0x7a, 0xf8, 0xb7, 0x1c, 0xcf,
-	0xec, 0x39, 0xd0, 0xb0, 0x31, 0xd2, 0x38, 0xf5, 0xe8, 0x60, 0xa7, 0x6f, 0xc1, 0xbb, 0xd0, 0xfc,
-	0x4e, 0xa7, 0x5f, 0x01, 0x00, 0x00, 0xff, 0xff, 0xa6, 0xc5, 0x5a, 0x4d, 0x61, 0x03, 0x00, 0x00,
+	// 510 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x54, 0x4d, 0x6f, 0xd3, 0x40,
+	0x10, 0x95, 0xe3, 0xd4, 0x4d, 0x26, 0x75, 0x1b, 0x2d, 0xa8, 0x5d, 0xc2, 0x25, 0x6c, 0x39, 0xe4,
+	0x80, 0x7a, 0x48, 0x91, 0x38, 0xe5, 0x80, 0xdc, 0x4b, 0x50, 0x84, 0xd0, 0x62, 0x94, 0x13, 0x07,
+	0x83, 0x97, 0x62, 0xc9, 0xee, 0x2e, 0xf6, 0x16, 0xd4, 0x9f, 0x03, 0x67, 0x7e, 0x07, 0xbf, 0x0b,
+	0xed, 0x57, 0xec, 0x25, 0x3e, 0x00, 0xa7, 0xde, 0x66, 0xc6, 0xf3, 0xde, 0xec, 0x7b, 0xbb, 0x63,
+	0x38, 0xf9, 0x96, 0x95, 0xa5, 0xc8, 0x04, 0xab, 0x2f, 0x44, 0xcd, 0x25, 0x47, 0xe3, 0x5d, 0x81,
+	0x7c, 0x0f, 0x20, 0xde, 0x66, 0x65, 0xf9, 0x46, 0x65, 0xeb, 0x9b, 0x4f, 0x1c, 0x4d, 0x21, 0xdc,
+	0x16, 0x39, 0x0e, 0xe6, 0xc1, 0x62, 0x4c, 0x55, 0x88, 0x10, 0x0c, 0x5f, 0x67, 0x15, 0xc3, 0x03,
+	0x5d, 0xd2, 0xb1, 0xea, 0x4a, 0x8b, 0x1c, 0x87, 0xf3, 0x60, 0x11, 0x52, 0x15, 0xaa, 0x4a, 0x52,
+	0xe4, 0x78, 0x68, 0x2a, 0x49, 0x91, 0xa3, 0x19, 0x8c, 0xd6, 0x55, 0x76, 0xcd, 0xde, 0xd1, 0x0d,
+	0x3e, 0xd0, 0xd8, 0x5d, 0x8e, 0x4e, 0x21, 0x7a, 0x79, 0x2b, 0x3f, 0xf3, 0x1a, 0x47, 0xfa, 0x8b,
+	0xcd, 0xd4, 0xac, 0x2b, 0xd6, 0x7c, 0xc4, 0x87, 0x66, 0x96, 0x8a, 0xc9, 0x0a, 0xe2, 0x75, 0x25,
+	0x78, 0x2d, 0x29, 0xfb, 0x72, 0xcb, 0x1a, 0x89, 0x9e, 0xc1, 0x70, 0x53, 0x34, 0x12, 0x07, 0xf3,
+	0x70, 0x31, 0x59, 0xe2, 0x8b, 0x56, 0x9f, 0x27, 0x85, 0xea, 0x2e, 0x32, 0x85, 0x63, 0x07, 0x6f,
+	0x04, 0xbf, 0x69, 0x18, 0x39, 0x87, 0x98, 0xb2, 0x8a, 0x7f, 0x65, 0x8e, 0x10, 0x75, 0x08, 0xc7,
+	0x2d, 0xcc, 0x35, 0x59, 0xd8, 0x13, 0x88, 0xaf, 0x98, 0xcc, 0x8a, 0xd2, 0xc1, 0xf6, 0xac, 0x22,
+	0x3f, 0x02, 0x38, 0x76, 0x3d, 0x06, 0x75, 0x0f, 0xfd, 0x7c, 0x0f, 0x13, 0xa5, 0xd0, 0xa9, 0x78,
+	0x08, 0x07, 0x6f, 0x65, 0x56, 0x4b, 0x7d, 0xc4, 0x90, 0x9a, 0x44, 0x55, 0x37, 0x45, 0x55, 0x48,
+	0x7d, 0xca, 0x90, 0x9a, 0xe4, 0x6f, 0x8e, 0x49, 0x28, 0x1c, 0x19, 0x7a, 0x6b, 0xc0, 0x3f, 0xdd,
+	0x96, 0x9a, 0x9b, 0x72, 0x99, 0x95, 0x6e, 0xae, 0x4e, 0xc8, 0x2b, 0x18, 0xa5, 0x77, 0x82, 0xb9,
+	0x07, 0x9a, 0x5a, 0x43, 0xed, 0x19, 0xfa, 0x0c, 0xc5, 0x70, 0x98, 0x14, 0xb9, 0x1e, 0x1c, 0xce,
+	0xc3, 0x45, 0x48, 0x5d, 0x4a, 0x9e, 0xc3, 0x51, 0x92, 0x49, 0x76, 0xcd, 0xeb, 0x3b, 0xc7, 0x97,
+	0xb4, 0x7c, 0x49, 0x3f, 0x1f, 0x59, 0xc1, 0x89, 0x43, 0xfd, 0x87, 0x71, 0xe4, 0x67, 0x00, 0xd3,
+	0x16, 0x6f, 0x9d, 0x39, 0x87, 0x41, 0x2a, 0xac, 0x2f, 0x0f, 0x3a, 0xbe, 0x38, 0xa9, 0x74, 0x90,
+	0x0a, 0x25, 0x24, 0x15, 0x5d, 0x4b, 0x5c, 0x8a, 0x2e, 0x61, 0xe4, 0x28, 0xb5, 0xc6, 0xc9, 0xf2,
+	0xac, 0x43, 0xd2, 0xd5, 0x48, 0x77, 0x8d, 0xe8, 0x29, 0xc4, 0x2e, 0x36, 0xa4, 0xe6, 0xe6, 0xfc,
+	0xe2, 0xf2, 0xd7, 0x00, 0xc6, 0x5b, 0x47, 0x85, 0x56, 0x10, 0x99, 0x0d, 0x42, 0xdd, 0xdb, 0xf3,
+	0x76, 0x72, 0xf6, 0xa8, 0xe7, 0x8b, 0x95, 0xb9, 0x82, 0xc8, 0x6c, 0x92, 0x07, 0xf7, 0x36, 0xd0,
+	0x83, 0xfb, 0x6b, 0xa7, 0xe0, 0x66, 0xa5, 0x3c, 0xb8, 0xb7, 0x89, 0x1e, 0xfc, 0x8f, 0xfd, 0x7b,
+	0x61, 0x9e, 0x1f, 0x3a, 0xed, 0xb4, 0x74, 0x9e, 0xff, 0xec, 0x6c, 0xaf, 0x6e, 0x81, 0x49, 0x6b,
+	0x2f, 0x9a, 0xf5, 0x18, 0xeb, 0x08, 0x1e, 0xf7, 0x7e, 0x33, 0x24, 0x1f, 0x22, 0xfd, 0xc7, 0xbd,
+	0xfc, 0x1d, 0x00, 0x00, 0xff, 0xff, 0x1e, 0x10, 0xbd, 0x5a, 0x84, 0x05, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -495,6 +769,7 @@ type WallpaperClient interface {
 	Remove(ctx context.Context, in *RemoveRequest, opts ...grpc.CallOption) (*RemoveResponse, error)
 	Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*DetailResponse, error)
 	List(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error)
+	Category(ctx context.Context, in *CategoryRequest, opts ...grpc.CallOption) (*CategoryResponse, error)
 }
 
 type wallpaperClient struct {
@@ -541,12 +816,22 @@ func (c *wallpaperClient) List(ctx context.Context, in *ListRequest, opts ...grp
 	return out, nil
 }
 
+func (c *wallpaperClient) Category(ctx context.Context, in *CategoryRequest, opts ...grpc.CallOption) (*CategoryResponse, error) {
+	out := new(CategoryResponse)
+	err := c.cc.Invoke(ctx, "/wallpaper.Wallpaper/Category", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // WallpaperServer is the server API for Wallpaper service.
 type WallpaperServer interface {
 	Import(context.Context, *ImportRequest) (*ImportResponse, error)
 	Remove(context.Context, *RemoveRequest) (*RemoveResponse, error)
 	Detail(context.Context, *DetailRequest) (*DetailResponse, error)
 	List(context.Context, *ListRequest) (*ListResponse, error)
+	Category(context.Context, *CategoryRequest) (*CategoryResponse, error)
 }
 
 // UnimplementedWallpaperServer can be embedded to have forward compatible implementations.
@@ -564,6 +849,9 @@ func (*UnimplementedWallpaperServer) Detail(ctx context.Context, req *DetailRequ
 }
 func (*UnimplementedWallpaperServer) List(ctx context.Context, req *ListRequest) (*ListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method List not implemented")
+}
+func (*UnimplementedWallpaperServer) Category(ctx context.Context, req *CategoryRequest) (*CategoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Category not implemented")
 }
 
 func RegisterWallpaperServer(s *grpc.Server, srv WallpaperServer) {
@@ -642,6 +930,24 @@ func _Wallpaper_List_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Wallpaper_Category_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WallpaperServer).Category(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/wallpaper.Wallpaper/Category",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WallpaperServer).Category(ctx, req.(*CategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Wallpaper_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "wallpaper.Wallpaper",
 	HandlerType: (*WallpaperServer)(nil),
@@ -661,6 +967,10 @@ var _Wallpaper_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "List",
 			Handler:    _Wallpaper_List_Handler,
+		},
+		{
+			MethodName: "Category",
+			Handler:    _Wallpaper_Category_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

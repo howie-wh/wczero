@@ -15,6 +15,7 @@ services:
       - ${ETC_PATH_HOST}/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ${ETC_PATH_HOST}/nginx/conf.d/:/etc/nginx/conf.d/
       - ${ETC_PATH_HOST}/nginx/crt/:/etc/nginx/crt/
+      - ${ETC_PATH_HOST}/nginx/data/:/data/
       - ${DATA_PATH_HOST}/nginx/log/:/var/log/nginx/
     ports:
       - "${HTTP_PORT}:80"
@@ -149,6 +150,11 @@ services:
     command: ./bin/user-rpc -f services/user/rpc/etc/user.yaml
     environment:
       - TZ=${TZ}
+      - QINIU_ACCESS_KEY1=${QINIU_ACCESS_KEY1}      # 七牛AccessKey 1
+      - QINIU_SECRET_KEY1=${QINIU_SECRET_KEY1}      # 七牛SecretKey 1
+      - QINIU_ACCESS_KEY2=${QINIU_ACCESS_KEY2}      # 七牛AccessKey 2
+      - QINIU_SECRET_KEY2=${QINIU_SECRET_KEY2}      # 七牛SecretKey 2
+      - WCZERO_BUCKET=${WCZERO_BUCKET}              # 七牛Bucket空间名称
     volumes:
       - .:/work
     ports:
@@ -200,6 +206,52 @@ services:
     ports:
       - "9001:9001"
       - "9504:9504"
+    depends_on: # 依赖容器
+      - etcd
+      - mysql
+      - redis
+    working_dir: /work
+    networks:
+      - backend
+    deploy:
+      resources:
+        limits:
+          cpus: 0.20
+          memory: 256M
+    restart: always
+
+  mp_api:
+    image: golang:1.17
+    command: ./bin/mp-api -f services/mp/api/etc/mp-api.yaml
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - .:/work
+    ports:
+      - "8002:8002"
+      - "9505:9505"
+    depends_on: # 依赖容器
+      - mp_rpc
+    working_dir: /work
+    networks:
+      - backend
+    deploy:
+      resources:
+        limits:
+          cpus: 0.20
+          memory: 256M
+    restart: always
+
+  mp_rpc:
+    image: golang:1.17
+    command: ./bin/mp-rpc -f services/mp/rpc/etc/mp.yaml
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - .:/work
+    ports:
+      - "9002:9002"
+      - "9506:9506"
     depends_on: # 依赖容器
       - etcd
       - mysql

@@ -28,11 +28,13 @@ func (l *ImportLogic) Import(req types.ImportRequest) (*types.ImportResponse, er
 	rpcReq := &wallpaper.ImportRequest{}
 	for _, v := range req.List {
 		wp := &wallpaper.WallPaperInfo{
-			Wid: v.Wid,
-			Name: v.Name,
+			Wid:      v.Wid,
+			Name:     v.Name,
+			Tid:      v.Tid,
+			Cid:      v.Cid,
 			ImageURL: v.ImageURL,
-			Author: v.Author,
-			Desc: v.Desc,
+			Author:   v.Author,
+			Desc:     v.Desc,
 		}
 		rpcReq.List = append(rpcReq.List, wp)
 	}

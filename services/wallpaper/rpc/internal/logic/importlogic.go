@@ -2,12 +2,17 @@ package logic
 
 import (
 	"context"
+	"wczero/common/utils"
 	"wczero/services/wallpaper/model"
 
 	"wczero/services/wallpaper/rpc/internal/svc"
 	"wczero/services/wallpaper/rpc/wallpaper"
 
 	"github.com/zeromicro/go-zero/core/logx"
+)
+
+const (
+	_minWidLen = 4
 )
 
 type ImportLogic struct {
@@ -24,15 +29,40 @@ func NewImportLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ImportLogi
 	}
 }
 
+func (l *ImportLogic) WidGenerate(in *wallpaper.ImportRequest) error {
+	tNum, err := l.svcCtx.NoCacheModel.GetTableMaxID()
+	if err != nil {
+		logx.Errorf("GetTableMaxID err: %v", err)
+		return err
+	}
+
+	for _, wp := range in.List {
+		widStr := utils.NumToBHex(tNum)
+		for i := _minWidLen - len(widStr); i > 0; i-- { // set default char "0" if string len less 4
+			widStr = "0" + widStr
+		}
+
+		wp.Wid = widStr
+		tNum = tNum + 1
+	}
+	return nil
+}
+
 func (l *ImportLogic) Import(in *wallpaper.ImportRequest) (*wallpaper.ImportResponse, error) {
+	if err := l.WidGenerate(in); err != nil {
+		return nil, err
+	}
+
 	tabList := make([]*model.WallpaperTab, 0)
 	for _, wp := range in.List {
 		tab := &model.WallpaperTab{
-			Wid: wp.Wid,
-			Name: wp.Name,
+			Wid:      wp.Wid,
+			Name:     wp.Name,
+			Tid:      wp.Tid,
+			Cid:      wp.Cid,
 			ImageUrl: wp.ImageURL,
-			Author: wp.Author,
-			Desc: wp.Desc,
+			Author:   wp.Author,
+			Desc:     wp.Desc,
 		}
 		tabList = append(tabList, tab)
 	}

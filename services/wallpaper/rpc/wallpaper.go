@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"github.com/zeromicro/go-zero/core/logx"
 
 	"wczero/services/wallpaper/rpc/internal/config"
@@ -25,6 +24,8 @@ func main() {
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
 	logx.MustSetup(c.Log)
+	defer logx.Close()
+
 	ctx := svc.NewServiceContext(c)
 	srv := server.NewWallpaperServer(ctx)
 
@@ -37,6 +38,7 @@ func main() {
 	})
 	defer s.Stop()
 
-	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)
+	// fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)
+	logx.Infof("Starting rpc server at %s...\n", c.ListenOn)
 	s.Start()
 }

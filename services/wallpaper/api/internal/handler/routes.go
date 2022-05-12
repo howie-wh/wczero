@@ -34,6 +34,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/api/v1/wallpaper/list",
 					Handler: ListHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/api/v1/wallpaper/category",
+					Handler: CategoryHandler(serverCtx),
+				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),

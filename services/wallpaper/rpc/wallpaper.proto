@@ -5,50 +5,74 @@ package wallpaper;
 message WallPaperInfo {
   string  Wid = 1;
   string  Name = 2;
-  string  ImageURL = 3;
-  string  Author = 4;
-  string  Desc = 5;
+  int64   Tid = 3;
+  int64   Cid = 4;
+  string  ImageURL = 5;
+  string  Author = 6;
+  string  Desc = 7;
 }
 
 message ImportRequest {
   repeated WallPaperInfo List = 1;
 }
-
 message ImportResponse {
 }
 
 message RemoveRequest {
   repeated string List = 1;
 }
-
 message RemoveResponse {
 }
 
 message DetailRequest {
   string  Wid = 1;
 }
-
 message DetailResponse {
   string  Wid = 1;
   string  Name = 2;
-  string  ImageURL = 3;
-  string  Author = 4;
-  string  Desc = 5;
+  int64   Tid = 3;
+  int64   Cid = 4;
+  string  ImageURL = 5;
+  string  Author = 6;
+  string  Desc = 7;
 }
 
 message ListRequest {
-  int64   Start = 2;
-  int64   Limit = 3;
+  int64 Start = 1;
+  int64 Limit = 2;
+  int64 Tid = 3;
+  int64 Cid = 4;
 }
-
 message ListResponse {
   repeated WallPaperInfo List = 1;
   int64  Total = 2;
 }
+
+message TypeInfo {
+  int64 Tid = 1;
+  string Name = 2;
+  repeated int64 CidList = 3;
+}
+message CategoryInfo {
+  int64 Cid = 1;
+  string Name = 2;
+}
+message CategoryRequest {
+  int64   Start = 1;
+  int64   Limit = 2;
+}
+message CategoryResponse {
+  repeated TypeInfo Tp = 1;
+  int64 TpTotal = 2;
+  repeated CategoryInfo Category = 3;
+  int64 CategoryTotal = 4;
+}
+
 
 service Wallpaper {
   rpc Import(ImportRequest) returns(ImportResponse);
   rpc Remove(RemoveRequest) returns(RemoveResponse);
   rpc Detail(DetailRequest) returns(DetailResponse);
   rpc List(ListRequest) returns(ListResponse);
+  rpc Category(CategoryRequest) returns(CategoryResponse);
 }

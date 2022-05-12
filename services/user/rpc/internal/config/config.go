@@ -14,5 +14,10 @@ type Config struct {
 	}
 	CacheRedis cache.CacheConf
 	Salt       string
+	AppSecret  string
 	Log        logx.LogConf
+	QiNiu      struct {
+		Domain string
+		Zone   string
+	}
 }

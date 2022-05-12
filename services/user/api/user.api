@@ -49,6 +49,16 @@ type (
 	}
 )
 
+type (
+	QINIUUploadTokenRequest {}
+	QINIUUploadTokenResponse {
+		Domain      string `json:"domain"`
+		Zone        string `json:"zone"`
+		UploadToken string `json:"upload_token"`
+		Desc        string `json:"desc"`
+	}
+)
+
 service user-api {
 	@doc "WeChatLogin"
 	@handler WeChatLogin
@@ -59,7 +69,7 @@ service user-api {
 	@doc "AdminRegister"
 	@handler AdminRegister
 	post /api/v1/user/admin_register(AdminRegisterRequest) returns (AdminRegisterResponse)
-
+	
 	@doc "AdminLogin"
 	@handler AdminLogin
 	post /api/v1/user/admin_login(AdminLoginRequest) returns(AdminLoginResponse)
@@ -72,4 +82,8 @@ service user-api {
 	@doc "AdminUserInfo"
 	@handler AdminUserInfo
 	get /api/v1/user/admin_userinfo() returns (AdminUserInfoResponse)
+	
+	@doc "QINIUUploadToken"
+	@handler QINIUUploadToken
+	get /api/v1/user/qiniu/upload_token(QINIUUploadTokenRequest) returns (QINIUUploadTokenResponse)
 }

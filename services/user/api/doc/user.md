@@ -124,3 +124,35 @@ type AdminUserInfoResponse struct {
 ```
   
 
+
+### 5. "QINIUUploadToken"
+
+1. 路由定义
+
+- Url: /api/v1/user/qiniu/upload_token
+- Method: GET
+- Request: `QINIUUploadTokenRequest`
+- Response: `QINIUUploadTokenResponse`
+
+2. 请求定义
+
+
+```golang
+type QINIUUploadTokenRequest struct {
+}
+```
+
+
+3. 返回定义
+
+
+```golang
+type QINIUUploadTokenResponse struct {
+	Domain string `json:"domain"`
+	Zone string `json:"zone"`
+	UploadToken string `json:"upload_token"`
+	Desc string `json:"desc"`
+}
+```
+  
+

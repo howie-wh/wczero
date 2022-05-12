@@ -53,3 +53,14 @@ scrape_configs:
         labels:
           app: 'wallpaper_rpc'
           env: 'test'
+
+      - targets: [ 'mp_api:9505' ]
+        labels:
+          # 自定义标签
+          app: 'mp_api'
+          env: 'test'
+
+      - targets: [ 'mp_rpc:9506' ]
+        labels:
+          app: 'mp_rpc'
+          env: 'test'

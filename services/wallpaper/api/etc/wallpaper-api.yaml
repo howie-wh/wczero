@@ -4,7 +4,7 @@ Port: 8001
 
 Auth:
   AccessSecret: WcZero:uOvKLmVfztaXGpNYd4Z0I1SiT7MweJhl
-  AccessExpire: 86400
+  AccessExpire: 604800
 
 WallPaperRpc:
   Etcd:
@@ -14,6 +14,7 @@ WallPaperRpc:
 
 Log:
   Mode: file
+  Path: logs/api_wallpaper
 
 Prometheus:
   Host: 0.0.0.0

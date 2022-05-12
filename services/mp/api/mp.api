@@ -1,0 +1,46 @@
+syntax = "v1"
+
+info(
+	title: ""
+	desc: ""
+	author: "Hui Wu"
+	email: "wuhui1536@gmail.com"
+)
+
+type (
+	MPBasicSetupRequest {
+		Signature string `form:"signature"`
+		Timestamp string `form:"timestamp"`
+		Nonce     string `form:"nonce"`
+		EchoStr   string `form:"echostr"`
+	}
+	MPBasicSetupResponse {
+		Reply string `json:"reply"`
+	}
+
+	MPTextMsgRequest {
+		ToUserName   string `xml:"ToUserName"`
+		FromUserName string `xml:"FromUserName"`
+		CreateTime   int64  `xml:"CreateTime"`
+		MsgType      string `xml:"MsgType"`
+		Content      string `xml:"Content"`
+		MsgId        int64  `xml:"MsgId"`
+	}
+	MPTextMsgResponse {
+		ToUserName   string `xml:"ToUserName"`
+		FromUserName string `xml:"FromUserName"`
+		CreateTime   int64  `xml:"CreateTime"`
+		MsgType      string `xml:"MsgType"`
+		Content      string `xml:"Content"`
+	}
+)
+
+service mp-api {
+	@doc "MPBasicSetup"
+	@handler MPBasicSetup
+	get /api/v1/mp(MPBasicSetupRequest) returns(MPBasicSetupResponse)
+	
+	@doc "MPTextMsg"
+	@handler MPTextMsg
+	post /api/v1/mp(MPTextMsgRequest) returns(MPTextMsgResponse)
+}

@@ -1,0 +1,99 @@
+.body {
+  font-family: 'Varela Round', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+.top-nav {
+  width: 100%;
+  height: 50px;
+}
+.top-nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: end;
+}
+.top-nav ul li {
+  margin-left: 20px;
+}
+.team {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+.team .title {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.team .product {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: space-evenly;
+}
+.team .product .product-1,
+.team .product .product-2,
+.team .product .product-3 {
+  width: 20%;
+  background-color: #F4F4F4;
+  padding: 40px 20px;
+  margin: 15px 20px;
+}
+.team .product .product-1 h3,
+.team .product .product-2 h3,
+.team .product .product-3 h3,
+.team .product .product-1 p,
+.team .product .product-2 p,
+.team .product .product-3 p {
+  text-align: center;
+}
+.team .product .product-1 img,
+.team .product .product-2 img,
+.team .product .product-3 img {
+  width: 100%;
+}
+.contact {
+  margin-top: 50px;
+}
+.contact .title {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.contact .info {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+}
+.contact .info .phone,
+.contact .info .email,
+.contact .info .address {
+  flex: 1;
+  height: 125px;
+  margin: 15px 0;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}
+.contact .info .phone i,
+.contact .info .email i,
+.contact .info .address i {
+  font-size: 36px;
+  color: #6195FF;
+  margin-bottom: 20px;
+}
+.contact .info .phone p,
+.contact .info .email p,
+.contact .info .address p {
+  color: #868F9B;
+}
+.dec {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+  width: 40px;
+  height: 4px;
+  background-color: #6195FF;
+}

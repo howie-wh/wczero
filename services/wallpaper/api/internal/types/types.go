@@ -2,11 +2,13 @@
 package types
 
 type WallPaperInfo struct {
-	Wid      string `json:"wid"`
-	Name     string `json:"name"`
+	Wid      string `json:"wid,optional"`
+	Name     string `json:"name,optional"`
+	Tid      int64  `json:"tid""`
+	Cid      int64  `json:"cid"`
 	ImageURL string `json:"image_url"`
-	Author   string `json:"author"`
-	Desc     string `json:"desc"`
+	Author   string `json:"author,optional"`
+	Desc     string `json:"desc,optional"`
 }
 
 type ImportRequest struct {
@@ -30,6 +32,8 @@ type DetailRequest struct {
 type DetailResponse struct {
 	Wid      string `json:"wid"`
 	Name     string `json:"name"`
+	Tid      int64  `json:"tid""`
+	Cid      int64  `json:"cid"`
 	ImageURL string `json:"image_url"`
 	Author   string `json:"author"`
 	Desc     string `json:"desc"`
@@ -38,9 +42,34 @@ type DetailResponse struct {
 type ListRequest struct {
 	Start int64 `form:"start"`
 	Limit int64 `form:"limit"`
+	Tid   int64 `form:"tid,optional"`
+	Cid   int64 `form:"cid,optional"`
 }
 
 type ListResponse struct {
 	List  []WallPaperInfo `json:"list,omitempty"`
 	Total int64           `json:"total"`
+}
+
+type CategoryRequest struct {
+	Start int64 `form:"start,optional"`
+	Limit int64 `form:"limit,optional"`
+}
+
+type CategoryResponse struct {
+	Tp            []TypeInfo     `json:"type,omitempty"`
+	TpTotal       int64          `json:"type_total"`
+	Category      []CategoryInfo `json:"category,omitempty"`
+	CategoryTotal int64          `json:"category_total"`
+}
+
+type TypeInfo struct {
+	Tid     int64   `json:"tid"`
+	Name    string  `json:"name"`
+	CidList []int64 `json:"cid_list,omitempty"`
+}
+
+type CategoryInfo struct {
+	Cid  int64  `json:"cid"`
+	Name string `json:"name"`
 }

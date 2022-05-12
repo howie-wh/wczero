@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"strings"
-	"time"
 
 	"github.com/zeromicro/go-zero/core/stores/builder"
 	"github.com/zeromicro/go-zero/core/stores/cache"
@@ -21,22 +20,16 @@ var (
 
 	cacheWallpaperTabIdPrefix  = "cache:wallpaperTab:id:"
 	cacheWallpaperTabWidPrefix = "cache:wallpaperTab:wid:"
-
-	cacheExpire = time.Minute * 5
 )
 
 type (
 	WallpaperTabModel interface {
 		Insert(data *WallpaperTab) (sql.Result, error)
-		FindOne(id int64) (*WallpaperTab, error)
+		FindOne(id int64) (*WallpaperTab, error) //1
 		FindOneByWid(wid string) (*WallpaperTab, error)
-		FindList(start, limit int64) ([]*WallpaperTab, int64, error)
 		Update(data *WallpaperTab) error
 		Delete(id int64) error
 		DeleteByWid(wid string) error
-	}
-	NoCacheWallpaperTabModel interface {
-		BulkInsert(data []*WallpaperTab) error
 	}
 
 	defaultWallpaperTabModel struct {
@@ -44,15 +37,12 @@ type (
 		table string
 	}
 
-	noCacheWallpaperTabModel struct {
-		sqlx.SqlConn
-		table string
-	}
-
 	WallpaperTab struct {
 		Id         int64  `db:"id"`          // id
 		Wid        string `db:"wid"`         // wallpaper id
 		Name       string `db:"name"`        // name
+		Tid        int64  `db:"tid"`         // type id
+		Cid        int64  `db:"cid"`         // category id
 		ImageUrl   string `db:"image_url"`   // image url
 		Author     string `db:"author"`      // author
 		Desc       string `db:"desc"`        // desc
@@ -64,15 +54,8 @@ type (
 
 func NewWallpaperTabModel(conn sqlx.SqlConn, c cache.CacheConf) WallpaperTabModel {
 	return &defaultWallpaperTabModel{
-		CachedConn: sqlc.NewConn(conn, c, cache.WithExpiry(cacheExpire)),
+		CachedConn: sqlc.NewConn(conn, c),
 		table:      "`wallpaper_tab`",
-	}
-}
-
-func NewNoCacheWallpaperTabModel(conn sqlx.SqlConn) NoCacheWallpaperTabModel {
-	return &noCacheWallpaperTabModel{
-		SqlConn: conn,
-		table:   "`wallpaper_tab`",
 	}
 }
 
@@ -80,26 +63,10 @@ func (m *defaultWallpaperTabModel) Insert(data *WallpaperTab) (sql.Result, error
 	wallpaperTabIdKey := fmt.Sprintf("%s%v", cacheWallpaperTabIdPrefix, data.Id)
 	wallpaperTabWidKey := fmt.Sprintf("%s%v", cacheWallpaperTabWidPrefix, data.Wid)
 	ret, err := m.Exec(func(conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?)", m.table, wallpaperTabRowsExpectAutoSet)
-		return conn.Exec(query, data.Wid, data.Name, data.ImageUrl, data.Author, data.Desc, data.DelFlag)
+		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?)", m.table, wallpaperTabRowsExpectAutoSet)
+		return conn.Exec(query, data.Wid, data.Name, data.Tid, data.Cid, data.ImageUrl, data.Author, data.Desc, data.DelFlag)
 	}, wallpaperTabIdKey, wallpaperTabWidKey)
 	return ret, err
-}
-
-func (m *noCacheWallpaperTabModel) BulkInsert(data []*WallpaperTab) error {
-	query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?)", m.table, wallpaperTabRowsExpectAutoSet)
-	bulkInserter, err := sqlx.NewBulkInserter(m.SqlConn, query)
-	if err != nil {
-		return fmt.Errorf("NewBulkInserter %s", err)
-	}
-	for k, v := range data {
-		if err = bulkInserter.Insert(v.Wid, v.Name, v.ImageUrl, v.Author, v.Desc, v.DelFlag); err != nil {
-			fmt.Println("insert", err, k)
-			return fmt.Errorf("insert k:%d, err:%s", k, err)
-		}
-	}
-	bulkInserter.Flush()
-	return nil
 }
 
 func (m *defaultWallpaperTabModel) FindOne(id int64) (*WallpaperTab, error) {
@@ -139,27 +106,13 @@ func (m *defaultWallpaperTabModel) FindOneByWid(wid string) (*WallpaperTab, erro
 	}
 }
 
-func (m *defaultWallpaperTabModel) FindList(start, limit int64) ([]*WallpaperTab, int64, error) {
-	var resp []*WallpaperTab
-	query := fmt.Sprintf("select %s from %s limit ?, ?", wallpaperTabRows, m.table)
-	err := m.QueryRowsNoCache(&resp, query, start, limit)
-	switch err {
-	case nil:
-		return resp, int64(len(resp)), nil
-	case sqlc.ErrNotFound:
-		return nil, 0, ErrNotFound
-	default:
-		return nil, 0, err
-	}
-}
-
 func (m *defaultWallpaperTabModel) Update(data *WallpaperTab) error {
 	wallpaperTabIdKey := fmt.Sprintf("%s%v", cacheWallpaperTabIdPrefix, data.Id)
 	wallpaperTabWidKey := fmt.Sprintf("%s%v", cacheWallpaperTabWidPrefix, data.Wid)
 	_, err := m.Exec(func(conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, wallpaperTabRowsWithPlaceHolder)
-		return conn.Exec(query, data.Wid, data.Name, data.ImageUrl, data.Author, data.Desc, data.DelFlag, data.Id)
-	}, wallpaperTabIdKey, wallpaperTabWidKey)
+		return conn.Exec(query, data.Wid, data.Name, data.Tid, data.Cid, data.ImageUrl, data.Author, data.Desc, data.DelFlag, data.Id)
+	}, wallpaperTabWidKey, wallpaperTabIdKey)
 	return err
 }
 
@@ -174,7 +127,7 @@ func (m *defaultWallpaperTabModel) Delete(id int64) error {
 	_, err = m.Exec(func(conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("delete from %s where `id` = ?", m.table)
 		return conn.Exec(query, id)
-	}, wallpaperTabIdKey, wallpaperTabWidKey)
+	}, wallpaperTabWidKey, wallpaperTabIdKey)
 	return err
 }
 
@@ -200,18 +153,4 @@ func (m *defaultWallpaperTabModel) formatPrimary(primary interface{}) string {
 func (m *defaultWallpaperTabModel) queryPrimary(conn sqlx.SqlConn, v, primary interface{}) error {
 	query := fmt.Sprintf("select %s from %s where `id` = ? limit 1", wallpaperTabRows, m.table)
 	return conn.QueryRow(v, query, primary)
-}
-
-func (m *defaultWallpaperTabModel) getTableCount() (int64, error) {
-	var resp int64
-	query := fmt.Sprintf("select count(*) from %s", m.table)
-	err := m.QueryRowsNoCache(&resp, query)
-	switch err {
-	case nil:
-		return resp, nil
-	case sqlc.ErrNotFound:
-		return 0, ErrNotFound
-	default:
-		return 0, err
-	}
 }
